@@ -1,0 +1,25 @@
+﻿# 谷歌浏览器缓存目录
+.laya/chrome/
+
+# laya缓存
+.rpt2_cache
+
+#npm 包文件夹
+node_modules/
+
+# 设置git不加入版本控制的文件和文件夹
+Unity3D/Library/
+
+#unity中会导致git提交失败的文件
+Unity3D/Temp
+
+#临时资源目录
+_shortRes/**
+!_shortRes/.keep
+
+# Excel导致提交失败文件
+~$*.xlsx
+
+# 强制不忽略
+!*.dll
+!*.obj

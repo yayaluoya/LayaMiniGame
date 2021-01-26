@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,1334" opaque="false">
+  <displayList>
+    <graph id="n25_o9js" name="bg" xy="0,0" size="750,1334" type="rect" lineSize="0" fillColor="#e6222831">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n22_o9js" name="lookVAd" src="g7a1z" fileName="Panel/com/PButton.xml" xy="375,418" size="574,80" group="n24_o9js">
+      <relation target="" sidePair=""/>
+      <Button icon="ui://kk7g5mmmq3ng9v" selectedIcon="ui://kk7g5mmmq3ng9v"/>
+    </component>
+    <text id="n23_o9js" name="lookVAdText" xy="111,382" size="538,68" group="n24_o9js" fontSize="50" color="#f6f6f6" align="center" vAlign="middle" autoSize="none" bold="true" text="视频广告测试">
+      <relation target="" sidePair=""/>
+    </text>
+    <group id="n24_o9js" name="_lookVAd" xy="88,378" size="574,80" advanced="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </group>
+    <component id="n26_f3mk" name="share" src="g7a1z" fileName="Panel/com/PButton.xml" xy="375,652" size="574,80" group="n28_f3mk">
+      <relation target="" sidePair=""/>
+      <Button icon="ui://kk7g5mmmq3ng9v" selectedIcon="ui://kk7g5mmmq3ng9v"/>
+    </component>
+    <text id="n27_f3mk" name="shareText" xy="111,616" size="538,68" group="n28_f3mk" fontSize="50" color="#f6f6f6" align="center" vAlign="middle" autoSize="none" bold="true" text="分享测试">
+      <relation target="" sidePair=""/>
+    </text>
+    <group id="n28_f3mk" name="_share" xy="88,612" size="574,80" advanced="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </group>
+    <component id="n29_f3mk" name="showToast" src="g7a1z" fileName="Panel/com/PButton.xml" xy="375,877" size="574,80" group="n31_f3mk">
+      <relation target="" sidePair=""/>
+      <Button icon="ui://kk7g5mmmq3ng9v" selectedIcon="ui://kk7g5mmmq3ng9v"/>
+    </component>
+    <text id="n30_f3mk" name="showToastText" xy="111,841" size="538,68" group="n31_f3mk" fontSize="50" color="#f6f6f6" align="center" vAlign="middle" autoSize="none" bold="true" text="显示消息测试">
+      <relation target="" sidePair=""/>
+    </text>
+    <group id="n31_f3mk" name="_showToast" xy="88,837" size="574,80" advanced="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </group>
+  </displayList>
+</component>

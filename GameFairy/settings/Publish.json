@@ -1,0 +1,21 @@
+{
+	"atlasSetting":{
+		"paging":true,
+		"sizeOption":"pot",
+		"trimImage":true
+	},
+	"binaryFormat":true,
+	"codeGeneration":{
+		"classNamePrefix":"FGUI_",
+		"codePath":"..\\src\\FGUI",
+		"codeType":"TS-2.0",
+		"getMemberByName":false,
+		"ignoreNoname":true,
+		"memberNamePrefix":"m_",
+		"packageName":""
+	},
+	"compressDesc":false,
+	"fileExtension":"bin",
+	"packageCount":2,
+	"path":"..\\bin\\res\\FGUI"
+}

@@ -1,0 +1,23 @@
+// 导入文件
+{includeFiles}
+
+//! 这是由FGUI自动生成的文件，请不要修改 ~~~ **/
+
+export default class {className} extends {componentName} {
+
+{variable}
+
+	public static URL:string = "{uiPath}";
+
+	public static createInstance():{className} {
+{createInstance}
+	}
+
+	public constructor() {
+		super();
+	}
+
+	protected onConstruct(): void {
+{content}
+	}
+}

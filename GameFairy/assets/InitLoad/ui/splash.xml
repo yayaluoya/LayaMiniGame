@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,1334" designImage="ui://n3oedpp6m8kn9" designImageOffsetX="43">
+  <displayList>
+    <graph id="n6_9k8x" name="bg" xy="0,0" size="750,1334" type="rect" lineSize="0" lineColor="#ff222831" fillColor="#ff222831">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n2_tjpp" name="progress" src="nihr1" fileName="cmp/progress_simple.xml" xy="82,1055" size="599,50">
+      <relation target="" sidePair="width-width,center-center,bottom-bottom"/>
+      <ProgressBar value="70" max="100"/>
+    </component>
+    <text id="n16_q3ng" name="loading_progress" xy="81,1053" size="600,43" fontSize="30" color="#515070" align="center" vAlign="middle" autoSize="none" bold="true" text="进度">
+      <relation target="" sidePair="width-width,center-center,bottom-bottom"/>
+    </text>
+    <text id="n7_9k8x" name="text_logo" xy="27,25" size="696,385" font="Microsoft YaHei" fontSize="70" color="#f4f4f4" align="center" vAlign="bottom" autoSize="none" bold="true" strokeColor="#000000" strokeSize="4" shadowColor="#000000" shadowOffset="1,1" text="LayaMiniGame">
+      <relation target="" sidePair="width-width,center-center,top-top"/>
+    </text>
+    <text id="n8_9k8x" name="text_progress" xy="302,1002" size="146,35" font="Microsoft YaHei" fontSize="24" color="#cccccc" bold="true" text="资源加载中...">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </text>
+    <text id="n9_9k8x" name="text_laya" xy="161,1109" size="427,82" font="Microsoft YaHei" fontSize="24" color="#cccccc" align="center" vAlign="middle" autoSize="none" text="Powered by LayaAir Engine">
+      <relation target="" sidePair="width-width,center-center,bottom-bottom"/>
+    </text>
+    <text id="n10_9rxp" name="text_explain" xy="317,1194" size="140,24" font="Microsoft YaHei" fontSize="15" color="#cccccc" text="成都圣斗士网络科技">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </text>
+    <text id="n11_jv8i" name="text_v" xy="350,430" size="40,23" font="Microsoft YaHei" fontSize="15" color="#999999" bold="true" text="0.0.0">
+      <relation target="" sidePair="center-center,top-top"/>
+    </text>
+    <text id="n12_jv8i" name="text_laya_v" xy="701,1297" size="40,24" font="Microsoft YaHei" fontSize="15" color="#cccccc" text="0.0.0">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </text>
+    <text id="n13_jv8i" name="text_game_explain" xy="120,476" size="510,510" font="Microsoft YaHei" fontSize="30" color="#999999" align="center" autoSize="none" bold="true" strokeColor="#000000" shadowColor="#000000" shadowOffset="1,1" text="游戏说明">
+      <relation target="" sidePair="width-width,center-center,top-top"/>
+    </text>
+  </displayList>
+</component>

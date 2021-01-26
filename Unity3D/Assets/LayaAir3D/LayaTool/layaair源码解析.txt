@@ -1,0 +1,2 @@
+Class0.int_LoginState:
+	2:已登陆

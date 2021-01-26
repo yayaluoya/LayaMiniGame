@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,1334" opaque="false">
+  <displayList>
+    <text id="n11_q3ng" name="text" xy="0,0" size="750,126" fontSize="50" color="#cccccc" align="center" vAlign="middle" autoSize="none" bold="true" shadowColor="#000000" shadowOffset="1,1" text="主页面">
+      <relation target="" sidePair="width-width,top-top"/>
+    </text>
+  </displayList>
+</component>
