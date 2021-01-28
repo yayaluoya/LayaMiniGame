@@ -7,13 +7,12 @@
  */
 window.screenOrientation = "sensor_landscape";
 
-//自定义扩展脚本
-loadLib("libs/LayaMiniGameEx.js");
-loadLib("libs/min/pako_inflate.min.js");//解压工具
+//
+loadLib("libs/min/pako_inflate.min.js");//解压工具类
 //-----libs-begin-----
-loadLib("libs/laya.core.js");
-loadLib("libs/laya.d3.js");
-loadLib("libs/fairygui.js");
-loadLib("libs/laya.physics3D.js");
+loadLib("libs/laya.core.js");//laya核心包
+loadLib("libs/laya.d3.js");//laya3d包
+loadLib("libs/fairygui.js");//fgui包
+loadLib("libs/laya.physics3D.js");//laya3d物理包
 //-----libs-end-------
 loadLib("js/bundle.js");

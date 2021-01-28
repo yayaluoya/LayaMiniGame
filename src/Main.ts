@@ -1,6 +1,6 @@
-import GameStart from "./Game/GameStart";
+import GameMain from "./Game/GameMain";
 import GameConfig from "./GameConfig";
-import LayaMiniGameConfig from "./LayaMiniGameConfig";
+import TMain from "./_T/TMain";
 class Main {
 	constructor() {
 		//根据IDE设置初始化引擎		
@@ -33,14 +33,15 @@ class Main {
 	onConfigLoaded(): void {
 		//加载IDE指定的场景
 		// GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
-		//开始游戏
-		new GameStart();
+		//
+		/** 正式开始 #28df99 */
+		//
+		//框架入口
+		new TMain();
+		//游戏入口
+		new GameMain();
 	}
 }
-
-//注入框架信息
-let _LayaMiniGameConfig: LayaMiniGameConfig = new LayaMiniGameConfig();
-window['$' + _LayaMiniGameConfig.name] = _LayaMiniGameConfig;
 
 //激活启动类
 new Main();
