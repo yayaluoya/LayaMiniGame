@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<packageDescription id="7ktzib8o">
-  <resources>
-    <component id="q3ng0" name="EmptyScreen.xml" path="/ui/" exported="true"/>
-    <image id="q3ng1" name="LAYABOX_Logo.png" path="/_img/"/>
-  </resources>
-  <publish name="InitEmptyScreen" genCode="true"/>
-</packageDescription>

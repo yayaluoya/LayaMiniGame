@@ -1,8 +1,0 @@
-{
-	"front":"test_cubemap_PositiveZ.png",
-	"back":"test_cubemap_NegativeZ.png",
-	"left":"test_cubemap_PositiveX.png",
-	"right":"test_cubemap_NegativeX.png",
-	"up":"test_cubemap_PositiveY.png",
-	"down":"test_cubemap_NegativeY.png"
-}

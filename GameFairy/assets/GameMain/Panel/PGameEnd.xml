@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="750,1334" opaque="false">
-  <displayList>
-    <text id="n38_xc0h" name="text" xy="0,617" size="750,99" fontSize="80" color="#cccccc" align="center" vAlign="middle" autoSize="none" bold="true" shadowColor="#000000" shadowOffset="1,1" text="游戏结束">
-      <relation target="" sidePair="width-width,middle-middle"/>
-    </text>
-  </displayList>
-</component>

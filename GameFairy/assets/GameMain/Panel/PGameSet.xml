@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="750,1334" designImage="ui://kk7g5mmm6vcq59">
-  <displayList>
-    <text id="n2_q3ng" name="text" xy="0,582" size="750,170" fontSize="100" color="#cccccc" align="center" vAlign="middle" autoSize="none" bold="true" shadowColor="#000000" shadowOffset="1,1" text="设置页面">
-      <relation target="" sidePair="width-width,middle-middle"/>
-    </text>
-  </displayList>
-</component>
