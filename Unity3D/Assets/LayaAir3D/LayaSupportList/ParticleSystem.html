@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-light">
+        <ul>
+<li>
+<h1 id="particle-system">Particle System</h1>
+<ul>
+<li>
+<h3 id="main-module">Main module</h3>
+<p><img src=".\img\Particle_System\PartSysPartSysInsp.png" alt="Main"></p>
+<ol>
+<li>Duration 粒子持续时间</li>
+<li>Looping 是否循环</li>
+<li>Start Delay 延迟
+<ul>
+<li>Constant 固定值</li>
+<li>Random between Two Constant 数值区间</li>
+</ul>
+</li>
+<li>Start Life Time 生命周期
+<ul>
+<li>Constant 固定值</li>
+<li>Random between Two Constant 数值区间</li>
+</ul>
+</li>
+<li>Start Speed 粒子速度
+<ul>
+<li>Constant 固定值</li>
+<li>Random between Two Constant 数值区间</li>
+</ul>
+</li>
+<li>3D Start Size
+<ul>
+<li>Constant 固定值</li>
+<li>Random between Two Constant 数值区间</li>
+</ul>
+</li>
+<li>Start Size
+<ul>
+<li>Constant 固定值</li>
+<li>Random between Two Constant 数值区间</li>
+</ul>
+</li>
+<li>3D Start Rotation
+<ul>
+<li>Constant 固定值</li>
+<li>Random between Two Constant 数值区间</li>
+</ul>
+</li>
+<li>Start Rotation
+<ul>
+<li>Constant</li>
+</ul>
+</li>
+<li>Flip Rotation 随机旋转概率</li>
+<li>Start Color 开始颜色
+<ul>
+<li>Constant 固定值</li>
+<li>Random between Two Constant 数值区间</li>
+</ul>
+</li>
+<li>Gravity Modifier 重力修正</li>
+<li>Simulation Space 模拟空间
+<ul>
+<li>Local</li>
+<li>Hierarchy</li>
+</ul>
+</li>
+<li>Scaling Model 缩放模式
+<ul>
+<li>Hierarchy</li>
+<li>Local</li>
+</ul>
+</li>
+<li>Play On Awake</li>
+<li>Max Particls</li>
+<li>Auto Random Seed</li>
+</ol>
+</li>
+<li>
+<h3 id="emission-module">Emission module</h3>
+<p><img src=".\img\Particle_System\PartSysEmissionModule-0.png" alt="Emission"></p>
+<ol>
+<li>Rate Over Time
+<ul>
+<li>Constant 固定值</li>
+<li>Random between Two Constant 数值区间</li>
+</ul>
+</li>
+<li>Bursts</li>
+</ol>
+</li>
+<li>
+<h3 id="shape-module">Shape module</h3>
+<ol>
+<li>Shape
+<ul>
+<li>
+<p>Sphere / Hemisphere</p>
+<p><img src=".\img\Particle_System\ShapeModule_Sphere.png" alt="Shape Sphere"></p>
+<ol>
+<li>Radius</li>
+<li>Radius Thickness<br>
+数值只支持 <code>0</code> / <code>1</code> 两种数值</li>
+<li>Randomize Direction</li>
+</ol>
+</li>
+<li>
+<p>Cone</p>
+<p><img src=".\img\Particle_System\ShapeModule_Cone.png" alt="Shape Cone"></p>
+<ol>
+<li>Angle</li>
+<li>Radius</li>
+<li>Radius Thickness<br>
+数值只支持 <code>0</code> / <code>1</code> 两种数值</li>
+<li>Emit form Shell
+<ul>
+<li>Base</li>
+<li>Volume</li>
+</ul>
+</li>
+<li>Randomize Direction</li>
+</ol>
+</li>
+<li>
+<p>Box</p>
+<p><img src=".\img\Particle_System\ShapeModule_Box.png" alt="Shape Box"></p>
+<ol>
+<li>Emit from
+<ul>
+<li>Volume</li>
+</ul>
+</li>
+<li>scale</li>
+<li>Randomize Direction</li>
+</ol>
+</li>
+<li>
+<p>Circle</p>
+<p><img src=".\img\Particle_System\ShapeModule_Circle.png" alt="Shape Circle"></p>
+<ol>
+<li>Radius</li>
+<li>Radius Thickness<br>
+数值只支持 <code>0</code> / <code>1</code> 两种数值</li>
+<li>Arc<br>
+数值只支持 <code>0</code> / <code>360</code> 两种数值数值</li>
+<li>Randomize Direction</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<h3 id="velocity-over-lifetime-module">Velocity over Lifetime module</h3>
+<p><img src=".\img\Particle_System\PartSysVelOverLifeInsp.png" alt="Velocity over Lifetime module"></p>
+<ol>
+<li>Liner
+<ul>
+<li>Constant 固定值</li>
+<li>Random between Two Constant 数值区间</li>
+<li>Curve 曲线</li>
+<li>Random between Two Constant 曲线区间</li>
+</ul>
+</li>
+<li>Space
+<ul>
+<li>Local</li>
+<li>World</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<h3 id="color-over-lifetime-module">Color over Lifetime module</h3>
+<p><img src=".\img\Particle_System\PartSysColorOverLifeInsp.png" alt="Color over Lifetime module"></p>
+<ol>
+<li>Color
+<ul>
+<li>Gradient</li>
+<li>Random form Two Gradient</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<h3 id="size-over-lifetime-module">Size over Lifetime module</h3>
+<p><img src=".\img\Particle_System\PartSysSizeOverLifeInsp.png" alt="Size over Lifetime moudle"></p>
+<ol>
+<li>Separate Axes
+<ul>
+<li>Constant</li>
+<li>Curve</li>
+<li>Random betweem Two Constants</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<h3 id="texture-sheet-animation-module">Texture Sheet Animation module</h3>
+<p><img src=".\img\Particle_System\PartSysTexSheetAnimModule-0.png" alt="Texture Sheet Animation module"></p>
+<ol>
+<li>Tiles</li>
+<li>Animation
+<ul>
+<li>Single Row</li>
+<li>whole Sheet</li>
+</ul>
+</li>
+<li>Animation
+<ul>
+<li>Single Row
+<ul>
+<li>Random Row</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Time Mode
+<ul>
+<li>Fram over Time
+<ul>
+<li>Contant</li>
+<li>Curves</li>
+<li>Random betweem Two Constants</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Start Frame
+<ul>
+<li>Contant</li>
+<li>Random betweem Two Constants</li>
+</ul>
+</li>
+<li>Cycles</li>
+<li>Affected UV Channels
+<ul>
+<li>UV0</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<h3 id="render-module">Render module</h3>
+<p><img src=".\img\Particle_System\PartSysRendererModule-0.png" alt="Render module"></p>
+<ol>
+<li>RenderMode
+<ul>
+<li>Billboard</li>
+<li>Stretched Billboard
+<ol>
+<li>Camera Scale</li>
+<li>Velocity Scale</li>
+<li>Length Scale</li>
+</ol>
+</li>
+<li>Horizontal Billboard</li>
+<li>Vertical Billboard</li>
+<li>Mesh</li>
+</ul>
+</li>
+<li>Sorting Fudge</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+    </body>
+    </html>

@@ -63,6 +63,14 @@ export default abstract class BaseScene {
     protected _init() { }
 
     /**
+     * 获取节点配置
+     * @param _nodeName 节点名字
+     */
+    public getNodeConfig(_nodeName: string): INodeConfig {
+        return this.m_sceneConfig[_nodeName];
+    }
+
+    /**
      * 获取场景节点
      * @param _name 节点名字，可以多个一起构建
      */

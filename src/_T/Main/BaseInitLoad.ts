@@ -1,4 +1,6 @@
 /**
- * 基类初始化加载脚本
+ * 游戏进入之前的加载基类
  */
-export default class BaseInitLoad { }
+export default abstract class BaseInitLoad {
+    //
+}

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-light">
+        <ul>
+<li>
+<h1 id="game-object">Game Object</h1>
+<img src=".\img\GameObject.png" alt="Game Object">
+<ul>
+<li>name</li>
+<li>Static</li>
+<li>Layer</li>
+<li>Transform
+<ol>
+<li>Position</li>
+<li>Rotation</li>
+<li>Scale</li>
+</ol>
+</li>
+<li>Component
+<ul>
+<li>Camera<br>
+<img src=".\img\components\InspectorCamera35.png" alt="Camera">
+<ol>
+<li>Clear Flags
+<ul>
+<li>Skybox</li>
+<li>Solid Color</li>
+<li>Depth only</li>
+<li>Don't Clear</li>
+</ul>
+</li>
+<li>Background</li>
+<li>Projection
+<ul>
+<li>perspective
+<ul>
+<li>Field of View</li>
+</ul>
+</li>
+<li>Orthographic
+<ul>
+<li>size</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Clipping Planes
+<ul>
+<li>Near</li>
+<li>Far</li>
+</ul>
+</li>
+<li>Viewport Rect
+<ul>
+<li>X</li>
+<li>Y</li>
+<li>W</li>
+<li>H</li>
+</ul>
+</li>
+<li>Allow HDR</li>
+</ol>
+</li>
+<li>Light<br>
+<img src=".\img\components\class-Light-0.png" alt="Light">
+<ol>
+<li>Type
+<ul>
+<li>Directional</li>
+<li>Spot
+<ul>
+<li>Range</li>
+<li>Spot Angle</li>
+</ul>
+</li>
+<li>Point
+<ul>
+<li>Range</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Color</li>
+<li>Mode
+<ul>
+<li>Realtime</li>
+<li>Mixed</li>
+<li>Baked</li>
+</ul>
+</li>
+<li>intensity</li>
+</ol>
+</li>
+<li>Mesh Filter<br>
+<img src=".\img\components\Inspector-MeshFilter.png" alt="Mesh Filter">
+<ol>
+<li>Mesh</li>
+</ol>
+</li>
+<li>Mesh Renderer<br>
+<img src=".\img\components\class-MeshRenderer-0.png" alt="Mesh Renderer">
+<ol>
+<li>Materials
+<ul>
+<li>Size</li>
+<li>Element</li>
+</ul>
+</li>
+<li>Cast Shadows
+<ul>
+<li>On</li>
+<li>Off</li>
+</ul>
+</li>
+<li>Receive Shadows</li>
+<li>Lightmap Static
+<ul>
+<li>Lightmaps
+<ul>
+<li>Baked Lightmap
+<ul>
+<li>Lightmap Index</li>
+<li>Tiling X</li>
+<li>Tiling Y</li>
+<li>Offset X</li>
+<li>Offset Y</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Skinned Mesh Renderer<br>
+<img src=".\img\components\Inspector-SkinnedMeshRenderer.png" alt="Skinned Mesh Renderer">
+<ol>
+<li>Mesh</li>
+<li>Root Bone</li>
+<li>Bounds
+<ul>
+<li>Center</li>
+<li>Extent</li>
+</ul>
+</li>
+<li>Cast Shadows
+<ul>
+<li>On</li>
+<li>Off</li>
+</ul>
+</li>
+<li>Receive Shadows</li>
+<li>Materials
+<ul>
+<li>Size</li>
+<li>Element</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Animator<br>
+<img src=".\img\components\MecanimAnimatorComponent.png" alt="Animator">
+<ol>
+<li>Controller</li>
+<li>Culling Mode
+<ul>
+<li>Always Animate</li>
+<li>Cull Completely</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Terrain / Terrain Collider<br>
+<img src=".\img\components\Inspector-TerrainCollider.png" alt="Terrain">
+<ol>
+<li>Terrain Data</li>
+</ol>
+</li>
+<li>Box Collider<br>
+<img src=".\img\components\Inspector-BoxCollider.png" alt="Box Collider">
+<ol>
+<li>Is Trigger</li>
+<li>Center</li>
+<li>Size</li>
+</ol>
+</li>
+<li>Sphere Collider<br>
+<img src=".\img\components\Inspector-SphereCollider.png" alt="Sphere Collider">
+<ol>
+<li>Is Trigger</li>
+<li>Center</li>
+<li>Radius</li>
+</ol>
+</li>
+<li>Capsule Collider<br>
+<img src=".\img\components\Inspector-CapsuleCollider.png" alt="Capsule Collider">
+<ol>
+<li>Is Trigger</li>
+<li>Center</li>
+<li>Radius</li>
+<li>Height</li>
+<li>Direction</li>
+</ol>
+</li>
+<li>Mesh Collider<br>
+<img src=".\img\components\Inspector-MeshCollider.png" alt="Mesh Collider">
+<ol>
+<li>Is Trigger</li>
+<li>Mesh</li>
+</ol>
+</li>
+<li>Rigidbody<br>
+<img src=".\img\components\Inspector-Rigidbody.png" alt="Rigidbody">
+<ol>
+<li>Mass</li>
+<li>Is Kinematic</li>
+<li>Use Gravity</li>
+<li>Constraints
+<ul>
+<li>Freeze Position</li>
+<li>Freeze Rotation</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Trail Renderer<br>
+<img src=".\img\components\Inspector-TrailRenderer.png" alt="Trail Renderer">
+<ol>
+<li>Materials
+<ul>
+<li>Size</li>
+<li>Element</li>
+</ul>
+</li>
+<li>Time</li>
+<li>min Vertex Distance</li>
+<li>Width</li>
+<li>Color
+<ul>
+<li>Gradient
+<ol>
+<li>mode
+<ul>
+<li>Blend</li>
+<li>Fixed</li>
+</ul>
+</li>
+<li>Color</li>
+<li>Alpha</li>
+<li>Location</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>Alignment
+<ul>
+<li>View</li>
+<li>TransformZ</li>
+</ul>
+</li>
+<li>Texture Mode
+<ul>
+<li>Stretch</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Fixed Joint
+<img src=".\img\components\Inspector-FixedJoint.png" alt="Fixed Joint">
+<ol>
+<li>Connected Body</li>
+<li>Break Force</li>
+<li>Break Torque</li>
+</ol>
+</li>
+<li>Configurable Joint
+<img src=".\img\components\ConfigurableJointProps.png" alt="Configurable Joint">
+<ol>
+<li>Connected Body</li>
+<li>Anchor</li>
+<li>Axis</li>
+<li>Connected Anchor</li>
+<li>Secondary Axis</li>
+<li>X Motion</li>
+<li>Y Motion</li>
+<li>Z Motion</li>
+<li>Angular X Motion</li>
+<li>Angular Y Motion</li>
+<li>Angular Z Motion</li>
+<li>Linear Limit Spring
+<ul>
+<li>Spring</li>
+<li>Damper</li>
+</ul>
+</li>
+<li>Linear Limit
+<ul>
+<li>Limit</li>
+<li>Bounciness</li>
+</ul>
+</li>
+<li>Angular X Limit Spring
+<ul>
+<li>Spring</li>
+<li>Damper</li>
+</ul>
+</li>
+<li>Low Angular X Limit
+<ul>
+<li>Limit</li>
+<li>Bounciness</li>
+</ul>
+</li>
+<li>Hight Angular X Limit
+<ul>
+<li>Limit</li>
+<li>Bounciness</li>
+</ul>
+</li>
+<li>Angular YZ Limit Spring
+<ul>
+<li>Spring</li>
+<li>Damper</li>
+</ul>
+</li>
+<li>Angular Y Limit
+<ul>
+<li>Limit</li>
+<li>Bounciness</li>
+</ul>
+</li>
+<li>Angular Z Limit
+<ul>
+<li>limit</li>
+<li>Bounciness</li>
+</ul>
+</li>
+<li>Target Position</li>
+<li>Target Velocity</li>
+<li>Break Force</li>
+<li>Break Torque</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </body>
+    </html>

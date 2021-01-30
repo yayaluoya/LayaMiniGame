@@ -1,3 +1,4 @@
+import _MainConfig from "src/Config/_MainConfig";
 import ConsoleConst from "./ConsoleConst";
 
 /**
@@ -35,6 +36,8 @@ export default class ConsoleEx {
      * @param any 内容
      */
     public static packLog(...any) {
+        if (_MainConfig.OnLine) { return any; }
+        //
         return [`%c ${any} `, ConsoleConst.logStyle];
     }
 
@@ -43,6 +46,8 @@ export default class ConsoleEx {
      * @param any 内容
      */
     public static packLogLight(...any) {
+        if (_MainConfig.OnLine) { return any; }
+        //
         return [`%c ${any} `, ConsoleConst.logLightStyle];
     }
 
@@ -50,7 +55,9 @@ export default class ConsoleEx {
      * 包装成功消息
      * @param any 内容
      */
-    public static comLog(...any) {
+    public static packCom(...any) {
+        if (_MainConfig.OnLine) { return any; }
+        //
         return [`%c ${any} `, ConsoleConst.comStyle];
     }
 
@@ -59,6 +66,8 @@ export default class ConsoleEx {
      * @param any 内容
      */
     public static packWarn(...any) {
+        if (_MainConfig.OnLine) { return any; }
+        //
         return [`%c 警告: ${any} `, ConsoleConst.warnStyle];
     }
 
@@ -67,6 +76,8 @@ export default class ConsoleEx {
      * @param any 内容
      */
     public static packError(...any) {
+        if (_MainConfig.OnLine) { return any; }
+        //
         return [`%c 错误: ${any} `, ConsoleConst.errorStyle];
     }
 }

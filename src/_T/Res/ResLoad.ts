@@ -9,65 +9,65 @@ export default class ResLoad {
      * 加载资源
      * @param urls 资源路径
      * @param onCompleted 完成回调
-     * @param onProgress 进度回调
+     * @param _onProgress 进度回调
      */
-    public static Load(urls: string | string[], onCompleted: Laya.Handler, onProgress?: Laya.Handler) {
+    public static Load(urls: string | string[], onCompleted: Laya.Handler, _onProgress?: Laya.Handler) {
         //判断是否有内容需要加载
         if (!urls || urls.length == 0) {
             onCompleted.run();
-            if (onProgress) {
-                onProgress.args = [1];
-                onProgress.run();
+            if (_onProgress) {
+                _onProgress.args = [1];
+                _onProgress.run();
             }
             return;
         }
-        Laya.loader.create(urls, onCompleted, onProgress);
+        Laya.loader.create(urls, onCompleted, _onProgress);
     }
 
     /**
      * 加载2D资源
      * @param urls 资源路径 
      * @param onCompleted 完成回调
-     * @param onProgress 进度回调
+     * @param _onProgress 进度回调
      */
-    public static Load2D(urls: string | string[], onCompleted: Laya.Handler, onProgress?: Laya.Handler) {
+    public static Load2D(urls: string | string[], onCompleted: Laya.Handler, _onProgress?: Laya.Handler) {
         //判断是否有内容需要加载
         if (!urls || urls.length == 0) {
             onCompleted.run();
-            if (onProgress) {
-                onProgress.args = [1];
-                onProgress.run();
+            if (_onProgress) {
+                _onProgress.args = [1];
+                _onProgress.run();
             }
             return;
         }
-        Laya.loader.load(urls, onCompleted, onProgress);
+        Laya.loader.load(urls, onCompleted, _onProgress);
     }
 
     /**
      * 异步加载资源
      * @param urls 资源路径
-     * @param onProgress 进度回调
+     * @param _onProgress 进度回调
      */
-    public static LoadAsync(urls: string | string[], onProgress?: Laya.Handler): Promise<void> {
+    public static LoadAsync(urls: string | string[], _onProgress?: Laya.Handler): Promise<void> {
         //
         return new Promise((resolve) => {
             ResLoad.Load(urls, Laya.Handler.create(null, () => {
                 resolve();
-            }), onProgress);
+            }), _onProgress);
         });
     }
 
     /**
      * 异步加载2D资源
      * @param urls 资源路径
-     * @param onProgress 进度回调
+     * @param _onProgress 进度回调
      */
-    public static Load2dAsync(urls: string | string[], onProgress?: Laya.Handler): Promise<void> {
+    public static Load2dAsync(urls: string | string[], _onProgress?: Laya.Handler): Promise<void> {
         //
         return new Promise(function (resolve) {
             ResLoad.Load2D(urls, Laya.Handler.create(null, () => {
                 resolve();
-            }), onProgress);
+            }), _onProgress);
         });
     }
 
