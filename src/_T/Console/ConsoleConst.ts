@@ -36,4 +36,11 @@ export default class ConsoleConst {
         border-radius: 3px;
         line-height: 15px;
         `;
+
+    public static platformStyle: string = `
+        color: #52575d;
+        background-color: #e3fdfd;
+        border-radius: 3px;
+        line-height: 15px;
+        `;
 }

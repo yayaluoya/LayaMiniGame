@@ -80,4 +80,12 @@ export default class ConsoleEx {
         //
         return [`%c 错误: ${any} `, ConsoleConst.errorStyle];
     }
+
+    /**
+     * 包装平台消息
+     * @param any 内容
+     */
+    public static packPlatform(...any) {
+        return [`%c 平台: ${any} `, ConsoleConst.platformStyle];
+    }
 }

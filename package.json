@@ -1,5 +1,5 @@
 {
-  "name": "LayaMiniGameFrame",
+  "name": "laya_mini_game",
   "version": "1.0.0",
   "description": "Laya小游戏框架，简化了LayaBox的工作流程，让各个工具使用更加方便。",
   "main": "gulpfile.js",
