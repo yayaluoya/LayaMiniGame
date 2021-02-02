@@ -8,9 +8,6 @@ import IUICreate from "./IUICreate";
  * UI控制器基类(用来控制UI界面)
  */
 export default abstract class BaseUICon {
-    /** 是否初始化 */
-    private m_ifInit: boolean = false;
-
     /** UI类型列表，可以显示很多个ui */
     protected _UIDefines: {
         [_index: string]: IBaseUIConDefines;
@@ -30,8 +27,8 @@ export default abstract class BaseUICon {
         return this.m_ui;
     }
 
-    /** 是否在隐藏时清理掉ui */
-    protected _ifClear: boolean = false;
+    /** 是否在隐藏时清理掉ui，默认为true */
+    protected _ifClear: boolean = true;
 
     /** UI层级类型，必须在初始化时设置 */
     protected _layer: EUILayer = EUILayer.Panel;
@@ -54,10 +51,8 @@ export default abstract class BaseUICon {
         return this.m_ifShow;
     }
 
-    //初始化
-    private init() {
-        if (this.m_ifInit && !this._ifClear) { return; }
-        this.m_ifInit = true;
+    //创建ui
+    private createUI() {
         //初始化根节点ui
         this.m_ui = new fgui.GComponent();
         FGUIRootManager.getLayerUI(this._layer).addChild(this.m_ui);
@@ -71,10 +66,12 @@ export default abstract class BaseUICon {
      */
     public Show(...par: any[]) {
         if (this.m_ifShow) { return; }
-        this._OnshowBefore();
-        //初始化
-        this.init();
         this.m_ifShow = true;
+        this._OnshowBefore();
+        if (!this.m_ui || this.m_ui.isDisposed) {
+            //创建ui
+            this.createUI();
+        }
         if (!this.m_ui.visible) {
             this.m_ui.visible = true;
         }
@@ -95,11 +92,11 @@ export default abstract class BaseUICon {
     /**
      * 隐藏
      */
-    public Hide() {
+    public Hide(_ifClear: boolean = this._ifClear) {
         if (!this.m_ifShow) { return; }
-        this._OnHideBefore();
         this.m_ifShow = false;
-        if (this._ifClear) {
+        this._OnHideBefore();
+        if (_ifClear) {
             this.m_ui.dispose();
         } else {
             this.m_ui.visible = false;

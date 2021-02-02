@@ -8,9 +8,6 @@ import IUICreate from './IUICreate';
  * 可以直接实例化一个ui并进行显示和隐藏
  */
 export default abstract class BaseUIInstanceCon<UI extends fgui.GComponent> {
-    /** 是否初始化 */
-    private m_ifInit: boolean = false;
-
     /** UI类型，必须初始化前设置 */
     protected _UIDefine: IUICreate;
 
@@ -28,21 +25,20 @@ export default abstract class BaseUIInstanceCon<UI extends fgui.GComponent> {
         return this.m_ui;
     }
 
+    /** 是否在隐藏时清理掉ui，默认为true */
+    protected _ifClear: boolean = true;
+
     /** UI层级类型，必须在初始化时设置 */
     protected _layer: EUILayer = EUILayer.Panel;
 
-    //初始化
-    private init() {
-        //先判断是否初始化
-        if (!this.m_ifInit) {
-            this.m_ifInit = true;
-            if (!this._UIDefine) {
-                console.error(...ConsoleEx.packError('没有设置UI类型'));
-            }
-            this.m_ui = this._UIDefine.createInstance() as UI;
-            //
-            FGUIRootManager.getLayerUI(this._layer).addChild(this.m_ui);
+    //创建ui
+    private createUI() {
+        if (!this._UIDefine) {
+            console.error(...ConsoleEx.packError('没有设置UI类型'));
         }
+        this.m_ui = this._UIDefine.createInstance() as UI;
+        //
+        FGUIRootManager.getLayerUI(this._layer).addChild(this.m_ui);
     }
 
     /**
@@ -50,19 +46,26 @@ export default abstract class BaseUIInstanceCon<UI extends fgui.GComponent> {
      */
     public Show() {
         if (this.m_ifShow) { return; }
-        this.init();
+        if (!this.m_ui || this.m_ui.isDisposed) {
+            //创建ui
+            this.createUI();
+        }
         this.m_ifShow = true;
-        this.ui.visible = true;
+        this.m_ui.visible = true;
         this._Show();
     }
 
     /**
      * 隐藏
      */
-    public Hide() {
+    public Hide(_ifClear: boolean = this._ifClear) {
         if (!this.m_ifShow) { return; }
         this.m_ifShow = false;
-        this.ui.visible = false;
+        if (_ifClear) {
+            this.m_ui.dispose();
+        } else {
+            this.m_ui.visible = false;
+        }
         this._Hide();
     }
 
