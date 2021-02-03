@@ -1,4 +1,9 @@
 /**
  * 游戏入口
  */
-export default class GameMain { }
+export default class GameMain {
+    //初始化
+    public constructor() {
+        //
+    }
+}
