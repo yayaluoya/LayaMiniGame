@@ -4,8 +4,8 @@
     "target": "es6",
     "sourceMap": true,
     "baseUrl": ".",
-    "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */ ,
-    "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */ ,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
   },
   "exclude": [
     "node_modules"

@@ -1,7 +1,12 @@
+const path = require('path');
+
+/** 根路径 */
+const rootURL = path.resolve(__dirname, '../../');
+
 /**
- * 自动编译配置
+ * LayaAir编译配置
  */
-let gulpfileConfig = {
+let LayaAirCompileConfig = {
     /** 名字 */
     itemName: 'LayaMiniGame',
 
@@ -9,16 +14,16 @@ let gulpfileConfig = {
     livereload: true,
 
     /** 端口，一个随机的端口 */
-    port: Math.floor(Math.random() * (9999 - 1000)) + 1000,
+    // port: Math.floor(Math.random() * (9999 - 1000)) + 1000,
 
     /** 端口，固定端口 */
-    // port: 3300,
+    port: 3001,
 
     /** 默认路径 */
-    root: '',
+    root: rootURL,
 
     /** 默认首页 */
-    indexPage: './bin/index.html',
+    indexPage: rootURL + '/bin/index.html',
 
     /** 是否自动刷新 */
     ifAutoUpdate: true,
@@ -40,4 +45,4 @@ let gulpfileConfig = {
 }
 
 //导出
-module.exports = gulpfileConfig;
+module.exports = LayaAirCompileConfig;

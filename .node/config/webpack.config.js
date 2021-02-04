@@ -2,14 +2,14 @@ const path = require('path');
 
 /** ts路径映射插件 */
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const HelloWorldPlugin = require('./.node/gulpfile/webpack/webpackPlugin');
+const HelloWorldPlugin = require('../gulpfile/webpack/webpackPlugin');
 
 /** webpack参数 */
 const webpackConfig = {
     mode: "development",
-    entry: './src/Main.ts',
+    entry: path.resolve(__dirname, '../../src/Main.ts'),
     output: {
-        path: path.resolve(__dirname, './bin/js'),
+        path: path.resolve(__dirname, '../../bin/js'),
         filename: 'bundle.js'
     },
     module: {
