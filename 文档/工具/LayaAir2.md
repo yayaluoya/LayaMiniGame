@@ -1,11 +1,12 @@
-#### VsCode上直接使用layaAir工具
- - npm i layaair2-cmd -g 安装工具
- - layaair2-cmd -v 查看版本，查看成功的话就说明上面的工具安装成功了
- - npm i gulp -g 安装工具
- - 文档地址
-   - https://ldc2.layabox.com/doc/?language=zh&nav=zh-ts-3-0-9
+# VsCode上直接使用layaAir工具
 
-#### 操作说明
+- npm i layaair2-cmd -g 安装工具
+- layaair2-cmd -v 查看版本，查看成功的话就说明上面的工具安装成功了
+- npm i gulp -g 安装工具
+- 文档地址
+  - <https://ldc2.layabox.com/doc/?language=zh&nav=zh-ts-3-0-9>
+
+- 操作说明
     //直接运行
     layaair2-cmd compile //需要先在layaAir中打开才行
 
@@ -25,7 +26,6 @@
     layaair2-cmd publish -c qqgame
 
     使用命令行发布的注意事项
-    
         使用命令行发布之前，我们一定要先在LayaAirIDE里发布一次，因为命令行发布功能需要依托于.laya目录下的各个平台的js发布脚本和平台json配置信息。比如排除，发布配置等信息，需要发布一次后，才会更新保存到对应的平台json配置中。
 
         报错 无法加载文件 C:\Users\Administrator\AppData\Roaming\npm\layaair2-cmd.ps1，因为在此系统中禁止执行脚本。
