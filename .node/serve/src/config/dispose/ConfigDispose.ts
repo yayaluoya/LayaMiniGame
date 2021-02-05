@@ -67,8 +67,8 @@ export default class ConfigDispose {
      * 读取json文件内容
      * @param _url 文件地址
      */
-    public getJsonData(_url: string): Promise<IResponseData<string>> {
-        return new Promise<IResponseData<string>>((r) => {
+    public getJsonData(_url: string): Promise<IResponseData<any>> {
+        return new Promise<IResponseData<any>>((r) => {
             //不允许读取其他内容
             if (!_url || !/\.json$/.test(_url)) {
                 r(ResponseDataT.Pack(undefined, EResponseCode.lose, '必须是.json后缀的文件！'));
@@ -76,7 +76,7 @@ export default class ConfigDispose {
             }
             // 同步读取
             try {
-                let _data: string = readFileSync(_url).toString();
+                let _data: any = JSON.parse(readFileSync(_url).toString());
                 r(ResponseDataT.Pack(_data));
             } catch (e) {
                 r(ResponseDataT.Pack(undefined, EResponseCode.lose, '读取文件失败！'));
@@ -97,7 +97,7 @@ export default class ConfigDispose {
                     return;
                 } else {
                     //获取数据
-                    let _jsonData: IJsonData = JSON.parse(_data.data) as IJsonData;
+                    let _jsonData: IJsonData = _data.data as IJsonData;
                     if (!_jsonData.zip) {
                         _jsonData.data = Pako.deflate(JSON.stringify(_jsonData.data));
                         _jsonData.zip = true;
@@ -127,7 +127,7 @@ export default class ConfigDispose {
                     return;
                 } else {
                     //获取数据
-                    let _jsonData: IJsonData = JSON.parse(_data.data) as IJsonData;
+                    let _jsonData: IJsonData = _data.data as IJsonData;
                     if (_jsonData.zip) {
                         _jsonData.data = JSON.parse(Pako.inflate(_jsonData.data));
                         _jsonData.zip = false;

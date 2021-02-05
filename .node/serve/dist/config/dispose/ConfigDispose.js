@@ -46,7 +46,7 @@ class ConfigDispose {
                 return;
             }
             try {
-                let _data = fs_1.readFileSync(_url).toString();
+                let _data = JSON.parse(fs_1.readFileSync(_url).toString());
                 r(ResponseDataT_1.default.Pack(_data));
             }
             catch (e) {
@@ -62,7 +62,7 @@ class ConfigDispose {
                     return;
                 }
                 else {
-                    let _jsonData = JSON.parse(_data.data);
+                    let _jsonData = _data.data;
                     if (!_jsonData.zip) {
                         _jsonData.data = Pako_1.default.deflate(JSON.stringify(_jsonData.data));
                         _jsonData.zip = true;
@@ -86,7 +86,7 @@ class ConfigDispose {
                     return;
                 }
                 else {
-                    let _jsonData = JSON.parse(_data.data);
+                    let _jsonData = _data.data;
                     if (_jsonData.zip) {
                         _jsonData.data = JSON.parse(Pako_1.default.inflate(_jsonData.data));
                         _jsonData.zip = false;

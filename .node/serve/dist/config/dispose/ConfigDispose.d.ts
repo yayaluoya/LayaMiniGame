@@ -5,7 +5,7 @@ export default class ConfigDispose {
     getAllConfigJsonNames(): Promise<IResponseData<IFileComData[]>>;
     getAllSceneJsonNames(): Promise<IResponseData<IFileComData[]>>;
     private getAllFileNames;
-    getJsonData(_url: string): Promise<IResponseData<string>>;
+    getJsonData(_url: string): Promise<IResponseData<any>>;
     zipJsonFile(_url: string): Promise<IResponseData<any>>;
     unZipJsonFile(_url: string): Promise<IResponseData<any>>;
     exportExcelToJson(_excel: string): Promise<IResponseData<any>>;

@@ -202,8 +202,8 @@
         "affectsGlobalScope": false
       },
       "../src/config/dispose/configdispose.ts": {
-        "version": "d5e9a844caf98989cddedd35f138b7e8d551c5ee6a66695dc7e9acf2c7ae4038",
-        "signature": "29d4a6d967a94d9710173e62b7ec2044928169c5f48d59d78bb6eed5db215653",
+        "version": "e077de23979efa003a277f49093b7cd789e784999e1ba9ba0e365f21b5ce7faa",
+        "signature": "6c0e0541fb43e03b24a44baf2a16c1e94a9a0ff98b2e284740c67e96d7418f8c",
         "affectsGlobalScope": false
       },
       "../src/init.ts": {
