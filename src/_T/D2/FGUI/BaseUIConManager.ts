@@ -52,8 +52,8 @@ export abstract class BaseUIConManagerProxy {
         [_index: string]: BaseUICon,
     };
 
-    /** 当前显示的ui控制器 */
-    protected m_onShowUICon: BaseUICon[];
+    /** 当前显示的ui控制器索引列表 */
+    protected m_onShowUICon: string[];
 
     /**
      * 设置ui代理
@@ -76,19 +76,21 @@ export abstract class BaseUIConManagerProxy {
 
     /**
      * 显示ui控制器
-     * @param _uiCon ui控制器实例或者列表
+     * @param _uiCon ui控制器索引或者索引列表
      */
-    public showUI(_uiCon: BaseUICon | BaseUICon[]) {
-        let _uiCons: BaseUICon[] = [];
+    public showUI(_uiCon: string | string[]) {
+        let _uiCons: string[] = [];
         if (_uiCon instanceof Array) {
             _uiCons.push(..._uiCon);
         } else {
             _uiCons.push(_uiCon);
         }
         _uiCons.forEach((item) => {
-            item.Show();
+            if (this.m_uiConList[item]) {
+                this.m_uiConList[item].Show();
+                this.m_onShowUICon.push(..._uiCons);
+            }
         });
-        this.m_onShowUICon.push(..._uiCons);
         //去重
         this.m_onShowUICon = Array.from(new Set(this.m_onShowUICon));
     }
@@ -97,19 +99,19 @@ export abstract class BaseUIConManagerProxy {
      * 隐藏ui控制器
      * @param _uiCon ui控制器实例或列表
      */
-    public hideUI(_uiCon: BaseUICon | BaseUICon[]) {
-        let _uiCons: BaseUICon[] = [];
+    public hideUI(_uiCon: string | string[]) {
+        let _uiCons: string[] = [];
         if (_uiCon instanceof Array) {
             _uiCons.push(..._uiCon);
         } else {
             _uiCons.push(_uiCon);
         }
         _uiCons.forEach((item) => {
-            item.Hide();
+            this.m_uiConList[item] && this.m_uiConList[item].Hide();
         });
         //
         this.m_onShowUICon = this.m_onShowUICon.filter((item) => {
-            return item.ifShow;
+            return this.m_uiConList[item] && this.m_uiConList[item].ifShow;
         });
     }
 
@@ -118,7 +120,7 @@ export abstract class BaseUIConManagerProxy {
      */
     public hideAllUI() {
         this.m_onShowUICon.forEach((item) => {
-            item.Hide();
+            this.m_uiConList[item] && this.m_uiConList[item].Hide();
         });
         this.m_onShowUICon = [];
     }

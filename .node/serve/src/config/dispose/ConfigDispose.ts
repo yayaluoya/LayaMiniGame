@@ -1,17 +1,29 @@
-import { EResponseCode } from "src/_T/EResponseCode";
-import { IResponseData } from "src/_T/IResponseData";
-import ResponseDataT from "src/_T/ResponseDataT";
-import ResURL from "src/_T/ResURL";
-import { readdirSync, readFileSync } from "fs";
-import { join } from "path";
-import Pako from "src/_T/Pako";
-import ExcelToJson from "src/_T/ExcelToJson";
-import { cache } from "webpack";
+import { EResponseCode } from "src/_com/EResponseCode";
+import { IResponseData } from "src/_com/IResponseData";
+import ResponseDataT from "src/_com/ResponseDataT";
+import ResURL from "src/_com/ResURL";
+import { readdirSync, readFileSync, writeFile, writeSync } from "fs";
+import Pako from "src/_com/Pako";
+import ExcelToJson from "src/_com/ExcelToJson";
+import ConfigCacheData, { EConfigConfig } from "./ConfigCacheData";
 
 /**
  * 配置文件处理类
  */
 export default class ConfigDispose {
+    /**
+     * 初始化
+     */
+    public static init() {
+        //初始化缓存内容
+        if (typeof ConfigCacheData.instance.getItem(EConfigConfig.jsonSaveURLCacheKey) == "undefined") {
+            ConfigCacheData.instance.setItem(EConfigConfig.jsonSaveURLCacheKey, ResURL.join(ResURL.serveRootURL, 'dist/json/'));
+        }
+        if (typeof ConfigCacheData.instance.getItem(EConfigConfig.TSSaveURLCacheKey) == "undefined") {
+            ConfigCacheData.instance.setItem(EConfigConfig.TSSaveURLCacheKey, ResURL.join(ResURL.serveRootURL, 'dist/ts/'));
+        }
+    }
+
     /**
      * 获取所有配置表名字
      */
@@ -42,7 +54,7 @@ export default class ConfigDispose {
         }).map((item) => {
             return {
                 name: item,
-                path: join(_url, item),
+                path: ResURL.join(_url, item),
             };
         });
         return new Promise<IResponseData<IFileComData[]>>((r) => {
@@ -76,16 +88,58 @@ export default class ConfigDispose {
      * 压缩json文件
      * @param _url 地址
      */
-    public zipJsonFile(_url: string): Promise<IResponseData<string>> {
-        return new Promise<IResponseData<string>>((r) => {
+    public zipJsonFile(_url: string): Promise<IResponseData<any>> {
+        return new Promise<IResponseData<any>>((r) => {
             this.getJsonData(_url).then((_data) => {
-                r(ResponseDataT.Pack(Pako.inflate(Pako.deflate('压缩'))));
-                return;
                 if (_data.code != EResponseCode.com) {
+                    //压缩失败
                     r(_data);
                     return;
+                } else {
+                    //获取数据
+                    let _jsonData: IJsonData = JSON.parse(_data.data) as IJsonData;
+                    if (!_jsonData.zip) {
+                        _jsonData.data = Pako.deflate(JSON.stringify(_jsonData.data));
+                        _jsonData.zip = true;
+                    } else {
+                        r(ResponseDataT.Pack(_jsonData));
+                        return;
+                    }
+                    //重新存储数据
+                    writeFile(_url, JSON.stringify(_jsonData), () => {
+                        r(ResponseDataT.Pack(_jsonData));
+                    });
                 }
-                //压缩文件
+            });
+        });
+    }
+
+    /**
+     * 解压json文件
+     * @param _url 文件地址
+     */
+    public unZipJsonFile(_url: string): Promise<IResponseData<any>> {
+        return new Promise<IResponseData<any>>((r) => {
+            this.getJsonData(_url).then((_data) => {
+                if (_data.code != EResponseCode.com) {
+                    //压缩失败
+                    r(_data);
+                    return;
+                } else {
+                    //获取数据
+                    let _jsonData: IJsonData = JSON.parse(_data.data) as IJsonData;
+                    if (_jsonData.zip) {
+                        _jsonData.data = JSON.parse(Pako.inflate(_jsonData.data));
+                        _jsonData.zip = false;
+                    } else {
+                        r(ResponseDataT.Pack(_jsonData));
+                        return;
+                    }
+                    //重新存储数据
+                    writeFile(_url, JSON.stringify(_jsonData), () => {
+                        r(ResponseDataT.Pack(_jsonData));
+                    });
+                }
             });
         });
     }
@@ -93,17 +147,19 @@ export default class ConfigDispose {
     /**
      * 导出配置文件到json
      * @param _excel excel文件路径
-     * @param _json json文件保存路径
-     * @param _ts ts文件保存路径
      */
-    public exportExcelToJson(_excel: string, _json: string, _ts: string): Promise<IResponseData<any>> {
+    public exportExcelToJson(_excel: string): Promise<IResponseData<any>> {
         return new Promise<IResponseData<any>>((r) => {
-            ExcelToJson.excelToJson(_excel, _json, _ts).then((data) => {
+            ExcelToJson.excelToJson(
+                _excel,
+                ConfigCacheData.instance.getItem(EConfigConfig.jsonSaveURLCacheKey),
+                ConfigCacheData.instance.getItem(EConfigConfig.TSSaveURLCacheKey)
+            ).then((data) => {
                 //成功
                 r(ResponseDataT.Pack(undefined, undefined, undefined, data));
-            }).catch((data) => {
+            }).catch((_E) => {
                 //失败
-                r(ResponseDataT.Pack(undefined, EResponseCode.lose, data));
+                r(ResponseDataT.Pack(undefined, EResponseCode.lose, _E));
             });
         });
     }
@@ -117,15 +173,4 @@ interface IFileComData {
     name: string,
     /** 地址 */
     path: string,
-}
-
-/**
- * json数据接口
- * 所有能处理的json文件必须满足这个接口定义
- */
-interface IJsonData {
-    /** 数据 */
-    data: any,
-    /** 是否压缩 */
-    zip: boolean,
 }
