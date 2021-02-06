@@ -1,33 +1,60 @@
 <template>
-  <div id="app">
-    <!-- 主入口 -->
-    <Main />
-  </div>
+    <div id="app">
+        <!-- 主入口 -->
+        <Main />
+    </div>
 </template>
 
 <script>
 import Vue from "vue";
+//引入elementUI库
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-
 Vue.use(ElementUI);
-
-import Main from "./components/Main.vue";
+//引入自定义样式
+import "./css/index.css";
+//引入全局状态管理器
+import store from "./vuex/index.js";
+//引入路径实例
+import router from "./router/index.js";
+//引入axios实例
+import axios from "./http/axios.js";
+Vue.prototype.$Axios = axios;
+//
+import Main from "./app/Main.vue";
 
 export default {
-  name: "App",
-  components: {
-    Main,
-  },
+    name: "App",
+    store, //状态管理器
+    router, //路由
+    components: {
+        Main,
+    },
+    mounted() {
+        // console.log("route\n", this.$route);
+        // console.log("vuex\n", this.$store);
+        // console.log("axiox\n", this.$Axios);
+        //测试请求
+        this.$Axios
+            .get("http://localhost:3000/config/getAllConfigsNames")
+            .then((response) => {
+                console.log("get请求", response);
+            });
+    },
 };
 </script>
 
 <style>
+body {
+    margin: 0;
+    padding: 0;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
 }
 </style>

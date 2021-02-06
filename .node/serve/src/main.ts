@@ -4,6 +4,8 @@ import Init from './Init';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
+	//允许跨域
+	app.enableCors();
 	await app.listen(3000);
 	//初始化
 	new Init();

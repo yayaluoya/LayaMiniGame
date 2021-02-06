@@ -5,6 +5,7 @@ const app_module_1 = require("./app.module");
 const Init_1 = require("./Init");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.enableCors();
     await app.listen(3000);
     new Init_1.default();
     console.log('--');
