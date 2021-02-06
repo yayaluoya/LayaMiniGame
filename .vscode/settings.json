@@ -7,6 +7,8 @@
         //
         "node_modules/**": true, //npm 包文件夹
         //
+        // ".node/**": true, //
+        //
         "Doc/**": true, //配置文件目录
         "Unity3D/**": true, //unity项目文件夹
         "FairyGUI/**": true, //FGUI项目文件夹
