@@ -1,3 +1,4 @@
 export default class LogDispose {
-    static writeLog(_log: string): void;
+    static init(): void;
+    writeLog(_log: string): void;
 }

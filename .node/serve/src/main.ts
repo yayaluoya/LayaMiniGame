@@ -6,6 +6,7 @@ async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 	//允许跨域
 	app.enableCors();
+	//开始监听3000端口
 	await app.listen(3000);
 	//初始化
 	new Init();
@@ -15,4 +16,6 @@ async function bootstrap() {
 	console.log('----▷ 按 F5 键启动 DeBug 浏览器，并打开 http://localhost:3000/');
 	console.log('--');
 }
+
+//开始
 bootstrap();

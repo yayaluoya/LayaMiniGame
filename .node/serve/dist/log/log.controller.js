@@ -16,8 +16,11 @@ exports.LogController = void 0;
 const common_1 = require("@nestjs/common");
 const LogDispose_1 = require("./dispose/LogDispose");
 let LogController = class LogController {
+    constructor() {
+        this.m_logDispose = new LogDispose_1.default();
+    }
     async unZipJsonFile(body) {
-        LogDispose_1.default.writeLog(body['log']);
+        this.m_logDispose.writeLog(body['log']);
     }
 };
 __decorate([
@@ -28,7 +31,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], LogController.prototype, "unZipJsonFile", null);
 LogController = __decorate([
-    common_1.Controller('log')
+    common_1.Controller('log'),
+    __metadata("design:paramtypes", [])
 ], LogController);
 exports.LogController = LogController;
 //# sourceMappingURL=log.controller.js.map

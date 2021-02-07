@@ -1,4 +1,4 @@
-import { join, resolve, sep } from "path";
+import { join, resolve } from "path";
 
 /**
  * 资源路径类
@@ -14,9 +14,9 @@ export default class ResURL {
         return this.join(resolve(__dirname, '../../'), '/');
     }
 
-    /** 缓存目录 */
-    public static get cacheURL(): string {
-        return this.join(this.serveRootURL, '.cache/');
+    /** 本地数据目录 */
+    public static get localDataURL(): string {
+        return this.join(this.serveRootURL, '.localData/');
     }
 
     /** 获取bin目录 */
@@ -29,19 +29,14 @@ export default class ResURL {
         return this.join(this.binURL, 'res/');
     }
 
-    /** 获取配置表路径 */
-    public static get excelURL(): string {
-        return this.join(this.rootURL, 'Doc/excel/');
+    /** 代码目录 */
+    public static get srcURL(): string {
+        return this.join(this.rootURL, 'src/');
     }
 
-    /** 获取配置表json路径 */
-    public static get configJsonURL(): string {
-        return this.join(this.resURL, 'Config/');
-    }
-
-    /** 获取场景配置表目录 */
-    public static get sceneJsonURL(): string {
-        return this.join(this.resURL, 'LvConfig/');
+    /** 游戏代码目录 */
+    public static get gameSrcURL(): string {
+        return this.join(this.srcURL, 'Game/');
     }
 
     /** 获取日志文件路径 */

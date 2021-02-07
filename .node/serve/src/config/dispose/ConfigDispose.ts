@@ -2,10 +2,11 @@ import { EResponseCode } from "src/_com/EResponseCode";
 import { IResponseData } from "src/_com/IResponseData";
 import ResponseDataT from "src/_com/ResponseDataT";
 import ResURL from "src/_com/ResURL";
-import { readdirSync, readFileSync, writeFile, writeSync } from "fs";
+import { readdirSync, readFileSync, writeFile } from "fs";
 import Pako from "src/_com/Pako";
 import ExcelToJson from "src/_com/ExcelToJson";
-import ConfigCacheData, { EConfigConfig } from "./ConfigCacheData";
+import ConfigResURL, { ELocalURLKey } from "./ConfigResURL";
+import ConfigLocalData from "./ConfigLocalData";
 
 /**
  * 配置文件处理类
@@ -15,32 +16,26 @@ export default class ConfigDispose {
      * 初始化
      */
     public static init() {
-        //初始化缓存内容
-        if (typeof ConfigCacheData.instance.getItem(EConfigConfig.jsonSaveURLCacheKey) == "undefined") {
-            ConfigCacheData.instance.setItem(EConfigConfig.jsonSaveURLCacheKey, ResURL.join(ResURL.serveRootURL, 'dist/json/'));
-        }
-        if (typeof ConfigCacheData.instance.getItem(EConfigConfig.TSSaveURLCacheKey) == "undefined") {
-            ConfigCacheData.instance.setItem(EConfigConfig.TSSaveURLCacheKey, ResURL.join(ResURL.serveRootURL, 'dist/ts/'));
-        }
+        //
     }
 
     /**
      * 获取所有配置表名字
      */
     public async getAllConfigsNames(): Promise<IResponseData<IFileComData[]>> {
-        return this.getAllFileNames(ResURL.excelURL, 'xlsx');
+        return this.getAllFileNames(ConfigResURL.excelURL, 'xlsx');
     }
     /**
      * 获取所有配置表json名字
      */
     public getAllConfigJsonNames(): Promise<IResponseData<IFileComData[]>> {
-        return this.getAllFileNames(ResURL.configJsonURL, 'json');
+        return this.getAllFileNames(ConfigResURL.configJsonURL, 'json');
     }
     /**
      * 获取所有场景json文件名字
      */
     public getAllSceneJsonNames(): Promise<IResponseData<IFileComData[]>> {
-        return this.getAllFileNames(ResURL.sceneJsonURL, 'json');
+        return this.getAllFileNames(ConfigResURL.sceneJsonURL, 'json');
     }
 
     /**
@@ -152,8 +147,8 @@ export default class ConfigDispose {
         return new Promise<IResponseData<any>>((r) => {
             ExcelToJson.excelToJson(
                 _excel,
-                ConfigCacheData.instance.getItem(EConfigConfig.jsonSaveURLCacheKey),
-                ConfigCacheData.instance.getItem(EConfigConfig.TSSaveURLCacheKey)
+                ConfigResURL.configJsonURL,
+                ConfigResURL.configTSURL,
             ).then((data) => {
                 //成功
                 r(ResponseDataT.Pack(undefined, undefined, undefined, data));
@@ -161,6 +156,38 @@ export default class ConfigDispose {
                 //失败
                 r(ResponseDataT.Pack(undefined, EResponseCode.lose, _E));
             });
+        });
+    }
+
+    /**
+     * 获取路径
+     * @param _key 路径数据关键键
+     */
+    public getURL(_key: ELocalURLKey): Promise<IResponseData<string>> {
+        return new Promise<IResponseData<string>>((r) => {
+            if (!_key) {
+                r(ResponseDataT.Pack('', undefined));
+                return;
+            }
+            r(ResponseDataT.Pack(ConfigLocalData.instance.getItem(_key)));
+        });
+    }
+
+    /**
+     * 修改路径
+     * @param _key 路径数据关键键
+     * @param _url 新地址
+     */
+    public alterURL(_key: ELocalURLKey, _url: string): Promise<IResponseData<boolean>> {
+        return new Promise<IResponseData<boolean>>((r) => {
+            if (!_key) {
+                r(ResponseDataT.Pack(false, undefined, '路径关键键不存在！'));
+                return;
+            }
+            //修改本地数据
+            ConfigLocalData.instance.setItem(_key, _url);
+            //
+            r(ResponseDataT.Pack(true));
         });
     }
 }

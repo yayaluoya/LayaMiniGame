@@ -7,24 +7,19 @@ const ResURL_1 = require("../../_com/ResURL");
 const fs_1 = require("fs");
 const Pako_1 = require("../../_com/Pako");
 const ExcelToJson_1 = require("../../_com/ExcelToJson");
-const ConfigCacheData_1 = require("./ConfigCacheData");
+const ConfigResURL_1 = require("./ConfigResURL");
+const ConfigLocalData_1 = require("./ConfigLocalData");
 class ConfigDispose {
     static init() {
-        if (typeof ConfigCacheData_1.default.instance.getItem(ConfigCacheData_1.EConfigConfig.jsonSaveURLCacheKey) == "undefined") {
-            ConfigCacheData_1.default.instance.setItem(ConfigCacheData_1.EConfigConfig.jsonSaveURLCacheKey, ResURL_1.default.join(ResURL_1.default.serveRootURL, 'dist/json/'));
-        }
-        if (typeof ConfigCacheData_1.default.instance.getItem(ConfigCacheData_1.EConfigConfig.TSSaveURLCacheKey) == "undefined") {
-            ConfigCacheData_1.default.instance.setItem(ConfigCacheData_1.EConfigConfig.TSSaveURLCacheKey, ResURL_1.default.join(ResURL_1.default.serveRootURL, 'dist/ts/'));
-        }
     }
     async getAllConfigsNames() {
-        return this.getAllFileNames(ResURL_1.default.excelURL, 'xlsx');
+        return this.getAllFileNames(ConfigResURL_1.default.excelURL, 'xlsx');
     }
     getAllConfigJsonNames() {
-        return this.getAllFileNames(ResURL_1.default.configJsonURL, 'json');
+        return this.getAllFileNames(ConfigResURL_1.default.configJsonURL, 'json');
     }
     getAllSceneJsonNames() {
-        return this.getAllFileNames(ResURL_1.default.sceneJsonURL, 'json');
+        return this.getAllFileNames(ConfigResURL_1.default.sceneJsonURL, 'json');
     }
     getAllFileNames(_url, _dis) {
         var _jsonNames = fs_1.readdirSync(_url).filter((item) => {
@@ -104,11 +99,30 @@ class ConfigDispose {
     }
     exportExcelToJson(_excel) {
         return new Promise((r) => {
-            ExcelToJson_1.default.excelToJson(_excel, ConfigCacheData_1.default.instance.getItem(ConfigCacheData_1.EConfigConfig.jsonSaveURLCacheKey), ConfigCacheData_1.default.instance.getItem(ConfigCacheData_1.EConfigConfig.TSSaveURLCacheKey)).then((data) => {
+            ExcelToJson_1.default.excelToJson(_excel, ConfigResURL_1.default.configJsonURL, ConfigResURL_1.default.configTSURL).then((data) => {
                 r(ResponseDataT_1.default.Pack(undefined, undefined, undefined, data));
             }).catch((_E) => {
                 r(ResponseDataT_1.default.Pack(undefined, EResponseCode_1.EResponseCode.lose, _E));
             });
+        });
+    }
+    getURL(_key) {
+        return new Promise((r) => {
+            if (!_key) {
+                r(ResponseDataT_1.default.Pack('', undefined));
+                return;
+            }
+            r(ResponseDataT_1.default.Pack(ConfigLocalData_1.default.instance.getItem(_key)));
+        });
+    }
+    alterURL(_key, _url) {
+        return new Promise((r) => {
+            if (!_key) {
+                r(ResponseDataT_1.default.Pack(false, undefined, '路径关键键不存在！'));
+                return;
+            }
+            ConfigLocalData_1.default.instance.setItem(_key, _url);
+            r(ResponseDataT_1.default.Pack(true));
         });
     }
 }

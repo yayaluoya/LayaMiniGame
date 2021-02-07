@@ -8,8 +8,8 @@ class ResURL {
     static get serveRootURL() {
         return this.join(path_1.resolve(__dirname, '../../'), '/');
     }
-    static get cacheURL() {
-        return this.join(this.serveRootURL, '.cache/');
+    static get localDataURL() {
+        return this.join(this.serveRootURL, '.localData/');
     }
     static get binURL() {
         return this.join(this.rootURL, 'bin/');
@@ -17,14 +17,11 @@ class ResURL {
     static get resURL() {
         return this.join(this.binURL, 'res/');
     }
-    static get excelURL() {
-        return this.join(this.rootURL, 'Doc/excel/');
+    static get srcURL() {
+        return this.join(this.rootURL, 'src/');
     }
-    static get configJsonURL() {
-        return this.join(this.resURL, 'Config/');
-    }
-    static get sceneJsonURL() {
-        return this.join(this.resURL, 'LvConfig/');
+    static get gameSrcURL() {
+        return this.join(this.srcURL, 'Game/');
     }
     static get logFileURL() {
         return this.join(this.rootURL, '/文档/Serve/日志.md');

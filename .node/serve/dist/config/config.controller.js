@@ -16,9 +16,10 @@ exports.ConfigController = void 0;
 const common_1 = require("@nestjs/common");
 const IResponseData_1 = require("../_com/IResponseData");
 const ConfigDispose_1 = require("./dispose/ConfigDispose");
+const ConfigResURL_1 = require("./dispose/ConfigResURL");
 let ConfigController = class ConfigController {
     constructor() {
-        this.m_configDispose = new ConfigDispose_1.default;
+        this.m_configDispose = new ConfigDispose_1.default();
     }
     async getAllConfigsNames() {
         return this.m_configDispose.getAllConfigsNames();
@@ -40,6 +41,12 @@ let ConfigController = class ConfigController {
     }
     async exportExcelToJson(body) {
         return this.m_configDispose.exportExcelToJson(body.excel);
+    }
+    async getURL(query) {
+        return this.m_configDispose.getURL(ConfigResURL_1.ELocalURLKey[query.key]);
+    }
+    async alterURL(body) {
+        return this.m_configDispose.alterURL(ConfigResURL_1.ELocalURLKey[body.key], body.url);
     }
 };
 __decorate([
@@ -88,6 +95,20 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ConfigController.prototype, "exportExcelToJson", null);
+__decorate([
+    common_1.Get('getURL'),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ConfigController.prototype, "getURL", null);
+__decorate([
+    common_1.Post('alterURL'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ConfigController.prototype, "alterURL", null);
 ConfigController = __decorate([
     common_1.Controller('config'),
     __metadata("design:paramtypes", [])

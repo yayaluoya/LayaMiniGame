@@ -10,7 +10,8 @@ export default class MesT {
     }
 
     /**
-     * 包装枚举类，使其内容为唯一的
+     * 包装枚举类
+     * 被包装过的枚举在被包装过的所有枚举中内容是惟一的
      * @param _E 枚举
      */
     public static packE(_E: object) {

@@ -1,15 +1,17 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { IResponseData } from 'src/_com/IResponseData';
 import ConfigDispose from './dispose/ConfigDispose';
+import { ELocalURLKey } from './dispose/ConfigResURL';
 
 @Controller('config')
 export class ConfigController {
-    /** 配置表处理 */
+    /** 配置表处理实例 */
     private m_configDispose: ConfigDispose;
 
     //
     public constructor() {
-        this.m_configDispose = new ConfigDispose;
+        //获取实例
+        this.m_configDispose = new ConfigDispose();
     }
 
     /**
@@ -66,5 +68,21 @@ export class ConfigController {
     @Post('exportExcelToJson')
     async exportExcelToJson(@Body() body): Promise<IResponseData<any>> {
         return this.m_configDispose.exportExcelToJson(body.excel);
+    }
+
+    /**
+     * 获取路径
+     */
+    @Get('getURL')
+    async getURL(@Query() query): Promise<IResponseData<any>> {
+        return this.m_configDispose.getURL(ELocalURLKey[query.key]);
+    }
+
+    /**
+    * 修改路径
+    */
+    @Post('alterURL')
+    async alterURL(@Body() body): Promise<IResponseData<any>> {
+        return this.m_configDispose.alterURL(ELocalURLKey[body.key], body.url);
     }
 }

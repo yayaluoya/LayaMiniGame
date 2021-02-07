@@ -22,6 +22,10 @@
 
     TypeScript的附加工具
 
+## Code Runner
+
+    运行多种语言的代码片段或代码文件:C, c++， Java, JavaScript, PHP, Python, Perl, Perl 6, Ruby, Go, Lua, Groovy, PowerShell, BAT/CMD, BASH/SH, f# Script, f#(。NET Core)， c# Script, c#(。NET Core)， VBScript, TypeScript, CoffeeScript, Scala, Swift, Julia, Crystal, OCaml Script, R, AppleScript, Elixir, Visual Basic .NET, Clojure, Haxe, Objective-C, Rust, Racket, Scheme, AutoHotkey, AutoIt, Kotlin, Dart, Free Pascal, Haskell, Nim, D, Lisp, Kit, V, SCSS, Sass, CUDA, Less, Fortran，和自定义命令
+
 ## Auto Close Tag
 
     自动添加HTML/XML关闭标签，与Visual Studio IDE或Sublime文本相同
@@ -148,3 +152,11 @@
 ## Todo Tree
 
     在树状视图中显示TODO、FIXME等注释标签
+
+## IntelliSense for CSS class names in HTML
+
+    一个Visual Studio代码扩展，它根据您的工作空间或通过link元素引用的外部文件中的定义，为HTML类属性提供CSS类名补全。
+
+## Code Spell Checker
+
+    Visual Studio代码的拼写检查器

@@ -30,6 +30,6 @@ export default {
 
 <style scoped lang="scss">
 #Main {
-    //
+    position: relative;
 }
 </style>
