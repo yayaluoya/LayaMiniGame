@@ -27,6 +27,7 @@ export default {};
         position: fixed;
         background-color: #fff;
         z-index: 999;
+        top: 41px;
 
         > .container {
         }
