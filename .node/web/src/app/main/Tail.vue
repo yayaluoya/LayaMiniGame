@@ -1,6 +1,6 @@
 <template>
-    <div id="Tail">
-        <div class="container com-container com-border-top">Tail</div>
+    <div id="Tail" class="com-border-top">
+        <div class="container com-container">Tail</div>
     </div>
 </template>
 

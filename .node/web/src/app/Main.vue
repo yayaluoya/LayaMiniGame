@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import Background from "./com/Background.vue";
-import Head from "./com/Head.vue";
-import Body from "./com/Body.vue";
-import Tail from "./com/Tail.vue";
+import Background from "./main/Background.vue";
+import Head from "./main/Head.vue";
+import Body from "./main/Body.vue";
+import Tail from "./main/Tail.vue";
 
 export default {
     name: "Main",

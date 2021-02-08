@@ -1,7 +1,7 @@
 <template>
     <div id="Body">
-        <div class="nav">
-            <div class="container com-container com-border-bottom"></div>
+        <div class="nav com-border-bottom">
+            <div class="container com-container"></div>
         </div>
         <div class="content"></div>
     </div>

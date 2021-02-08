@@ -11,3 +11,6 @@
     先卸载Node
     下载nvm并安装 (推荐使用nvm-setup.zip)
     https://github.com/coreybutler/nvm-windows/releases
+
+## 踩坑
+    当已经安装了一个版本在使用另一个版本时可能会出错，把全部版本删了就没事了。

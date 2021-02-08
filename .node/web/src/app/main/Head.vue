@@ -1,6 +1,6 @@
 <template>
-    <div id="Head">
-        <div class="container com-container com-border-bottom">小游戏后台</div>
+    <div id="Head" class="com-border-bottom">
+        <div class="container com-container">小游戏后台</div>
     </div>
 </template>
 
