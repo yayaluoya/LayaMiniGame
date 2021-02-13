@@ -16,8 +16,5 @@ export default {};
     position: fixed;
     background-color: #fff;
     z-index: 999;
-
-    > .container {
-    }
 }
 </style>
