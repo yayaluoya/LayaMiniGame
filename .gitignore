@@ -14,8 +14,8 @@ Unity3D/Library/
 Unity3D/Temp
 
 #临时资源目录
-_shortRes/**
-!_shortRes/.keep
+_Short/**
+!_Short/.keep
 
 # Excel导致提交失败文件
 ~$*.xlsx
