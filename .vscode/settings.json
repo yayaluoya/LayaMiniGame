@@ -1,20 +1,14 @@
 {
     //设置不显示在编辑器的文件夹
     "files.exclude": {
-        "laya": true, //
-        ".laya/chrome/**": true, //
-        ".rpt2_cache/**": true, //
-        //
+        ".laya/chrome/**": true, //谷歌插件代码
         "node_modules/**": true, //npm 包文件夹
-        //
-        ".node/**": true, //
-        //
+        ".node/**": true, //node工具代码
         "Doc/**": true, //配置文件目录
         "Unity3D/**": true, //unity项目文件夹
         "FairyGUI/**": true, //FGUI项目文件夹
-        //
-        "_gameBag/**": true, //临时资源目录
-        "_shortRes/**": true, //临时资源目录
+        "_GameBag/**": true, //临时资源目录
+        "_Short/**": true, //临时资源目录
     },
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
