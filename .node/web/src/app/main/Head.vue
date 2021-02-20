@@ -1,6 +1,11 @@
 <template>
     <div id="Head" class="com-border-bottom">
-        <div class="container com-container">小游戏后台</div>
+        <div class="container com-container">
+            <div class="left">
+                <span>小游戏</span>
+                后台
+            </div>
+        </div>
     </div>
 </template>
 
@@ -16,5 +21,25 @@ export default {};
     position: fixed;
     background-color: #fff;
     z-index: 999;
+
+    > .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        > .left {
+            color: #444461;
+            font-size: 1.1rem;
+            font-weight: 700;
+
+            > span {
+                color: white;
+                background-color: #444461;
+                padding: 3px;
+                border-radius: 3px;
+                margin-right: 3px;
+            }
+        }
+    }
 }
 </style>

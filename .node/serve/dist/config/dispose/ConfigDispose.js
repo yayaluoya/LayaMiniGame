@@ -13,23 +13,29 @@ class ConfigDispose {
     static init() {
     }
     async getAllConfigsNames() {
-        return this.getAllFileNames(ConfigResURL_1.default.excelURL, 'xlsx');
+        return this.getAllFileNames(ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey.configExcelURL), 'xlsx');
     }
     getAllConfigJsonNames() {
-        return this.getAllFileNames(ConfigResURL_1.default.configJsonURL, 'json');
+        return this.getAllFileNames(ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey.configJsonURL), 'json');
     }
     getAllSceneJsonNames() {
-        return this.getAllFileNames(ConfigResURL_1.default.sceneJsonURL, 'json');
+        return this.getAllFileNames(ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey.sceneJsonURL), 'json');
     }
     getAllFileNames(_url, _dis) {
-        var _jsonNames = fs_1.readdirSync(_url).filter((item) => {
-            return RegExp('^[a-zA-Z0-9_-]+\.' + _dis + '$').test(item);
-        }).map((item) => {
-            return {
-                name: item,
-                path: ResURL_1.default.join(_url, item),
-            };
-        });
+        let _jsonNames;
+        try {
+            _jsonNames = fs_1.readdirSync(_url).filter((item) => {
+                return RegExp('^[a-zA-Z0-9_-]+\.' + _dis + '$').test(item);
+            }).map((item) => {
+                return {
+                    name: item,
+                    path: ResURL_1.default.join(_url, item),
+                };
+            });
+        }
+        catch (e) {
+            _jsonNames = [];
+        }
         return new Promise((r) => {
             r(ResponseDataT_1.default.Pack(_jsonNames));
         });
@@ -99,30 +105,54 @@ class ConfigDispose {
     }
     exportExcelToJson(_excel) {
         return new Promise((r) => {
-            ExcelToJson_1.default.excelToJson(_excel, ConfigResURL_1.default.configJsonURL, ConfigResURL_1.default.configTSURL).then((data) => {
+            ExcelToJson_1.default.excelToJson(_excel, ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey.configJsonURL), ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey.configTSURL)).then((data) => {
                 r(ResponseDataT_1.default.Pack(undefined, undefined, undefined, data));
             }).catch((_E) => {
                 r(ResponseDataT_1.default.Pack(undefined, EResponseCode_1.EResponseCode.lose, _E));
             });
         });
     }
-    getURL(_key) {
+    getAllURL() {
         return new Promise((r) => {
-            if (!_key) {
-                r(ResponseDataT_1.default.Pack('', undefined));
-                return;
+            let _urlKey = [];
+            let ifExist = false;
+            for (let _i in ConfigResURL_1.ELocalURLKey) {
+                try {
+                    ifExist = fs_1.statSync(ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey[_i])).isDirectory();
+                }
+                catch (_a) {
+                    ifExist = false;
+                }
+                _urlKey.push({
+                    key: ConfigResURL_1.ELocalURLKey[_i],
+                    url: ConfigLocalData_1.default.instance.getItem(ConfigResURL_1.ELocalURLKey[_i]),
+                    onUrl: ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey[_i]),
+                    explain: ConfigResURL_1.ELocalURLKeyDescription[ConfigResURL_1.ELocalURLKey[_i]],
+                    ifExist: ifExist,
+                });
             }
-            r(ResponseDataT_1.default.Pack(ConfigLocalData_1.default.instance.getItem(_key)));
+            r(ResponseDataT_1.default.Pack(_urlKey));
         });
     }
     alterURL(_key, _url) {
         return new Promise((r) => {
             if (!_key) {
-                r(ResponseDataT_1.default.Pack(false, undefined, '路径关键键不存在！'));
+                r(ResponseDataT_1.default.Pack('', EResponseCode_1.EResponseCode.lose, '路径关键键不存在！'));
                 return;
             }
             ConfigLocalData_1.default.instance.setItem(_key, _url);
-            r(ResponseDataT_1.default.Pack(true));
+            let _onUrl = ConfigResURL_1.default.getURL(_key);
+            let ifExist = false;
+            try {
+                ifExist = fs_1.statSync(_onUrl).isDirectory();
+            }
+            catch (_a) {
+                ifExist = false;
+            }
+            r(ResponseDataT_1.default.Pack({
+                url: _onUrl,
+                ifExist: ifExist,
+            }));
         });
     }
 }

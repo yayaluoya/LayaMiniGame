@@ -1,5 +1,5 @@
 <template>
-    <div id="json">{{ data }}</div>
+    <div id="excel">{{ data }}</div>
 </template>
 
 <script>
@@ -22,6 +22,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#json {
+#excel {
 }
 </style>

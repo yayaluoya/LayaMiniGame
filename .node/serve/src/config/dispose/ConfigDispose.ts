@@ -2,11 +2,12 @@ import { EResponseCode } from "src/_com/EResponseCode";
 import { IResponseData } from "src/_com/IResponseData";
 import ResponseDataT from "src/_com/ResponseDataT";
 import ResURL from "src/_com/ResURL";
-import { readdirSync, readFileSync, writeFile } from "fs";
+import { readdirSync, readFileSync, statSync, writeFile } from "fs";
 import Pako from "src/_com/Pako";
 import ExcelToJson from "src/_com/ExcelToJson";
-import ConfigResURL, { ELocalURLKey } from "./ConfigResURL";
+import ConfigResURL, { ELocalURLKey, ELocalURLKeyDescription } from "./ConfigResURL";
 import ConfigLocalData from "./ConfigLocalData";
+import { cache } from "webpack";
 
 /**
  * 配置文件处理类
@@ -23,19 +24,19 @@ export default class ConfigDispose {
      * 获取所有配置表名字
      */
     public async getAllConfigsNames(): Promise<IResponseData<IFileComData[]>> {
-        return this.getAllFileNames(ConfigResURL.excelURL, 'xlsx');
+        return this.getAllFileNames(ConfigResURL.getURL(ELocalURLKey.configExcelURL), 'xlsx');
     }
     /**
      * 获取所有配置表json名字
      */
     public getAllConfigJsonNames(): Promise<IResponseData<IFileComData[]>> {
-        return this.getAllFileNames(ConfigResURL.configJsonURL, 'json');
+        return this.getAllFileNames(ConfigResURL.getURL(ELocalURLKey.configJsonURL), 'json');
     }
     /**
      * 获取所有场景json文件名字
      */
     public getAllSceneJsonNames(): Promise<IResponseData<IFileComData[]>> {
-        return this.getAllFileNames(ConfigResURL.sceneJsonURL, 'json');
+        return this.getAllFileNames(ConfigResURL.getURL(ELocalURLKey.sceneJsonURL), 'json');
     }
 
     /**
@@ -44,14 +45,19 @@ export default class ConfigDispose {
      * @param _dis 文件后缀
      */
     private getAllFileNames(_url: string, _dis: string): Promise<IResponseData<IFileComData[]>> {
-        var _jsonNames: IFileComData[] = readdirSync(_url).filter((item) => {
-            return RegExp('^[a-zA-Z0-9_-]+\.' + _dis + '$').test(item);
-        }).map((item) => {
-            return {
-                name: item,
-                path: ResURL.join(_url, item),
-            };
-        });
+        let _jsonNames: IFileComData[];
+        try {
+            _jsonNames = readdirSync(_url).filter((item) => {
+                return RegExp('^[a-zA-Z0-9_-]+\.' + _dis + '$').test(item);
+            }).map((item) => {
+                return {
+                    name: item,
+                    path: ResURL.join(_url, item),
+                };
+            });
+        } catch (e) {
+            _jsonNames = [];
+        }
         return new Promise<IResponseData<IFileComData[]>>((r) => {
             //
             r(ResponseDataT.Pack(_jsonNames));
@@ -147,8 +153,8 @@ export default class ConfigDispose {
         return new Promise<IResponseData<any>>((r) => {
             ExcelToJson.excelToJson(
                 _excel,
-                ConfigResURL.configJsonURL,
-                ConfigResURL.configTSURL,
+                ConfigResURL.getURL(ELocalURLKey.configJsonURL),
+                ConfigResURL.getURL(ELocalURLKey.configTSURL),
             ).then((data) => {
                 //成功
                 r(ResponseDataT.Pack(undefined, undefined, undefined, data));
@@ -160,16 +166,27 @@ export default class ConfigDispose {
     }
 
     /**
-     * 获取路径
-     * @param _key 路径数据关键键
+     * 获取所有路径
      */
-    public getURL(_key: ELocalURLKey): Promise<IResponseData<string>> {
-        return new Promise<IResponseData<string>>((r) => {
-            if (!_key) {
-                r(ResponseDataT.Pack('', undefined));
-                return;
+    public getAllURL(): Promise<IResponseData<any[]>> {
+        return new Promise<IResponseData<any[]>>((r) => {
+            let _urlKey: any[] = [];
+            let ifExist: boolean = false;
+            for (let _i in ELocalURLKey) {
+                try {
+                    ifExist = statSync(ConfigResURL.getURL(ELocalURLKey[_i])).isDirectory();
+                } catch {
+                    ifExist = false;
+                }
+                _urlKey.push({
+                    key: ELocalURLKey[_i],
+                    url: ConfigLocalData.instance.getItem(ELocalURLKey[_i]),
+                    onUrl: ConfigResURL.getURL(ELocalURLKey[_i]),
+                    explain: ELocalURLKeyDescription[ELocalURLKey[_i]],
+                    ifExist: ifExist,
+                });
             }
-            r(ResponseDataT.Pack(ConfigLocalData.instance.getItem(_key)));
+            r(ResponseDataT.Pack(_urlKey));
         });
     }
 
@@ -178,16 +195,28 @@ export default class ConfigDispose {
      * @param _key 路径数据关键键
      * @param _url 新地址
      */
-    public alterURL(_key: ELocalURLKey, _url: string): Promise<IResponseData<boolean>> {
-        return new Promise<IResponseData<boolean>>((r) => {
+    public alterURL(_key: ELocalURLKey, _url: string): Promise<IResponseData<any>> {
+        return new Promise<IResponseData<any>>((r) => {
             if (!_key) {
-                r(ResponseDataT.Pack(false, undefined, '路径关键键不存在！'));
+                r(ResponseDataT.Pack('', EResponseCode.lose, '路径关键键不存在！'));
                 return;
             }
             //修改本地数据
             ConfigLocalData.instance.setItem(_key, _url);
+            //当前路径
+            let _onUrl: string = ConfigResURL.getURL(_key);
+            let ifExist: boolean = false;
+            try {
+                ifExist = statSync(_onUrl).isDirectory();
+            }
+            catch {
+                ifExist = false;
+            }
             //
-            r(ResponseDataT.Pack(true));
+            r(ResponseDataT.Pack({
+                url: _onUrl,
+                ifExist: ifExist,
+            }));
         });
     }
 }

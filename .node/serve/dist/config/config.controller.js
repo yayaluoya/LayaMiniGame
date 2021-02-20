@@ -42,8 +42,8 @@ let ConfigController = class ConfigController {
     async exportExcelToJson(body) {
         return this.m_configDispose.exportExcelToJson(body.excel);
     }
-    async getURL(query) {
-        return this.m_configDispose.getURL(ConfigResURL_1.ELocalURLKey[query.key]);
+    async getAllURL() {
+        return this.m_configDispose.getAllURL();
     }
     async alterURL(body) {
         return this.m_configDispose.alterURL(ConfigResURL_1.ELocalURLKey[body.key], body.url);
@@ -96,12 +96,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ConfigController.prototype, "exportExcelToJson", null);
 __decorate([
-    common_1.Get('getURL'),
-    __param(0, common_1.Query()),
+    common_1.Get('getAllURL'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], ConfigController.prototype, "getURL", null);
+], ConfigController.prototype, "getAllURL", null);
 __decorate([
     common_1.Post('alterURL'),
     __param(0, common_1.Body()),

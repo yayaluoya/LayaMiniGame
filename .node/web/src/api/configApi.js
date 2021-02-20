@@ -18,6 +18,10 @@ const configApi = {
     unZipJsonFile: rootApi + 'config/unZipJsonFile',
     /** 导出excel到json */
     exportExcelToJson: rootApi + 'config/exportExcelToJson',
+    /** 获取所有路径关键值 */
+    getAllURL: rootApi + 'config/getAllURL',
+    /** 修改路径 */
+    alterURL: rootApi + 'config/alterURL',
 };
 
 export default configApi;

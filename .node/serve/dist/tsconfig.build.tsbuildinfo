@@ -202,13 +202,48 @@
         "affectsGlobalScope": false
       },
       "../src/config/dispose/configresurl.ts": {
-        "version": "943860c448430b34ecdae594c26648e25ef30135296fb8f8715fce3e2e95e4e8",
-        "signature": "17346aec251c334b4be5b0b620f40a9f3edcb4b6f4012c75ab71e275e2061141",
+        "version": "a6ce8d80f820a17119dca1fe9321cd756632c179b414b9be4b94b2b6084c5832",
+        "signature": "8581bdc0edae2a1b868ec4a2c8bdd6681e57c02d379851c8b5d97142c43f13a8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/estree/index.d.ts": {
+        "version": "6a38e250306ceccbab257d11b846d5bd12491157d20901fa01afe4050c93c1b5",
+        "signature": "6a38e250306ceccbab257d11b846d5bd12491157d20901fa01afe4050c93c1b5",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/json-schema/index.d.ts": {
+        "version": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
+        "signature": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ajv/lib/ajv.d.ts": {
+        "version": "67f129ed8b372622ff36b8b10e39d03e09e363a5ff7821105f92f085b8d1ccba",
+        "signature": "67f129ed8b372622ff36b8b10e39d03e09e363a5ff7821105f92f085b8d1ccba",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/webpack/node_modules/schema-utils/declarations/validate.d.ts": {
+        "version": "62a05210201c793349ec28254f06a01814c5b4f5591f6d1921941286db78ea2a",
+        "signature": "62a05210201c793349ec28254f06a01814c5b4f5591f6d1921941286db78ea2a",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts": {
+        "version": "327f42ab31ff4539ba868d0374f8825af328b104b5f78d26b2e3ce9cc17b43a0",
+        "signature": "327f42ab31ff4539ba868d0374f8825af328b104b5f78d26b2e3ce9cc17b43a0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/webpack/node_modules/tapable/tapable.d.ts": {
+        "version": "b395ec0779c66de885f97974534e95ee2c8bbf9acaf5857a6782ddc32972b6d8",
+        "signature": "b395ec0779c66de885f97974534e95ee2c8bbf9acaf5857a6782ddc32972b6d8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/webpack/types.d.ts": {
+        "version": "abef3d778d7ca5a6e58478c4dca920feab88ae75cda8d6abf9ad7c3113cf340c",
+        "signature": "abef3d778d7ca5a6e58478c4dca920feab88ae75cda8d6abf9ad7c3113cf340c",
         "affectsGlobalScope": false
       },
       "../src/config/dispose/configdispose.ts": {
-        "version": "c058b4305ff547ae92e6cdbcbc6002a5f691b8036c001328baea2987e2ad6a39",
-        "signature": "53dc09e60de4732774b2a386ba0663a58c5447bfc8cb67c6eeaaca6effbc3796",
+        "version": "c162c3961bc55890d284047ba846925d391ce51e60284d116e31b49457fa9043",
+        "signature": "67ea95939f21bac3cbcd19773c1d522997f59a1fa9ba3e259d41ecce160c44d3",
         "affectsGlobalScope": false
       },
       "../src/_com/logt.ts": {
@@ -1242,7 +1277,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.service.ts": {
-        "version": "6de183a3dd61a6327fcdfc9bf00aa1152197c368629ed72d8165e41f1b937c27",
+        "version": "dd531b18c7c6f5cf25b4eb3ce43e26041ce883a2615f5f2a1d2fab35ec13a93c",
         "signature": "d8f4cb0109c1b399d657807fd6af504d74a9300325e0fc915abdbf658b464a97",
         "affectsGlobalScope": false
       },
@@ -1252,17 +1287,17 @@
         "affectsGlobalScope": false
       },
       "../src/config/config.controller.ts": {
-        "version": "f3af34683aa0af04214879530587422d308d5f1bb09436a0bb4c1194ab692986",
-        "signature": "15f4d81263a4825d679c94584758149768b93ad0e5170830a0e377ae2f76e54c",
+        "version": "ef246b3872180f785cc16bb2db5a8d7472bbae4ce01d1141b2e3979e0ea594a2",
+        "signature": "e5f49130fec36d161f4c8b9031983ea9fadc96a06d2677ef60976bc6fd4047cb",
         "affectsGlobalScope": false
       },
       "../src/log/log.controller.ts": {
-        "version": "c2d5ccff5d744b1fc219b4e51f59fe6de67116a58c205ce8013614f2a5ea25d2",
+        "version": "b9a9184be3d1f4ebd7be3867fd13a0dc54681e2948dc570592d9e1ce310ac773",
         "signature": "6b16b480c7b413bb04f408207d28744f401266c2e73f754b0860b37ca803e1c0",
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "6e001b7fbcd26db078d6bf53dc641d89d1983e8e4873c45f8caec9888fa4c15c",
+        "version": "e2ca53883ea16f89cd903558816c1f07e0c8da8907c4ba74e931ab2a1e6d067a",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88",
         "affectsGlobalScope": false
       },
@@ -1825,16 +1860,6 @@
         "version": "f345b0888d003fd69cb32bad3a0aa04c615ccafc572019e4bd86a52bd5e49e46",
         "signature": "f345b0888d003fd69cb32bad3a0aa04c615ccafc572019e4bd86a52bd5e49e46",
         "affectsGlobalScope": true
-      },
-      "../node_modules/@types/json-schema/index.d.ts": {
-        "version": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
-        "signature": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@types/estree/index.d.ts": {
-        "version": "6a38e250306ceccbab257d11b846d5bd12491157d20901fa01afe4050c93c1b5",
-        "signature": "6a38e250306ceccbab257d11b846d5bd12491157d20901fa01afe4050c93c1b5",
-        "affectsGlobalScope": false
       },
       "../node_modules/@types/eslint/index.d.ts": {
         "version": "edb3e2f61a2a6e29a5f9043f73adf65951d52b4c1f22e84050381f7ef0d77318",
@@ -3445,6 +3470,22 @@
       "../node_modules/rxjs/internal/util/pipe.d.ts": [
         "../node_modules/rxjs/internal/types.d.ts"
       ],
+      "../node_modules/webpack/node_modules/schema-utils/declarations/validate.d.ts": [
+        "../node_modules/@types/json-schema/index.d.ts",
+        "../node_modules/ajv/lib/ajv.d.ts",
+        "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts"
+      ],
+      "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts": [
+        "../node_modules/@types/json-schema/index.d.ts",
+        "../node_modules/ajv/lib/ajv.d.ts",
+        "../node_modules/webpack/node_modules/schema-utils/declarations/validate.d.ts"
+      ],
+      "../node_modules/webpack/types.d.ts": [
+        "../node_modules/@types/estree/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts",
+        "../node_modules/webpack/node_modules/tapable/tapable.d.ts"
+      ],
       "../src/_com/baselocaldata.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../src/_com/resurl.ts"
@@ -3489,6 +3530,7 @@
       ],
       "../src/config/dispose/configdispose.ts": [
         "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/webpack/types.d.ts",
         "../src/_com/eresponsecode.ts",
         "../src/_com/exceltojson.ts",
         "../src/_com/iresponsedata.ts",
@@ -4867,6 +4909,22 @@
       ],
       "../node_modules/rxjs/internal/util/pipe.d.ts": [
         "../node_modules/rxjs/internal/types.d.ts"
+      ],
+      "../node_modules/webpack/node_modules/schema-utils/declarations/validate.d.ts": [
+        "../node_modules/@types/json-schema/index.d.ts",
+        "../node_modules/ajv/lib/ajv.d.ts",
+        "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts"
+      ],
+      "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts": [
+        "../node_modules/@types/json-schema/index.d.ts",
+        "../node_modules/ajv/lib/ajv.d.ts",
+        "../node_modules/webpack/node_modules/schema-utils/declarations/validate.d.ts"
+      ],
+      "../node_modules/webpack/types.d.ts": [
+        "../node_modules/@types/estree/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts",
+        "../node_modules/webpack/node_modules/tapable/tapable.d.ts"
       ],
       "../src/_com/iresponsedata.ts": [
         "../src/_com/eresponsecode.ts"

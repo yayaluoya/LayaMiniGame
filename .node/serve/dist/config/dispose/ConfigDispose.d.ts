@@ -10,8 +10,8 @@ export default class ConfigDispose {
     zipJsonFile(_url: string): Promise<IResponseData<any>>;
     unZipJsonFile(_url: string): Promise<IResponseData<any>>;
     exportExcelToJson(_excel: string): Promise<IResponseData<any>>;
-    getURL(_key: ELocalURLKey): Promise<IResponseData<string>>;
-    alterURL(_key: ELocalURLKey, _url: string): Promise<IResponseData<boolean>>;
+    getAllURL(): Promise<IResponseData<any[]>>;
+    alterURL(_key: ELocalURLKey, _url: string): Promise<IResponseData<any>>;
 }
 interface IFileComData {
     name: string;

@@ -71,15 +71,15 @@ export class ConfigController {
     }
 
     /**
-     * 获取路径
+     * 获取所有路径关键值
      */
-    @Get('getURL')
-    async getURL(@Query() query): Promise<IResponseData<any>> {
-        return this.m_configDispose.getURL(ELocalURLKey[query.key]);
+    @Get('getAllURL')
+    async getAllURL(): Promise<IResponseData<any>> {
+        return this.m_configDispose.getAllURL();
     }
 
     /**
-    * 修改路径
+    * 修改某个路径
     */
     @Post('alterURL')
     async alterURL(@Body() body): Promise<IResponseData<any>> {

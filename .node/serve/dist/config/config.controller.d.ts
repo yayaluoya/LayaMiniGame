@@ -9,6 +9,6 @@ export declare class ConfigController {
     zipJsonFile(body: any): Promise<IResponseData<any>>;
     unZipJsonFile(body: any): Promise<IResponseData<any>>;
     exportExcelToJson(body: any): Promise<IResponseData<any>>;
-    getURL(query: any): Promise<IResponseData<any>>;
+    getAllURL(): Promise<IResponseData<any>>;
     alterURL(body: any): Promise<IResponseData<any>>;
 }

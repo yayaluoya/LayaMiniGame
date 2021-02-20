@@ -1,9 +1,11 @@
 //公共容器
 .com-container {
-    width: 900px;
+    max-width: 900px;
     height: 100%;
     margin: 0 auto;
+    //内容上下居中
     align-items: center;
+    padding: 0 10px;
 }
 
 //公共顶部下划线

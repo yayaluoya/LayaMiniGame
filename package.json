@@ -7,10 +7,10 @@
     "layaminigameframe": "game.js"
   },
   "scripts": {
-    "compile": "gulp compile",
+    "Compile": "gulp compile",
     "开启Serve": "gulp startServe",
     "开启Web": "gulp startWeb",
-    "webpack增量编译": "gulp webpackCompile_",
+    "Webpack增量编译": "gulp webpackCompile_",
     "LayaAir编译": "gulp layaCompile",
     "LayaAir增量编译": "gulp layaCompile_",
     "开启局域网服务": "gulp openServer",
