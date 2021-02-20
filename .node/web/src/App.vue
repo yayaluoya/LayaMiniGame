@@ -11,8 +11,6 @@ import Vue from "vue";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI);
-//引入nes.css库
-import "nes.css/css/nes.min.css";
 //引入自定义样式
 import "./css/index.scss";
 //引入全局状态管理器
