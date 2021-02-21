@@ -5,9 +5,10 @@
         <el-button
             type="primary"
             size="mini"
+            :plain="!ifAlter"
             :disabled="ifExport"
             @click="exportJson()"
-            >导出{{ ifAlter }}</el-button
+            >导出</el-button
         >
     </div>
 </template>
@@ -45,6 +46,8 @@ export default {
                         this.$message.error("请求出错！", data.mes);
                         return;
                     }
+                    //
+                    this.ifAlter = false;
                     //导出成功
                     this.$message({
                         showClose: true,

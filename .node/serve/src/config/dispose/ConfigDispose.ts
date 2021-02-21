@@ -39,10 +39,11 @@ export default class ConfigDispose {
                     });
                     if (_excelInfo) {
                         //判断时间是否正确，如果不正确就说明有修改
-                        console.log(_info.mtime.toLocaleString());
-                        _ifAlter = (_info.mtime.toLocaleString() != _excelInfo.info.mtime + '');
+                        // console.log(_info.mtime.toLocaleString(), _excelInfo.info.mtime);
+                        _ifAlter = (_info.mtime.toLocaleString() != _excelInfo.info.mtime);
                     }
                     item['ifAlter'] = _ifAlter;
+                    //
                     return item;
                 });
                 r(data);
@@ -186,12 +187,15 @@ export default class ConfigDispose {
                 let _index: number = _excelInfos.findIndex((item) => {
                     return item.url == _excel;
                 });
+                let _stat: Stats = statSync(_excel);
                 if (_index != -1) {
-                    _excelInfos[_index].info = statSync(_excel);
+                    _excelInfos[_index].info.mtime = _stat.mtime.toLocaleString();
                 } else {
                     _excelInfos.push({
                         url: _excel,
-                        info: statSync(_excel),
+                        info: {
+                            mtime: _stat.mtime.toLocaleString(),
+                        },
                     });
                 }
                 //重新存储数据
@@ -276,7 +280,10 @@ interface IExcelInfo {
     /** 路径 */
     url: string,
     /** info数据 */
-    info: Stats,
+    info: {
+        /** 修改时间字符串 */
+        mtime: string,
+    },
 }
 
 /**

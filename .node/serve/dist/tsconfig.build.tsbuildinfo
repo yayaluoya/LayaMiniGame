@@ -177,8 +177,8 @@
         "affectsGlobalScope": false
       },
       "../src/_com/resurl.ts": {
-        "version": "108205973b8f609d560ccd155b1299b7e0f5f889b98c60903327b57023365bdc",
-        "signature": "952fbecc8e779e114010fbd39a73028c7d6d1aca81f9a2211d4c1c53899deeff",
+        "version": "5ab1dd74a6d6362731f5a6038d7b90b464ad1af82dfd8cab4d4e7b1ee7401382",
+        "signature": "9e862d61d7ac9d5e8d006e36599f8fd72c890aca9f30f90916c66c99d484eb43",
         "affectsGlobalScope": false
       },
       "../src/_com/pako.ts": {
@@ -212,18 +212,13 @@
         "affectsGlobalScope": false
       },
       "../src/config/dispose/configdispose.ts": {
-        "version": "416c83bbf6030afa257ee60f4b5c932ad470e3e799c96d9db4fac3119898a421",
+        "version": "cd314b133aed0d2c603f832b5b9d4fee5f28b9858a79af1683ce563c01752eb7",
         "signature": "67ea95939f21bac3cbcd19773c1d522997f59a1fa9ba3e259d41ecce160c44d3",
         "affectsGlobalScope": false
       },
-      "../src/_com/logt.ts": {
-        "version": "6a254b214483cefd573196a05103a5da28404a82ab5866231ea532c2cb3cc976",
-        "signature": "2fe130252b6c24614c51aaa13d585adf0bb15c78fa9a9aee33b18c7c898d3cd5",
-        "affectsGlobalScope": false
-      },
       "../src/log/dispose/logdispose.ts": {
-        "version": "8d4d1ea0fd09fe31dabb7e948bc631d1fd7789f24e08ad078b89d86b54d725fe",
-        "signature": "c7c033d4f521fd87ff0ca909a6074373b10ba16c132990493efb60607beec95e",
+        "version": "c366803b01d6d36c0dfc501515c6d2fa637cae6deba844d7859ca83568012bf9",
+        "signature": "7f82c6867a5084e74db5d8b7b22dce35f6683fe717d035ccb22633332960a646",
         "affectsGlobalScope": false
       },
       "../src/init.ts": {
@@ -1247,7 +1242,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.service.ts": {
-        "version": "dd531b18c7c6f5cf25b4eb3ce43e26041ce883a2615f5f2a1d2fab35ec13a93c",
+        "version": "6de183a3dd61a6327fcdfc9bf00aa1152197c368629ed72d8165e41f1b937c27",
         "signature": "d8f4cb0109c1b399d657807fd6af504d74a9300325e0fc915abdbf658b464a97",
         "affectsGlobalScope": false
       },
@@ -1257,17 +1252,17 @@
         "affectsGlobalScope": false
       },
       "../src/config/config.controller.ts": {
-        "version": "ef246b3872180f785cc16bb2db5a8d7472bbae4ce01d1141b2e3979e0ea594a2",
+        "version": "29d651efc3d0c8c6be2e2965e32c4a5e24a48b41f287407cb2dce28f137d490d",
         "signature": "e5f49130fec36d161f4c8b9031983ea9fadc96a06d2677ef60976bc6fd4047cb",
         "affectsGlobalScope": false
       },
       "../src/log/log.controller.ts": {
-        "version": "b9a9184be3d1f4ebd7be3867fd13a0dc54681e2948dc570592d9e1ce310ac773",
-        "signature": "6b16b480c7b413bb04f408207d28744f401266c2e73f754b0860b37ca803e1c0",
+        "version": "15c87a72ae284695a802d3e0b6f2afef2ab52a446067636041e5046dfe9f3ef3",
+        "signature": "89c212d2a4bd994d0c7e7df09c2abcf8dde2b0545b00ea63eb7da65da07f37c9",
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "e2ca53883ea16f89cd903558816c1f07e0c8da8907c4ba74e931ab2a1e6d067a",
+        "version": "6e001b7fbcd26db078d6bf53dc641d89d1983e8e4873c45f8caec9888fa4c15c",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88",
         "affectsGlobalScope": false
       },
@@ -3461,10 +3456,6 @@
       "../src/_com/iresponsedata.ts": [
         "../src/_com/eresponsecode.ts"
       ],
-      "../src/_com/logt.ts": [
-        "../node_modules/@types/node/fs.d.ts",
-        "../src/_com/resurl.ts"
-      ],
       "../src/_com/responsedatat.ts": [
         "../src/_com/eresponsecode.ts",
         "../src/_com/iresponsedata.ts"
@@ -3516,10 +3507,15 @@
         "../src/log/dispose/logdispose.ts"
       ],
       "../src/log/dispose/logdispose.ts": [
-        "../src/_com/logt.ts"
+        "../node_modules/@types/node/fs.d.ts",
+        "../src/_com/eresponsecode.ts",
+        "../src/_com/iresponsedata.ts",
+        "../src/_com/responsedatat.ts",
+        "../src/_com/resurl.ts"
       ],
       "../src/log/log.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
+        "../src/_com/iresponsedata.ts",
         "../src/log/dispose/logdispose.ts"
       ],
       "../src/main.ts": [
@@ -4893,6 +4889,12 @@
       ],
       "../src/config/dispose/configlocaldata.ts": [
         "../src/_com/baselocaldata.ts"
+      ],
+      "../src/log/dispose/logdispose.ts": [
+        "../src/_com/iresponsedata.ts"
+      ],
+      "../src/log/log.controller.ts": [
+        "../src/_com/iresponsedata.ts"
       ],
       "../../../node_modules/@types/glob/index.d.ts": [
         "../../../node_modules/@types/minimatch/index.d.ts",

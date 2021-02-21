@@ -33,6 +33,9 @@ Vue.prototype.$api = api;
 //引入json数据查看器
 import JsonViewer from "vue-json-viewer";
 Vue.use(JsonViewer);
+//引入markdown解析库
+import marked from "marked";
+Vue.prototype.$marked = marked;
 //
 import Main from "./app/Main.vue";
 

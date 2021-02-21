@@ -8,6 +8,9 @@ class ResURL {
     static get serveRootURL() {
         return this.join(path_1.resolve(__dirname, '../../'), '/');
     }
+    static get publicURL() {
+        return this.join(this.serveRootURL, 'public/');
+    }
     static get localDataURL() {
         return this.join(this.serveRootURL, '.localData/');
     }
@@ -23,8 +26,11 @@ class ResURL {
     static get gameSrcURL() {
         return this.join(this.srcURL, 'Game/');
     }
-    static get logFileURL() {
-        return this.join(this.rootURL, '/文档/Serve/日志.md');
+    static get logURL() {
+        return this.join(this.publicURL, 'log/');
+    }
+    static get imgURL() {
+        return this.join(this.publicURL, 'img/');
     }
     static join(..._URLs) {
         let _url = path_1.join(..._URLs);

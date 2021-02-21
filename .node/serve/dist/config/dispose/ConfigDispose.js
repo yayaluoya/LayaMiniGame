@@ -26,8 +26,7 @@ class ConfigDispose {
                         return _item.url == item.path;
                     });
                     if (_excelInfo) {
-                        console.log(_info.mtime.toLocaleString());
-                        _ifAlter = (_info.mtime.toLocaleString() != _excelInfo.info.mtime + '');
+                        _ifAlter = (_info.mtime.toLocaleString() != _excelInfo.info.mtime);
                     }
                     item['ifAlter'] = _ifAlter;
                     return item;
@@ -133,13 +132,16 @@ class ConfigDispose {
                 let _index = _excelInfos.findIndex((item) => {
                     return item.url == _excel;
                 });
+                let _stat = fs_1.statSync(_excel);
                 if (_index != -1) {
-                    _excelInfos[_index].info = fs_1.statSync(_excel);
+                    _excelInfos[_index].info.mtime = _stat.mtime.toLocaleString();
                 }
                 else {
                     _excelInfos.push({
                         url: _excel,
-                        info: fs_1.statSync(_excel),
+                        info: {
+                            mtime: _stat.mtime.toLocaleString(),
+                        },
                     });
                 }
                 ConfigLocalData_1.default.instance.setItem(EConfigLocalDataKey_1.EConfigLocalDataKey.excelInfoData, _excelInfos);

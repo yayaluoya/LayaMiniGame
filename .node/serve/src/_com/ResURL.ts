@@ -14,6 +14,11 @@ export default class ResURL {
         return this.join(resolve(__dirname, '../../'), '/');
     }
 
+    /** 公共资源路径 */
+    public static get publicURL(): string {
+        return this.join(this.serveRootURL, 'public/');
+    }
+
     /** 本地数据目录 */
     public static get localDataURL(): string {
         return this.join(this.serveRootURL, '.localData/');
@@ -39,9 +44,14 @@ export default class ResURL {
         return this.join(this.srcURL, 'Game/');
     }
 
-    /** 获取日志文件路径 */
-    public static get logFileURL(): string {
-        return this.join(this.rootURL, '/文档/Serve/日志.md');
+    /** 日志目录 */
+    public static get logURL(): string {
+        return this.join(this.publicURL, 'log/');
+    }
+
+    /** 图片资源目录 */
+    public static get imgURL(): string {
+        return this.join(this.publicURL, 'img/');
     }
 
     /**

@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { IResponseData } from 'src/_com/IResponseData';
 import LogDispose from './dispose/LogDispose';
 
 @Controller('log')
@@ -13,10 +14,26 @@ export class LogController {
     }
 
     /**
-     * 写入log日志
+     * 获取所有日志基础数据
+     */
+    @Get('getAllLog')
+    async getAllLog(@Query() query): Promise<IResponseData<any>> {
+        return this.m_logDispose.getAllLog();
+    }
+
+    /**
+     * 获取日志数据
+     */
+    @Get('getLog')
+    async getLog(@Query() query): Promise<IResponseData<any>> {
+        return this.m_logDispose.getLog(query['name']);
+    }
+
+    /**
+     * 写入日志
      */
     @Post('writeLog')
-    async unZipJsonFile(@Body() body) {
-        this.m_logDispose.writeLog(body['log']);
+    async writeLog(@Body() body): Promise<IResponseData<any>> {
+        return this.m_logDispose.writeLog(body['log'], body['log_'], body['key']);
     }
 }

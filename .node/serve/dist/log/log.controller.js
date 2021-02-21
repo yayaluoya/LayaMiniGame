@@ -14,22 +14,43 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LogController = void 0;
 const common_1 = require("@nestjs/common");
+const IResponseData_1 = require("../_com/IResponseData");
 const LogDispose_1 = require("./dispose/LogDispose");
 let LogController = class LogController {
     constructor() {
         this.m_logDispose = new LogDispose_1.default();
     }
-    async unZipJsonFile(body) {
-        this.m_logDispose.writeLog(body['log']);
+    async getAllLog(query) {
+        return this.m_logDispose.getAllLog();
+    }
+    async getLog(query) {
+        return this.m_logDispose.getLog(query['name']);
+    }
+    async writeLog(body) {
+        return this.m_logDispose.writeLog(body['log'], body['log_'], body['key']);
     }
 };
+__decorate([
+    common_1.Get('getAllLog'),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], LogController.prototype, "getAllLog", null);
+__decorate([
+    common_1.Get('getLog'),
+    __param(0, common_1.Query()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], LogController.prototype, "getLog", null);
 __decorate([
     common_1.Post('writeLog'),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], LogController.prototype, "unZipJsonFile", null);
+], LogController.prototype, "writeLog", null);
 LogController = __decorate([
     common_1.Controller('log'),
     __metadata("design:paramtypes", [])
