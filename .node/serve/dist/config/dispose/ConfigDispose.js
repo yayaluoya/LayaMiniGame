@@ -9,11 +9,34 @@ const Pako_1 = require("../../_com/Pako");
 const ExcelToJson_1 = require("../../_com/ExcelToJson");
 const ConfigResURL_1 = require("./ConfigResURL");
 const ConfigLocalData_1 = require("./ConfigLocalData");
+const EConfigLocalDataKey_1 = require("./EConfigLocalDataKey");
 class ConfigDispose {
     static init() {
     }
     async getAllConfigsNames() {
-        return this.getAllFileNames(ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey.configExcelURL), 'xlsx');
+        return new Promise((r, e) => {
+            this.getAllFileNames(ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey.configExcelURL), 'xlsx').then((data) => {
+                let _info = null;
+                let _excelInfos = ConfigLocalData_1.default.instance.getItem(EConfigLocalDataKey_1.EConfigLocalDataKey.excelInfoData) || [];
+                let _excelInfo;
+                let _ifAlter = true;
+                data.data = data.data.map((item) => {
+                    _info = fs_1.statSync(item.path);
+                    _excelInfo = _excelInfos.find((_item) => {
+                        return _item.url == item.path;
+                    });
+                    if (_excelInfo) {
+                        console.log(_info.mtime.toLocaleString());
+                        _ifAlter = (_info.mtime.toLocaleString() != _excelInfo.info.mtime + '');
+                    }
+                    item['ifAlter'] = _ifAlter;
+                    return item;
+                });
+                r(data);
+            }).catch((E) => {
+                e(E);
+            });
+        });
     }
     getAllConfigJsonNames() {
         return this.getAllFileNames(ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey.configJsonURL), 'json');
@@ -106,6 +129,20 @@ class ConfigDispose {
     exportExcelToJson(_excel) {
         return new Promise((r) => {
             ExcelToJson_1.default.excelToJson(_excel, ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey.configJsonURL), ConfigResURL_1.default.getURL(ConfigResURL_1.ELocalURLKey.configTSURL)).then((data) => {
+                let _excelInfos = ConfigLocalData_1.default.instance.getItem(EConfigLocalDataKey_1.EConfigLocalDataKey.excelInfoData) || [];
+                let _index = _excelInfos.findIndex((item) => {
+                    return item.url == _excel;
+                });
+                if (_index != -1) {
+                    _excelInfos[_index].info = fs_1.statSync(_excel);
+                }
+                else {
+                    _excelInfos.push({
+                        url: _excel,
+                        info: fs_1.statSync(_excel),
+                    });
+                }
+                ConfigLocalData_1.default.instance.setItem(EConfigLocalDataKey_1.EConfigLocalDataKey.excelInfoData, _excelInfos);
                 r(ResponseDataT_1.default.Pack(undefined, undefined, undefined, data));
             }).catch((_E) => {
                 r(ResponseDataT_1.default.Pack(undefined, EResponseCode_1.EResponseCode.lose, _E));
@@ -143,8 +180,14 @@ class ConfigDispose {
             ConfigLocalData_1.default.instance.setItem(_key, _url);
             let _onUrl = ConfigResURL_1.default.getURL(_key);
             let ifExist = false;
+            let moreUrl = [];
             try {
                 ifExist = fs_1.statSync(_onUrl).isDirectory();
+                if (ifExist) {
+                    moreUrl = fs_1.readdirSync(_onUrl).filter((item) => {
+                        return fs_1.statSync(ResURL_1.default.join(_onUrl, item)).isDirectory();
+                    });
+                }
             }
             catch (_a) {
                 ifExist = false;
@@ -152,6 +195,7 @@ class ConfigDispose {
             r(ResponseDataT_1.default.Pack({
                 url: _onUrl,
                 ifExist: ifExist,
+                moreUrl: moreUrl,
             }));
         });
     }

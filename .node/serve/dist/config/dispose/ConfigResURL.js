@@ -49,15 +49,15 @@ exports.default = ConfigResURL;
 var ELocalURLKey;
 (function (ELocalURLKey) {
     ELocalURLKey["configExcelURL"] = "configExcelURL";
-    ELocalURLKey["sceneJsonURL"] = "sceneJsonURL";
     ELocalURLKey["configJsonURL"] = "configJsonURL";
     ELocalURLKey["configTSURL"] = "configTSURL";
+    ELocalURLKey["sceneJsonURL"] = "sceneJsonURL";
 })(ELocalURLKey = exports.ELocalURLKey || (exports.ELocalURLKey = {}));
 var ELocalURLKeyDescription;
 (function (ELocalURLKeyDescription) {
     ELocalURLKeyDescription["configExcelURL"] = "\u914D\u7F6E\u6587\u4EF6\u8DEF\u5F84";
-    ELocalURLKeyDescription["sceneJsonURL"] = "\u573A\u666Fjson\u6587\u4EF6\u8DEF\u5F84";
     ELocalURLKeyDescription["configJsonURL"] = "configJson\u6587\u4EF6\u8DEF\u5F84";
     ELocalURLKeyDescription["configTSURL"] = "\u914D\u7F6Ets\u6587\u4EF6\u4FDD\u5B58\u8DEF\u5F84";
+    ELocalURLKeyDescription["sceneJsonURL"] = "\u573A\u666Fjson\u6587\u4EF6\u8DEF\u5F84";
 })(ELocalURLKeyDescription = exports.ELocalURLKeyDescription || (exports.ELocalURLKeyDescription = {}));
 //# sourceMappingURL=ConfigResURL.js.map

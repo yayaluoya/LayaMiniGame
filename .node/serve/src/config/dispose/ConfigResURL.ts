@@ -69,12 +69,12 @@ export default class ConfigResURL {
 export enum ELocalURLKey {
     /** 配置文件路径 */
     configExcelURL = 'configExcelURL',
-    /** 场景json文件路径 */
-    sceneJsonURL = 'sceneJsonURL',
     /** configJson文件路径 */
     configJsonURL = 'configJsonURL',
     /** 配置ts文件保存路径 */
     configTSURL = 'configTSURL',
+    /** 场景json文件路径 */
+    sceneJsonURL = 'sceneJsonURL',
 }
 
 /**
@@ -82,7 +82,7 @@ export enum ELocalURLKey {
  */
 export enum ELocalURLKeyDescription {
     configExcelURL = '配置文件路径',
-    sceneJsonURL = '场景json文件路径',
     configJsonURL = 'configJson文件路径',
     configTSURL = '配置ts文件保存路径',
+    sceneJsonURL = '场景json文件路径',
 }

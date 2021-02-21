@@ -1,8 +1,30 @@
 <template>
     <div id="editURL">
-        <span class="alert">{{ explain }}</span>
-        <span class="url" :class="{ noExist: !ifExist }">{{ onUrl }}</span>
-        <el-input :placeholder="explain" v-model="url" clearable> </el-input>
+        <span class="alert">{{ explain }}：</span>
+        <span class="url" :class="{ yesExist: ifExist, noExist: !ifExist }">{{
+            onUrl
+        }}</span>
+        <el-input
+            ref="input"
+            :placeholder="explain"
+            v-model="url"
+            clearable
+            @focus="onFocus = true"
+            @blur="onFocus = false"
+        >
+        </el-input>
+        <div class="more" v-show="moreUrl.length > 0">
+            <el-tag
+                type="info"
+                effect="dark"
+                size="mini"
+                v-for="(item, index) in moreUrl"
+                :key="index"
+                @click="moreUrlClick(item)"
+            >
+                {{ item }}
+            </el-tag>
+        </div>
     </div>
 </template>
 
@@ -11,6 +33,8 @@ export default {
     props: ["data"],
     data() {
         return {
+            /** 是否获取焦点 */
+            onFocus: false,
             /** 名字 */
             key: "",
             /** 当前地址 */
@@ -21,11 +45,16 @@ export default {
             ifExist: "",
             /** 描述 */
             explain: "",
+            /** 更多内容 */
+            moreUrl: [],
         };
     },
     watch: {
         url: function (url) {
-            this.alterURL(url);
+            //过滤
+            this.url = url.replace(/([/\\]+)/g, "/").replace(/ +/g, "");
+            //修改
+            this.alterURL(this.url);
         },
     },
     methods: {
@@ -47,10 +76,17 @@ export default {
                     data = data.data;
                     this.onUrl = data.url;
                     this.ifExist = data.ifExist;
+                    this.moreUrl = data.moreUrl;
                 })
                 .catch(() => {
                     this.$message.error("请求出错！");
                 });
+        },
+        /** 更多url点击 */
+        moreUrlClick(_urlName) {
+            this.url = `${this.url}/${_urlName}/`;
+            //重新获取焦点
+            this.$refs.input.focus();
         },
     },
     mounted() {
@@ -66,9 +102,29 @@ export default {
 
 <style lang="scss" scoped>
 #editURL {
+    padding-bottom: 20px;
+
+    > .el-input {
+        margin-top: 3px;
+    }
+    > span.alert {
+        color: #555574;
+    }
     > span.url {
+        font-weight: 600;
+        font-size: 0.9rem;
+
+        &.yesExist {
+            color: #79d70f;
+        }
         &.noExist {
             color: red;
+        }
+    }
+    > .more {
+        margin-top: 2px;
+        > .el-tag {
+            margin-right: 2px;
         }
     }
 }

@@ -16,9 +16,15 @@ async function bootstrap() {
 	new Init();
 	//输出信息
 	console.log('--');
-	console.log('-- ' + new Date());
-	console.log('----▷ 按 F5 键启动 DeBug 浏览器，并打开 http://localhost:3000/');
+	console.log('-- 开启后端服务  ' + new Date());
+	console.log('----▷ 按 F5 键启动 DeBug 浏览器，打开 http://localhost:3000/ 访问接口');
 	console.log('--');
+	//
+	setTimeout(() => {
+		console.log(JSON.stringify({
+			com: true,
+		}));
+	}, 100);
 }
 
 //开始

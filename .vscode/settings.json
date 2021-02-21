@@ -4,7 +4,7 @@
         ".rpt2_cache/**": true, //laya缓存
         ".laya/chrome/**": true, //谷歌插件代码
         "node_modules/**": true, //npm 包文件夹
-        ".node/**": true, //node工具代码
+        // ".node/**": true, //node工具代码
         "Doc/**": true, //配置文件目录
         "Unity3D/**": true, //unity项目文件夹
         "FairyGUI/**": true, //FGUI项目文件夹

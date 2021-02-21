@@ -7,13 +7,13 @@ export default class ConfigResURL {
 }
 export declare enum ELocalURLKey {
     configExcelURL = "configExcelURL",
-    sceneJsonURL = "sceneJsonURL",
     configJsonURL = "configJsonURL",
-    configTSURL = "configTSURL"
+    configTSURL = "configTSURL",
+    sceneJsonURL = "sceneJsonURL"
 }
 export declare enum ELocalURLKeyDescription {
     configExcelURL = "\u914D\u7F6E\u6587\u4EF6\u8DEF\u5F84",
-    sceneJsonURL = "\u573A\u666Fjson\u6587\u4EF6\u8DEF\u5F84",
     configJsonURL = "configJson\u6587\u4EF6\u8DEF\u5F84",
-    configTSURL = "\u914D\u7F6Ets\u6587\u4EF6\u4FDD\u5B58\u8DEF\u5F84"
+    configTSURL = "\u914D\u7F6Ets\u6587\u4EF6\u4FDD\u5B58\u8DEF\u5F84",
+    sceneJsonURL = "\u573A\u666Fjson\u6587\u4EF6\u8DEF\u5F84"
 }

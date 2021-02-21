@@ -49,7 +49,7 @@ class ExcelToJson {
                     }
                 }
                 this.saveJson(_excelName, _rowsDatas, _jsonURL).then(() => {
-                    let _TSContent = FillTSFile.fillConfig(_excelName, _keyData, _typeData, _explainData);
+                    let _TSContent = TSFileT.fillConfig(_excelName, _keyData, _typeData, _explainData);
                     this.saveTS(_excelName, _TSContent, _TSURL).then(() => {
                         r({
                             _type: 'config',
@@ -92,7 +92,7 @@ class ExcelToJson {
                     }
                 }
                 this.saveJson(_excelName, _jsonData, _jsonURL).then(() => {
-                    let _TSContent = FillTSFile.fillConst(_excelName, _keyData, _typeData, _explainData);
+                    let _TSContent = TSFileT.fillConst(_excelName, _keyData, _typeData, _explainData);
                     this.saveTS(_excelName, _TSContent, _TSURL).then(() => {
                         r({
                             _type: 'const',
@@ -167,35 +167,74 @@ class ExcelToJson {
             try {
                 fs_1.mkdirSync(_url);
             }
-            catch (e) {
+            catch (E) {
             }
-            _url = ResURL_1.default.join(_url, '/' + _name + '.ts');
-            fs_1.writeFile(_url, _conent, () => {
-                r('');
-            });
+            try {
+                fs_1.writeFile(ResURL_1.default.join(_url, `/${_name}.ts`), _conent, () => {
+                    let _buildConfigTsName = 'BuildConfigTs';
+                    let _configTsNames = fs_1.readdirSync(_url).filter((item) => {
+                        return /\.ts$/.test(item) && item != _buildConfigTsName + '.ts';
+                    }).map((item) => {
+                        return item.replace('.ts', '');
+                    });
+                    fs_1.writeFile(ResURL_1.default.join(_url, `/${_buildConfigTsName}.ts`), TSFileT.fillAllTsFile(_buildConfigTsName, _configTsNames), () => {
+                        r('');
+                    });
+                });
+            }
+            catch (E) {
+                e('保存ts文件出错，' + E);
+            }
         });
     }
 }
 exports.default = ExcelToJson;
-class FillTSFile {
+class TSFileT {
+    static fillAllTsFile(_name, _tsNames) {
+        let _import = '';
+        let _build = '        let configs: any[] = [];\n';
+        for (let _o of _tsNames) {
+            _import += `import { ${_o} } from "./${_o}";\n`;
+            _build += `        configs.push(${_o});\n`;
+        }
+        _build += `        return configs;`;
+        return `// ！ 自动导出，请不要修改
+//
+${_import}
+/**
+* 构建全部配置表
+*/
+export class ${_name} {
+    /**
+     * 获取所有的配置表内容
+     */
+    public static getAllConfig(): any[] {
+${_build}
+    }
+}
+`;
+    }
     static fillConfig(_excelName, _keyData, _typeData, _explainData) {
         let _dataType = ``;
         for (let _i in _keyData) {
             _dataType += `       /** ${_explainData[_i]} */\n        ${_keyData[_i]}: ${this.getType(_typeData[_i])};${Number(_i) == _keyData.length - 1 ? '' : '\n'}`;
         }
-        return `/** 
+        return `// ！ 自动导出，请不要修改
+//
+/**
  * ${_excelName} config配置文件
- * ! 自动导出，请不要更改
  */
 export namespace ${_excelName} {
+    /** 配置表类型 */
+    export const type: string = 'config';
     /** 数据类型 */
-    export class Type {
+    export class DataType {
 ${_dataType}
     }
     /** config数据列表 */
-    export var datas: ${_excelName}.Type[];
+    export var datas: ${_excelName}.DataType[] = [];
     /** 文件名字 */
-    export const fileName = '${_excelName}.json';
+    export const fileName: string = '${_excelName}.json';
 }
     `;
     }
@@ -204,19 +243,22 @@ ${_dataType}
         for (let _i in _keyData) {
             _dataType += `       /** ${_explainData[_i]} */\n        ${_keyData[_i]}: ${this.getType(_typeData[_i])};${Number(_i) == _keyData.length - 1 ? '' : '\n'}`;
         }
-        return `/** 
+        return `// ！ 自动导出，请不要修改
+//
+/**
  * ${_excelName} const配置文件
- * ! 自动导出，请不要更改
  */
 export namespace ${_excelName} {
+    /** 配置表类型 */
+    export const type: string = 'const';
     /** 数据类型 */
-    export class Type {
+    export class DataType {
 ${_dataType}
     }
     /** const数据列表 */
-    export var data: ${_excelName}.Type;
+    export var data: ${_excelName}.DataType = null;
     /** 文件名字 */
-    export const fileName = '${_excelName}.json';
+    export const fileName: string = '${_excelName}.json';
 }
     `;
     }

@@ -30,6 +30,9 @@ Vue.prototype.$http = {
 //引入api实例
 import api from "./api/index.js";
 Vue.prototype.$api = api;
+//引入json数据查看器
+import JsonViewer from "vue-json-viewer";
+Vue.use(JsonViewer);
 //
 import Main from "./app/Main.vue";
 

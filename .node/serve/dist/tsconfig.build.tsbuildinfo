@@ -187,7 +187,7 @@
         "affectsGlobalScope": false
       },
       "../src/_com/exceltojson.ts": {
-        "version": "2c48bb806dd3daf948e04452ddd3dc3f4bf4877a4b2a9f1fbac3f15cf7153149",
+        "version": "3cfac3e77361be9cca39013ec5f9619979c1451662829fc5bf4eeda2f3354e47",
         "signature": "1d1ab4be099f8d5486b9eec66a4a3870c099ba957b1729eea1228b8b4ed5ffce",
         "affectsGlobalScope": false
       },
@@ -202,47 +202,17 @@
         "affectsGlobalScope": false
       },
       "../src/config/dispose/configresurl.ts": {
-        "version": "a6ce8d80f820a17119dca1fe9321cd756632c179b414b9be4b94b2b6084c5832",
-        "signature": "8581bdc0edae2a1b868ec4a2c8bdd6681e57c02d379851c8b5d97142c43f13a8",
+        "version": "82906999e1f49504a911ce9193db794a09b90dfa562f1adb71e5c2f16a6df48c",
+        "signature": "7cf6bace5ad3e1696d577e106081c8d9d61863ddb5b63fecf9cdee2a747d52b4",
         "affectsGlobalScope": false
       },
-      "../node_modules/@types/estree/index.d.ts": {
-        "version": "6a38e250306ceccbab257d11b846d5bd12491157d20901fa01afe4050c93c1b5",
-        "signature": "6a38e250306ceccbab257d11b846d5bd12491157d20901fa01afe4050c93c1b5",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@types/json-schema/index.d.ts": {
-        "version": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
-        "signature": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/ajv/lib/ajv.d.ts": {
-        "version": "67f129ed8b372622ff36b8b10e39d03e09e363a5ff7821105f92f085b8d1ccba",
-        "signature": "67f129ed8b372622ff36b8b10e39d03e09e363a5ff7821105f92f085b8d1ccba",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/webpack/node_modules/schema-utils/declarations/validate.d.ts": {
-        "version": "62a05210201c793349ec28254f06a01814c5b4f5591f6d1921941286db78ea2a",
-        "signature": "62a05210201c793349ec28254f06a01814c5b4f5591f6d1921941286db78ea2a",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts": {
-        "version": "327f42ab31ff4539ba868d0374f8825af328b104b5f78d26b2e3ce9cc17b43a0",
-        "signature": "327f42ab31ff4539ba868d0374f8825af328b104b5f78d26b2e3ce9cc17b43a0",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/webpack/node_modules/tapable/tapable.d.ts": {
-        "version": "b395ec0779c66de885f97974534e95ee2c8bbf9acaf5857a6782ddc32972b6d8",
-        "signature": "b395ec0779c66de885f97974534e95ee2c8bbf9acaf5857a6782ddc32972b6d8",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/webpack/types.d.ts": {
-        "version": "abef3d778d7ca5a6e58478c4dca920feab88ae75cda8d6abf9ad7c3113cf340c",
-        "signature": "abef3d778d7ca5a6e58478c4dca920feab88ae75cda8d6abf9ad7c3113cf340c",
+      "../src/config/dispose/econfiglocaldatakey.ts": {
+        "version": "d3f097553af91e8543ed56a0653117fc4a1d63eb5860d45ed8307d7b3dd5fbb5",
+        "signature": "c225c126128e0abc1e9e84098819d21ee9e7871b558910e57a3532ea0e0ea3af",
         "affectsGlobalScope": false
       },
       "../src/config/dispose/configdispose.ts": {
-        "version": "c162c3961bc55890d284047ba846925d391ce51e60284d116e31b49457fa9043",
+        "version": "416c83bbf6030afa257ee60f4b5c932ad470e3e799c96d9db4fac3119898a421",
         "signature": "67ea95939f21bac3cbcd19773c1d522997f59a1fa9ba3e259d41ecce160c44d3",
         "affectsGlobalScope": false
       },
@@ -1797,7 +1767,7 @@
         "affectsGlobalScope": false
       },
       "../src/main.ts": {
-        "version": "496b0b01619a06fc2270966a1c7b4430db1bce2ca62ab8ebea005e6c583ebd18",
+        "version": "4f69a43ff1e95811fa6ad139647b2f2bf88e19d2d4063a49af64232f8bb04bb1",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
         "affectsGlobalScope": false
       },
@@ -1860,6 +1830,16 @@
         "version": "f345b0888d003fd69cb32bad3a0aa04c615ccafc572019e4bd86a52bd5e49e46",
         "signature": "f345b0888d003fd69cb32bad3a0aa04c615ccafc572019e4bd86a52bd5e49e46",
         "affectsGlobalScope": true
+      },
+      "../node_modules/@types/json-schema/index.d.ts": {
+        "version": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
+        "signature": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/estree/index.d.ts": {
+        "version": "6a38e250306ceccbab257d11b846d5bd12491157d20901fa01afe4050c93c1b5",
+        "signature": "6a38e250306ceccbab257d11b846d5bd12491157d20901fa01afe4050c93c1b5",
+        "affectsGlobalScope": false
       },
       "../node_modules/@types/eslint/index.d.ts": {
         "version": "edb3e2f61a2a6e29a5f9043f73adf65951d52b4c1f22e84050381f7ef0d77318",
@@ -3470,22 +3450,6 @@
       "../node_modules/rxjs/internal/util/pipe.d.ts": [
         "../node_modules/rxjs/internal/types.d.ts"
       ],
-      "../node_modules/webpack/node_modules/schema-utils/declarations/validate.d.ts": [
-        "../node_modules/@types/json-schema/index.d.ts",
-        "../node_modules/ajv/lib/ajv.d.ts",
-        "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts"
-      ],
-      "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts": [
-        "../node_modules/@types/json-schema/index.d.ts",
-        "../node_modules/ajv/lib/ajv.d.ts",
-        "../node_modules/webpack/node_modules/schema-utils/declarations/validate.d.ts"
-      ],
-      "../node_modules/webpack/types.d.ts": [
-        "../node_modules/@types/estree/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts",
-        "../node_modules/webpack/node_modules/tapable/tapable.d.ts"
-      ],
       "../src/_com/baselocaldata.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../src/_com/resurl.ts"
@@ -3530,7 +3494,6 @@
       ],
       "../src/config/dispose/configdispose.ts": [
         "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/webpack/types.d.ts",
         "../src/_com/eresponsecode.ts",
         "../src/_com/exceltojson.ts",
         "../src/_com/iresponsedata.ts",
@@ -3538,7 +3501,8 @@
         "../src/_com/responsedatat.ts",
         "../src/_com/resurl.ts",
         "../src/config/dispose/configlocaldata.ts",
-        "../src/config/dispose/configresurl.ts"
+        "../src/config/dispose/configresurl.ts",
+        "../src/config/dispose/econfiglocaldatakey.ts"
       ],
       "../src/config/dispose/configlocaldata.ts": [
         "../src/_com/baselocaldata.ts"
@@ -4909,22 +4873,6 @@
       ],
       "../node_modules/rxjs/internal/util/pipe.d.ts": [
         "../node_modules/rxjs/internal/types.d.ts"
-      ],
-      "../node_modules/webpack/node_modules/schema-utils/declarations/validate.d.ts": [
-        "../node_modules/@types/json-schema/index.d.ts",
-        "../node_modules/ajv/lib/ajv.d.ts",
-        "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts"
-      ],
-      "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts": [
-        "../node_modules/@types/json-schema/index.d.ts",
-        "../node_modules/ajv/lib/ajv.d.ts",
-        "../node_modules/webpack/node_modules/schema-utils/declarations/validate.d.ts"
-      ],
-      "../node_modules/webpack/types.d.ts": [
-        "../node_modules/@types/estree/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/webpack/node_modules/schema-utils/declarations/validationerror.d.ts",
-        "../node_modules/webpack/node_modules/tapable/tapable.d.ts"
       ],
       "../src/_com/iresponsedata.ts": [
         "../src/_com/eresponsecode.ts"

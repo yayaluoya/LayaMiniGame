@@ -1,7 +1,7 @@
 const { task } = require("gulp");
 const { exec } = require("child_process");
 
-//创建webpack增量编译
+//打开局域网服务
 task("openServer", function (f) {
     f();
     console.log('\033[35m', '开启 局域网 HTTP 服务。。。', '\033[0m');

@@ -19,7 +19,7 @@ export default {};
     height: 40px;
     top: 0px;
     position: fixed;
-    background-color: #fff;
+    background-color: #444461;
     z-index: 999;
 
     > .container {
@@ -28,13 +28,13 @@ export default {};
         justify-content: space-between;
 
         > .left {
-            color: #444461;
+            color: white;
             font-size: 1.1rem;
             font-weight: 700;
 
             > span {
-                color: white;
-                background-color: #444461;
+                color: #444461;
+                background-color: white;
                 padding: 3px;
                 border-radius: 3px;
                 margin-right: 3px;

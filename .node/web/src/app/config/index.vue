@@ -2,15 +2,23 @@
     <div id="config">
         <el-tabs v-model="navName">
             <el-tab-pane label="配置表导出" name="excel">
-                <span v-if="allConfigsNames.length == 0">空空如也</span>
+                <span class="null" v-if="allConfigsNames.length == 0"
+                    >空空如也</span
+                >
+                <el-button type="primary" size="mini" @click="exportJson()"
+                    >全部导出</el-button
+                >
                 <excel-
+                    ref="excels"
                     v-for="(item, index) in allConfigsNames"
                     :key="index + 'excel'"
                     :data="item"
                 />
             </el-tab-pane>
             <el-tab-pane label="配置文件json文件" name="config-json">
-                <span v-if="allConfigJsonNames.length == 0">空空如也</span>
+                <span class="null" v-if="allConfigJsonNames.length == 0"
+                    >空空如也</span
+                >
                 <json-
                     v-for="(item, index) in allConfigJsonNames"
                     :key="index + 'json'"
@@ -18,15 +26,20 @@
                 />
             </el-tab-pane>
             <el-tab-pane label="场景json文件" name="scene-json">
-                <span v-if="allSceneJsonNames.length == 0">空空如也</span>
+                <span class="null" v-if="allSceneJsonNames.length == 0"
+                    >空空如也</span
+                >
                 <json-
                     v-for="(item, index) in allSceneJsonNames"
                     :key="index + 'json2'"
                     :data="item"
                 />
             </el-tab-pane>
-            <el-tab-pane label="路径管理" name="edit-url">
-                <span v-if="allURL.length == 0">空空如也</span>
+            <el-tab-pane name="edit-url">
+                <span slot="label"
+                    ><i class="el-icon-setting"></i> 修改路径</span
+                >
+                <span class="null" v-if="allURL.length == 0">空空如也</span>
                 <edit-URL
                     v-for="(item, index) in allURL"
                     :key="index + 'edit-url'"
@@ -124,6 +137,12 @@ export default {
                     _back && _back.call(this);
                 });
         },
+        /** 全部导出json */
+        exportJson() {
+            this.$refs.excels.forEach((item) => {
+                item.exportJson();
+            });
+        },
     },
     mounted() {
         this.getAllURL();
@@ -137,5 +156,9 @@ export default {
 <style lang="scss" scoped>
 #config {
     width: 100%;
+
+    .null {
+        color: #3a3a59;
+    }
 }
 </style>

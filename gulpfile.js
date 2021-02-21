@@ -1,9 +1,6 @@
 /**
  * 引入服务文件
  */
-
-//开启服务
-require("./.node/gulpfile/startServe.js");
 //开启web
 require("./.node/gulpfile/startWeb.js");
 //webpack打包
@@ -14,6 +11,8 @@ require("./.node/gulpfile/layaCompile.js");
 require("./.node/gulpfile/openServer.js");
 
 const { task } = require("gulp");
+
+//多余命令
 
 task('compile', (f) => {
     f();

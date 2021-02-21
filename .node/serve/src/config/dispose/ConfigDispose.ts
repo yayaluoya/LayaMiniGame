@@ -2,12 +2,12 @@ import { EResponseCode } from "src/_com/EResponseCode";
 import { IResponseData } from "src/_com/IResponseData";
 import ResponseDataT from "src/_com/ResponseDataT";
 import ResURL from "src/_com/ResURL";
-import { readdirSync, readFileSync, statSync, writeFile } from "fs";
+import { readdirSync, readFileSync, Stats, statSync, writeFile } from "fs";
 import Pako from "src/_com/Pako";
 import ExcelToJson from "src/_com/ExcelToJson";
 import ConfigResURL, { ELocalURLKey, ELocalURLKeyDescription } from "./ConfigResURL";
 import ConfigLocalData from "./ConfigLocalData";
-import { cache } from "webpack";
+import { EConfigLocalDataKey } from "./EConfigLocalDataKey";
 
 /**
  * 配置文件处理类
@@ -24,7 +24,32 @@ export default class ConfigDispose {
      * 获取所有配置表名字
      */
     public async getAllConfigsNames(): Promise<IResponseData<IFileComData[]>> {
-        return this.getAllFileNames(ConfigResURL.getURL(ELocalURLKey.configExcelURL), 'xlsx');
+        return new Promise<IResponseData<IFileComData[]>>((r, e) => {
+            this.getAllFileNames(ConfigResURL.getURL(ELocalURLKey.configExcelURL), 'xlsx').then((data) => {
+                let _info: Stats = null;
+                let _excelInfos: IExcelInfo[] = ConfigLocalData.instance.getItem(EConfigLocalDataKey.excelInfoData) || [];
+                let _excelInfo: IExcelInfo;
+                let _ifAlter: boolean = true;
+                //添加属性
+                data.data = data.data.map((item) => {
+                    //判断修改时间
+                    _info = statSync(item.path);
+                    _excelInfo = _excelInfos.find((_item) => {
+                        return _item.url == item.path;
+                    });
+                    if (_excelInfo) {
+                        //判断时间是否正确，如果不正确就说明有修改
+                        console.log(_info.mtime.toLocaleString());
+                        _ifAlter = (_info.mtime.toLocaleString() != _excelInfo.info.mtime + '');
+                    }
+                    item['ifAlter'] = _ifAlter;
+                    return item;
+                });
+                r(data);
+            }).catch((E) => {
+                e(E);
+            });
+        });
     }
     /**
      * 获取所有配置表json名字
@@ -40,7 +65,7 @@ export default class ConfigDispose {
     }
 
     /**
-     * 获取一个目录下的全部文件名字
+     * 获取一个目录下的全部文件名字,包括修改信息
      * @param _url 目录
      * @param _dis 文件后缀
      */
@@ -156,6 +181,21 @@ export default class ConfigDispose {
                 ConfigResURL.getURL(ELocalURLKey.configJsonURL),
                 ConfigResURL.getURL(ELocalURLKey.configTSURL),
             ).then((data) => {
+                //修改本地缓存的配置表info数据
+                let _excelInfos: IExcelInfo[] = ConfigLocalData.instance.getItem(EConfigLocalDataKey.excelInfoData) || [];
+                let _index: number = _excelInfos.findIndex((item) => {
+                    return item.url == _excel;
+                });
+                if (_index != -1) {
+                    _excelInfos[_index].info = statSync(_excel);
+                } else {
+                    _excelInfos.push({
+                        url: _excel,
+                        info: statSync(_excel),
+                    });
+                }
+                //重新存储数据
+                ConfigLocalData.instance.setItem(EConfigLocalDataKey.excelInfoData, _excelInfos);
                 //成功
                 r(ResponseDataT.Pack(undefined, undefined, undefined, data));
             }).catch((_E) => {
@@ -206,8 +246,15 @@ export default class ConfigDispose {
             //当前路径
             let _onUrl: string = ConfigResURL.getURL(_key);
             let ifExist: boolean = false;
+            let moreUrl: string[] = [];
             try {
                 ifExist = statSync(_onUrl).isDirectory();
+                if (ifExist) {
+                    //找更多目录
+                    moreUrl = readdirSync(_onUrl).filter((item) => {
+                        return statSync(ResURL.join(_onUrl, item)).isDirectory();
+                    });
+                }
             }
             catch {
                 ifExist = false;
@@ -216,9 +263,20 @@ export default class ConfigDispose {
             r(ResponseDataT.Pack({
                 url: _onUrl,
                 ifExist: ifExist,
+                moreUrl: moreUrl,
             }));
         });
     }
+}
+
+/**
+ * 配置表info数据
+ */
+interface IExcelInfo {
+    /** 路径 */
+    url: string,
+    /** info数据 */
+    info: Stats,
 }
 
 /**

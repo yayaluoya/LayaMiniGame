@@ -1,4 +1,4 @@
-import { mkdirSync, writeFile } from "fs";
+import { mkdirSync, readdirSync, writeFile } from "fs";
 import ResURL from "./ResURL";
 
 var xlsx = require('node-xlsx').default;
@@ -65,7 +65,7 @@ export default class ExcelToJson {
                 //保存json文件
                 this.saveJson(_excelName, _rowsDatas, _jsonURL).then(() => {
                     //ts内容
-                    let _TSContent: string = FillTSFile.fillConfig(_excelName, _keyData, _typeData, _explainData);
+                    let _TSContent: string = TSFileT.fillConfig(_excelName, _keyData, _typeData, _explainData);
                     //保存ts文件
                     this.saveTS(_excelName, _TSContent, _TSURL).then(() => {
                         r({
@@ -115,7 +115,7 @@ export default class ExcelToJson {
                 //保存json文件
                 this.saveJson(_excelName, _jsonData, _jsonURL).then(() => {
                     //ts内容
-                    let _TSContent: string = FillTSFile.fillConst(_excelName, _keyData, _typeData, _explainData);
+                    let _TSContent: string = TSFileT.fillConst(_excelName, _keyData, _typeData, _explainData);
                     this.saveTS(_excelName, _TSContent, _TSURL).then(() => {
                         r({
                             _type: 'const',
@@ -212,22 +212,70 @@ export default class ExcelToJson {
             //先创建目录
             try {
                 mkdirSync(_url);
-            } catch (e) {
+            } catch (E) {
                 //已经存在该目录
             }
-            _url = ResURL.join(_url, '/' + _name + '.ts');
-            //写入文件
-            writeFile(_url, _conent, () => {
-                r('');
-            });
+            //保存文件
+            try {
+                //写入文件内容
+                writeFile(ResURL.join(_url, `/${_name}.ts`), _conent, () => {
+                    //构建配置表文件名字
+                    let _buildConfigTsName: string = 'BuildConfigTs';
+                    //获取该目录下的所有配置文件
+                    let _configTsNames: string[] = readdirSync(_url).filter((item) => {
+                        return /\.ts$/.test(item) && item != _buildConfigTsName + '.ts';
+                    }).map((item) => {
+                        //只提取名字
+                        return item.replace('.ts', '');
+                    });
+                    //修改配置表构建文件
+                    writeFile(ResURL.join(_url, `/${_buildConfigTsName}.ts`), TSFileT.fillAllTsFile(_buildConfigTsName, _configTsNames), () => {
+                        r('');
+                    });
+                });
+            } catch (E) {
+                e('保存ts文件出错，' + E);
+            }
         });
     }
 }
 
 /** 
- * 填充ts文件
+ * ts文件工具
  */
-class FillTSFile {
+class TSFileT {
+    /**
+     * 填充全部excel表集合ts文件
+     * @param _url 保存路径
+     */
+    public static fillAllTsFile(_name: string, _tsNames: string[]): string {
+        /** 导出内容 */
+        let _import: string = '';
+        /** 构建执行内容 */
+        let _build: string = '        let configs: any[] = [];\n';
+        for (let _o of _tsNames) {
+            _import += `import { ${_o} } from "./${_o}";\n`;
+            _build += `        configs.push(${_o});\n`;
+        }
+        _build += `        return configs;`;
+        //
+        return `// ！ 自动导出，请不要修改
+//
+${_import}
+/**
+* 构建全部配置表
+*/
+export class ${_name} {
+    /**
+     * 获取所有的配置表内容
+     */
+    public static getAllConfig(): any[] {
+${_build}
+    }
+}
+`;
+    }
+
     /**
      * 填充config
      * @param _excelName 名字
@@ -243,19 +291,22 @@ class FillTSFile {
             _dataType += `       /** ${_explainData[_i]} */\n        ${_keyData[_i]}: ${this.getType(_typeData[_i])};${Number(_i) == _keyData.length - 1 ? '' : '\n'}`;
         }
         //
-        return `/** 
+        return `// ！ 自动导出，请不要修改
+//
+/**
  * ${_excelName} config配置文件
- * ! 自动导出，请不要更改
  */
 export namespace ${_excelName} {
+    /** 配置表类型 */
+    export const type: string = 'config';
     /** 数据类型 */
-    export class Type {
+    export class DataType {
 ${_dataType}
     }
     /** config数据列表 */
-    export var datas: ${_excelName}.Type[];
+    export var datas: ${_excelName}.DataType[] = [];
     /** 文件名字 */
-    export const fileName = '${_excelName}.json';
+    export const fileName: string = '${_excelName}.json';
 }
     `;
     }
@@ -275,19 +326,22 @@ ${_dataType}
             _dataType += `       /** ${_explainData[_i]} */\n        ${_keyData[_i]}: ${this.getType(_typeData[_i])};${Number(_i) == _keyData.length - 1 ? '' : '\n'}`;
         }
         //
-        return `/** 
+        return `// ！ 自动导出，请不要修改
+//
+/**
  * ${_excelName} const配置文件
- * ! 自动导出，请不要更改
  */
 export namespace ${_excelName} {
+    /** 配置表类型 */
+    export const type: string = 'const';
     /** 数据类型 */
-    export class Type {
+    export class DataType {
 ${_dataType}
     }
     /** const数据列表 */
-    export var data: ${_excelName}.Type;
+    export var data: ${_excelName}.DataType = null;
     /** 文件名字 */
-    export const fileName = '${_excelName}.json';
+    export const fileName: string = '${_excelName}.json';
 }
     `;
     }
