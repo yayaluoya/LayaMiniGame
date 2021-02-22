@@ -36,7 +36,7 @@ export default class FileDispose {
                 //保存文件
                 writeFile(_url, file.buffer, () => {
                     r(ResponseDataT.Pack({
-                        url: ResURL.join(_url.replace(ResURL.serveResURL, ResURL.serveURL)),
+                        url: _url.replace(ResURL.serveResURL, ResURL.serveURL).replace(/\\/g, '/'),
                     }));
                 });
             } catch (E) {

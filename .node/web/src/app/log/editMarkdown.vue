@@ -13,6 +13,7 @@
         <div class="container">
             <div class="left">
                 <el-input
+                    :disabled="disabled"
                     ref="textarea"
                     type="textarea"
                     :rows="2"
@@ -213,6 +214,10 @@ export default {
             type: String,
             default: "",
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
@@ -375,15 +380,22 @@ export default {
         //图片上传
         on_upload() {
             this.loading = true;
+            let params = new FormData();
+            params.append("file", this.img_file); //统一带上时分的反爬虫字符
             this.$axios
-                .$adminPostFile("add_blog_img", {
-                    img_file: this.img_file,
-                })
+                .post(this.$api.file.uploadFile, params)
                 .then((data) => {
+                    data = data.data;
+                    //判断状态码
+                    if (data.code == this.$http.ResponseCode.lose) {
+                        this.$message.error("请求出错！", data.mes);
+                        return;
+                    }
+                    let _url = data.data.url;
                     let cursorPosition = new CursorPosition(this.textarea);
                     cursorPosition.add(
                         cursorPosition.get(),
-                        "![](" + data + ")\n"
+                        "![](" + _url + ")\n"
                     );
                     let rangeData = cursorPosition.get();
                     cursorPosition.set(rangeData);

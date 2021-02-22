@@ -20,7 +20,7 @@ class FileDispose {
             try {
                 fs_1.writeFile(_url, file.buffer, () => {
                     r(ResponseDataT_1.default.Pack({
-                        url: ResURL_1.default.join(_url.replace(ResURL_1.default.serveResURL, ResURL_1.default.serveURL)),
+                        url: _url.replace(ResURL_1.default.serveResURL, ResURL_1.default.serveURL).replace(/\\/g, '/'),
                     }));
                 });
             }

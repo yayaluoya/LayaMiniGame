@@ -1,5 +1,5 @@
 <template>
-    <div id="editURL">
+    <div class="editURL">
         <span class="alert">{{ explain }}：</span>
         <span class="url" :class="{ yesExist: ifExist, noExist: !ifExist }">{{
             onUrl
@@ -101,7 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#editURL {
+.editURL {
     padding-bottom: 20px;
 
     > .el-input {

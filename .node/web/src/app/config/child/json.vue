@@ -1,5 +1,5 @@
 <template>
-    <div id="json">
+    <div class="json">
         <div class="nav">
             <span class="name">{{ name }}</span>
             <span class="path">{{ path }}</span>
@@ -114,7 +114,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#json {
+.json {
     padding: 5px;
     margin: 5px 0;
     background-color: #ebebeb;

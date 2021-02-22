@@ -2,11 +2,11 @@
     <div class="showMD">
         <el-dialog
             custom-class="my_dialog"
-            title="日志查看"
+            :title="data.data.title"
             :visible.sync="show"
-            width="90vw"
+            width="670px"
         >
-            <div v-html="compiledMarkdown"></div>
+            <div class="content" v-html="compiledMarkdown"></div>
         </el-dialog>
     </div>
 </template>
@@ -18,11 +18,19 @@ export default {
             type: Boolean,
             default: false,
         },
-        content: {
-            //日志数据
-            type: String,
-            default: "",
-        },
+    },
+    data() {
+        return {
+            data: {
+                name: "",
+                data: {
+                    title: "",
+                    writer: "",
+                    time: "",
+                },
+                data_: "",
+            },
+        };
     },
     computed: {
         show: {
@@ -34,17 +42,40 @@ export default {
             },
         },
         compiledMarkdown() {
+            if (!this.data) {
+                return "";
+            }
             //将markdown文本转化为html
-            return this.$marked(this.content);
+            return this.$marked(this.data.data_);
+        },
+    },
+    methods: {
+        /** 设置数据 */
+        setData(data) {
+            this.data = data;
         },
     },
 };
 </script>
 <style lang='scss' scoped>
-.editMD {
+.showMD {
     width: fit-content;
     /deep/.el-dialog {
         margin-top: 5vw !important;
+    }
+
+    /deep/img {
+        max-width: 100%;
+    }
+
+    /deep/.el-dialog__body {
+        padding: 20px;
+        padding-top: 0px;
+    }
+
+    /deep/.content {
+        border-top: 1px dashed #44446185;
+        padding-top: 20px;
     }
 }
 </style>

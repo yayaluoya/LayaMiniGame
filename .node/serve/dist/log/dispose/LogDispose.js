@@ -13,13 +13,13 @@ class LogDispose {
             try {
                 let _urls = fs_1.readdirSync(ResURL_1.default.logURL).filter((item) => {
                     return /\.log$/.test(item);
-                }).map((item) => {
-                    return ResURL_1.default.join(ResURL_1.default.logURL, item);
                 });
+                let _name;
                 for (let _o of _urls) {
+                    _name = _o.replace('.log', '');
                     _datas.push({
-                        name: _o.replace('.log', ''),
-                        data: fs_1.readFileSync(_o).toString(),
+                        name: _name,
+                        data: fs_1.readFileSync(ResURL_1.default.join(ResURL_1.default.logURL, _name + '.log')).toString(),
                         data_: '',
                     });
                 }
@@ -50,10 +50,13 @@ class LogDispose {
     writeLog(_log, _log_, _key) {
         return new Promise((r, e) => {
             let _name = _key + '_' + Date.now();
+            _name = _name.replace(/[`~!@#$^&*()=|{}':;',\\\[\]\.<>\/?~！@#￥……&*（）——|{}【】'；：""'。，、？\s]/g, '');
             try {
                 fs_1.writeFile(ResURL_1.default.join(ResURL_1.default.logURL, _name + '.log').replace(/ +/g, ''), _log, () => {
                     fs_1.writeFile(ResURL_1.default.join(ResURL_1.default.logURL, _name + '.log_').replace(/ +/g, ''), _log_, () => {
-                        r(ResponseDataT_1.default.Pack(true));
+                        r(ResponseDataT_1.default.Pack({
+                            name: _name,
+                        }));
                     });
                 });
             }

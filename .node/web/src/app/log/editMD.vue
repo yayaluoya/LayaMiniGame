@@ -31,6 +31,7 @@
                         ]"
                     >
                         <el-input
+                            :disabled="loading"
                             v-model="log.title"
                             :clearable="true"
                         ></el-input>
@@ -52,7 +53,8 @@
                             },
                         ]"
                     >
-                        <EditMarkdown v-model="log.content"> </EditMarkdown>
+                        <EditMarkdown v-model="log.content" :disabled="loading">
+                        </EditMarkdown>
                     </el-form-item>
                     <el-form-item
                         label="日志作者"
@@ -72,6 +74,7 @@
                         ]"
                     >
                         <el-input
+                            :disabled="loading"
                             v-model="log.writer"
                             :clearable="true"
                         ></el-input>
@@ -80,11 +83,18 @@
             </div>
             <span slot="footer" class="dialog-footer">
                 <i class="el-icon-loading" v-if="loading"></i>
-                <el-button @click="show = false">取 消</el-button>
-                <el-button type="danger" @click="remove_form('form')"
+                <el-button @click="show = false" :disabled="loading"
+                    >取 消</el-button
+                >
+                <el-button
+                    type="danger"
+                    @click="remove_form('form')"
+                    :disabled="loading"
                     >清空日志</el-button
                 >
-                <el-button type="primary" @click="saveLog">保存日志</el-button>
+                <el-button type="primary" @click="saveLog" :disabled="loading"
+                    >保存日志</el-button
+                >
             </span>
         </el-dialog>
     </div>
@@ -126,7 +136,52 @@ export default {
             //清空表单
             this.$refs[form_name].resetFields();
         },
-        saveLog() {},
+        saveLog() {
+            this.$refs.form.validate((valid) => {
+                if (valid) {
+                    if (this.loading) {
+                        return;
+                    }
+                    this.loading = true;
+                    //上传
+                    this.$axios
+                        .post(this.$api.log.writeLog, {
+                            log: JSON.stringify({
+                                title: this.log.title,
+                                writer: this.log.writer,
+                                time: new Date().toLocaleString(),
+                            }),
+                            log_: this.log.content,
+                            key: this.log.title,
+                        })
+                        .then((data) => {
+                            data = data.data;
+                            //判断状态码
+                            if (data.code == this.$http.ResponseCode.lose) {
+                                this.$message.error("请求出错！", data.mes);
+                                return;
+                            }
+                            //
+                            console.log(data.data);
+                            //清空表单
+                            this.remove_form("form");
+                            //保存成功
+                            this.$message({
+                                showClose: true,
+                                type: "success",
+                                duration: 1000,
+                                message: "保存成功",
+                            });
+                        })
+                        .catch((E) => {
+                            this.$message.error("请求出错！", E);
+                        })
+                        .finally(() => {
+                            this.loading = false;
+                        });
+                }
+            });
+        },
     },
 };
 </script>

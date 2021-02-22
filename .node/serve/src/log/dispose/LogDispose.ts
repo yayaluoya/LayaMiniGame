@@ -20,14 +20,14 @@ export default class LogDispose {
             try {
                 let _urls: string[] = readdirSync(ResURL.logURL).filter((item) => {
                     return /\.log$/.test(item);
-                }).map((item) => {
-                    return ResURL.join(ResURL.logURL, item);
                 });
                 //
+                let _name: string;
                 for (let _o of _urls) {
+                    _name = _o.replace('.log', '');
                     _datas.push({
-                        name: _o.replace('.log', ''),
-                        data: readFileSync(_o).toString(),
+                        name: _name,
+                        data: readFileSync(ResURL.join(ResURL.logURL, _name + '.log')).toString(),
                         data_: '',
                     });
                 }
@@ -66,13 +66,17 @@ export default class LogDispose {
      * @param _log_ 日志类容
      * @param _key 标记类容
      */
-    public writeLog(_log: string, _log_: string, _key: string): Promise<IResponseData<boolean>> {
-        return new Promise<IResponseData<boolean>>((r, e) => {
+    public writeLog(_log: string, _log_: string, _key: string): Promise<IResponseData<any>> {
+        return new Promise<IResponseData<any>>((r, e) => {
             let _name: string = _key + '_' + Date.now();
+            //去除特殊符号
+            _name = _name.replace(/[`~!@#$^&*()=|{}':;',\\\[\]\.<>\/?~！@#￥……&*（）——|{}【】'；：""'。，、？\s]/g, '');
             try {
                 writeFile(ResURL.join(ResURL.logURL, _name + '.log').replace(/ +/g, ''), _log, () => {
                     writeFile(ResURL.join(ResURL.logURL, _name + '.log_').replace(/ +/g, ''), _log_, () => {
-                        r(ResponseDataT.Pack(true));
+                        r(ResponseDataT.Pack({
+                            name: _name,
+                        }));
                     });
                 });
             } catch {

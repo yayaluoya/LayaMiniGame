@@ -227,13 +227,13 @@
         "affectsGlobalScope": false
       },
       "../src/file/dispose/filedispose.ts": {
-        "version": "b5814dc457ce31e565c6772e82a5d2a1dec3ed5470cd56877b157f6cb31e7c96",
+        "version": "952b476bf08faebff687d37771d046e6ffd018a670aac0a5050006708bde8ebe",
         "signature": "7eede7c041a95962234800613a1d104b90f14feca4e0d17dfcb8bfed1f2bcd52",
         "affectsGlobalScope": false
       },
       "../src/log/dispose/logdispose.ts": {
-        "version": "c366803b01d6d36c0dfc501515c6d2fa637cae6deba844d7859ca83568012bf9",
-        "signature": "7f82c6867a5084e74db5d8b7b22dce35f6683fe717d035ccb22633332960a646",
+        "version": "a19ee11ca4b0c5b34f8bec9f167c783028ec57a22cafa175d0782a2b42d6a897",
+        "signature": "fbb50e6c4c0649ce82eb1c99b706091c528328cf22ae677c412fd41020d86e62",
         "affectsGlobalScope": false
       },
       "../src/init.ts": {

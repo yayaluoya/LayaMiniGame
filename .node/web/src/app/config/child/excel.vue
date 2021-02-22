@@ -1,5 +1,5 @@
 <template>
-    <div id="excel">
+    <div class="excel">
         <span class="name">{{ name }}</span>
         <span class="path">{{ path }}</span>
         <el-button
@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#excel {
+.excel {
     padding: 5px;
     margin: 5px 0;
     background-color: #ebebeb;
