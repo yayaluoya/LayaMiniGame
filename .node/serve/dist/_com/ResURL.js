@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = require("path");
 class ResURL {
+    static get serveURL() {
+        return 'http://localhost:3000/';
+    }
     static get rootURL() {
         return this.join(path_1.resolve(__dirname, '../../../../'), '/');
     }
@@ -10,6 +13,9 @@ class ResURL {
     }
     static get publicURL() {
         return this.join(this.serveRootURL, 'public/');
+    }
+    static get serveResURL() {
+        return this.join(this.serveRootURL, 'res/');
     }
     static get localDataURL() {
         return this.join(this.serveRootURL, '.localData/');
@@ -29,8 +35,8 @@ class ResURL {
     static get logURL() {
         return this.join(this.publicURL, 'log/');
     }
-    static get imgURL() {
-        return this.join(this.publicURL, 'img/');
+    static get fileURL() {
+        return this.join(this.serveResURL, 'file/');
     }
     static join(..._URLs) {
         let _url = path_1.join(..._URLs);

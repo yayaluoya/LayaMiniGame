@@ -12,12 +12,14 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const config_controller_1 = require("./config/config.controller");
 const log_controller_1 = require("./log/log.controller");
+const com_controller_1 = require("./com/com.controller");
+const file_controller_1 = require("./file/file.controller");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [],
-        controllers: [app_controller_1.AppController, config_controller_1.ConfigController, log_controller_1.LogController],
+        controllers: [app_controller_1.AppController, config_controller_1.ConfigController, log_controller_1.LogController, com_controller_1.ComController, file_controller_1.FileController],
         providers: [app_service_1.AppService],
     })
 ], AppModule);

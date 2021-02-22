@@ -4,6 +4,11 @@ import { join, resolve } from "path";
  * 资源路径类
  */
 export default class ResURL {
+    /** 服务路径 */
+    public static get serveURL(): string {
+        return 'http://localhost:3000/';
+    }
+
     /** 根路径 */
     public static get rootURL(): string {
         return this.join(resolve(__dirname, '../../../../'), '/');
@@ -17,6 +22,11 @@ export default class ResURL {
     /** 公共资源路径 */
     public static get publicURL(): string {
         return this.join(this.serveRootURL, 'public/');
+    }
+
+    /** 后端资源路径 */
+    public static get serveResURL(): string {
+        return this.join(this.serveRootURL, 'res/');
     }
 
     /** 本地数据目录 */
@@ -49,9 +59,9 @@ export default class ResURL {
         return this.join(this.publicURL, 'log/');
     }
 
-    /** 图片资源目录 */
-    public static get imgURL(): string {
-        return this.join(this.publicURL, 'img/');
+    /** 文件资源目录 */
+    public static get fileURL(): string {
+        return this.join(this.serveResURL, 'file/');
     }
 
     /**
