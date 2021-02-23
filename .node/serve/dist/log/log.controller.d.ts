@@ -5,4 +5,5 @@ export declare class LogController {
     getAllLog(query: any): Promise<IResponseData<any>>;
     getLog(query: any): Promise<IResponseData<any>>;
     writeLog(body: any): Promise<IResponseData<any>>;
+    editLog(body: any): Promise<IResponseData<any>>;
 }

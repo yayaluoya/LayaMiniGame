@@ -144,13 +144,14 @@ export default {
                     }
                     this.loading = true;
                     //上传
+                    let logData = {
+                        title: this.log.title,
+                        writer: this.log.writer,
+                        time: Date.now(),
+                    };
                     this.$axios
                         .post(this.$api.log.writeLog, {
-                            log: JSON.stringify({
-                                title: this.log.title,
-                                writer: this.log.writer,
-                                time: new Date().toLocaleString(),
-                            }),
+                            log: JSON.stringify(logData),
                             log_: this.log.content,
                             key: this.log.title,
                         })
@@ -162,7 +163,13 @@ export default {
                                 return;
                             }
                             //
-                            console.log(data.data);
+                            // console.log(data.data);
+                            //增加一个日志
+                            this.$emit("addMd", {
+                                name: data.data.name,
+                                data: logData,
+                                data_: this.log.content,
+                            });
                             //清空表单
                             this.remove_form("form");
                             //保存成功
@@ -190,6 +197,7 @@ export default {
     width: fit-content;
     /deep/.el-dialog {
         margin-top: 5vw !important;
+        max-width: 1080px;
     }
     /deep/.el-dialog__body {
         padding: 10px 20px;

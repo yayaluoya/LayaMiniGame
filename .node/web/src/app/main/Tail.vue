@@ -1,7 +1,6 @@
 <template>
     <div id="Tail" class="com-border-top">
         <div class="container com-container">
-            框架地址：
             <a href="https://github.com/yayaluoya/LayaMiniGame">GitHub</a>
         </div>
     </div>
@@ -14,10 +13,11 @@ export default {};
 <style lang="scss" scoped>
 #Tail {
     $color: #b1bace;
-    $color_hover: #555574;
+    $color_hover: #fff;
 
     width: 100%;
     color: $color;
+    background-color: #00102af2;
 
     &:hover {
         color: $color_hover;

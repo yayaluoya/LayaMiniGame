@@ -72,8 +72,8 @@ export default class LogDispose {
             //去除特殊符号
             _name = _name.replace(/[`~!@#$^&*()=|{}':;',\\\[\]\.<>\/?~！@#￥……&*（）——|{}【】'；：""'。，、？\s]/g, '');
             try {
-                writeFile(ResURL.join(ResURL.logURL, _name + '.log').replace(/ +/g, ''), _log, () => {
-                    writeFile(ResURL.join(ResURL.logURL, _name + '.log_').replace(/ +/g, ''), _log_, () => {
+                writeFile(ResURL.join(ResURL.logURL, _name + '.log'), _log, () => {
+                    writeFile(ResURL.join(ResURL.logURL, _name + '.log_'), _log_, () => {
                         r(ResponseDataT.Pack({
                             name: _name,
                         }));
@@ -81,6 +81,26 @@ export default class LogDispose {
                 });
             } catch {
                 r(ResponseDataT.Pack(undefined, EResponseCode.lose, '写入日志失败!'));
+            }
+        });
+    }
+
+    /**
+     * 修改日志
+     * @param _name 日志名字
+     * @param _log 日志基础内容
+     * @param _log_ 日志内容
+     */
+    public editLog(_name: string, _log: string, _log_: string): Promise<IResponseData<any>> {
+        return new Promise<IResponseData<boolean>>((r, e) => {
+            try {
+                writeFile(ResURL.join(ResURL.logURL, _name + '.log'), _log, () => {
+                    writeFile(ResURL.join(ResURL.logURL, _name + '.log_'), _log_, () => {
+                        r(ResponseDataT.Pack(true));
+                    });
+                });
+            } catch {
+                r(ResponseDataT.Pack(undefined, EResponseCode.lose, '修改日志失败！'));
             }
         });
     }

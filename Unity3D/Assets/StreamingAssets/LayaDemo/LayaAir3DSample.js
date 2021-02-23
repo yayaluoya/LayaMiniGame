@@ -5,5 +5,6 @@ Laya3D.init(0, 0);
 Laya.stage.scaleMode = Laya.Stage.SCALE_FULL;
 Laya.stage.screenMode = Laya.Stage.SCREEN_NONE;
 Laya.Stat.show();
-Laya.Scene3D.load('.previewres/LayaScene_boneTest/Conventional/boneTest.ls', Laya.Handler.create(null, function(scene){Laya.stage.addChild(scene); }));
+var scene = Laya.stage.addChild(new Laya.Scene3D());
+Laya.Sprite3D.load('.previewres/Prefab/Conventional/Prefab.lh', Laya.Handler.create(null, function(sprite){scene.addChild(sprite); }));
 })(this);

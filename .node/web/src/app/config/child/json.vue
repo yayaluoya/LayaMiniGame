@@ -1,5 +1,5 @@
 <template>
-    <div class="json">
+    <div class="json com-box-shadow">
         <div class="nav">
             <span class="name">{{ name }}</span>
             <span class="path">{{ path }}</span>
@@ -115,7 +115,7 @@ export default {
 
 <style lang="scss" scoped>
 .json {
-    padding: 5px;
+    padding: 10px;
     margin: 5px 0;
     background-color: #ebebeb;
     border-radius: 5px;
@@ -126,7 +126,7 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid #8d93ab;
+        border-bottom: 1px dashed #8d93ab;
 
         > span.name {
             color: #3a3a59;

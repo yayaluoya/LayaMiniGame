@@ -10,6 +10,8 @@ const logApi = {
     getLog: rootApi + 'log/getLog',
     /** 写入日志 */
     writeLog: rootApi + 'log/writeLog',
+    /** 修改日志 */
+    editLog: rootApi + 'log/editLog',
 };
 
 export default logApi;

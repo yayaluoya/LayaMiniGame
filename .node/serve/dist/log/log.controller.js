@@ -29,6 +29,9 @@ let LogController = class LogController {
     async writeLog(body) {
         return this.m_logDispose.writeLog(body['log'], body['log_'], body['key']);
     }
+    async editLog(body) {
+        return this.m_logDispose.editLog(body['name'], body['log'], body['log_']);
+    }
 };
 __decorate([
     common_1.Get('getAllLog'),
@@ -51,6 +54,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], LogController.prototype, "writeLog", null);
+__decorate([
+    common_1.Post('editLog'),
+    __param(0, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], LogController.prototype, "editLog", null);
 LogController = __decorate([
     common_1.Controller('log'),
     __metadata("design:paramtypes", [])

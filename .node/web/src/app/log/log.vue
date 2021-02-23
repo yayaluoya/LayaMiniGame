@@ -1,25 +1,30 @@
 <template>
-    <div class="log">
-        <div>
-            <span>标题: </span>
-            <span>{{ data.data.title }}</span>
+    <div class="log com-box-shadow">
+        <div class="nav">
+            <div class="title">
+                <!-- <span class="head">标题: </span> -->
+                <span class="content">{{ data.data.title }}</span>
+            </div>
+            <div class="writer">
+                <!-- <span class="head">作者: </span> -->
+                <span class="content">{{ data.data.writer }}</span>
+            </div>
+            <div class="time">
+                <!-- <span class="head">时间: </span> -->
+                <span class="content">{{
+                    new Date(data.data.time).toLocaleString()
+                }}</span>
+            </div>
+            <div class="button">
+                <el-button type="primary" size="mini" @click="edit()" plain
+                    >编辑</el-button
+                >
+                <el-button type="primary" size="mini" @click="show()"
+                    >查看</el-button
+                >
+            </div>
         </div>
-        <div>
-            <span>作者: </span>
-            <span>{{ data.data.writer }}</span>
-        </div>
-        <div>
-            <span>时间: </span>
-            <span>{{ data.data.time }}</span>
-        </div>
-        <div class="button">
-            <el-button type="primary" size="mini" @click="edit()"
-                >编辑</el-button
-            >
-            <el-button type="primary" size="mini" @click="show()"
-                >查看</el-button
-            >
-        </div>
+        <div class="content" v-if="data.data_">{{ data.data_ }}</div>
     </div>
 </template>
 
@@ -52,22 +57,52 @@ export default {
 .log {
     margin-bottom: 10px;
     background-color: #eeeeee;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    border-radius: 3px;
-    padding: 5px;
-    color: #393e46;
+    border-radius: 0 3px 3px 0;
+    border-left: 3px solid #444461;
 
-    > div {
-        padding: 0 10px;
-        color: #444461;
-        font-weight: 550;
-    }
-    > .button {
+    > .nav {
         display: flex;
         flex-wrap: nowrap;
-        align-items: center;
+        justify-content: space-between;
+        padding: 5px;
+        color: #393e46;
+        > div {
+            padding: 0 10px;
+            color: #444461;
+            font-weight: 550;
+            > .head {
+                color: #9ba4b4;
+            }
+            &.title {
+                > .content {
+                    color: #a37eba;
+                }
+            }
+            &.writer {
+                > .content {
+                    color: #9ba4b4;
+                }
+            }
+            &.time {
+                > .content {
+                    color: #9ba4b4;
+                    font-weight: 500;
+                }
+            }
+        }
+        > .button {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+    }
+
+    > .content {
+        max-height: 100px;
+        overflow: auto;
+        padding: 10px;
+        color: #9ba4b4;
+        background-color: #4444610a;
     }
 }
 </style>

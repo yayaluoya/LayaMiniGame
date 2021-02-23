@@ -67,7 +67,9 @@
     <Compile Include="Assets\LayaAir3D\LayaShader\ShaderGUI\LayaUnlitGUI.cs" />
     <Compile Include="Assets\LayaAir3D\LayaShader\ShaderGUI\PBRStandardShaderGUI.cs" />
     <Compile Include="Assets\LayaAir3D\LayaShader\ShaderGUI\StandardSpecularShaderGUI.cs" />
-    <Compile Include="Assets\LayaMiniGame\ExportToJson.cs" />
+    <Compile Include="Assets\LayaMiniGame\_T.cs" />
+    <Compile Include="Assets\LayaMiniGame\ExportPrefabsNameToTs.cs" />
+    <Compile Include="Assets\LayaMiniGame\ExportSceneToJson.cs" />
     <Compile Include="Assets\LayaMiniGame\LitJson\Extensions.cs" />
     <Compile Include="Assets\LayaMiniGame\LitJson\IJsonWrapper.cs" />
     <Compile Include="Assets\LayaMiniGame\LitJson\JsonAttribute.cs" />
@@ -81,6 +83,8 @@
     <Compile Include="Assets\LayaMiniGame\LitJson\ParserToken.cs" />
     <Compile Include="Assets\LayaMiniGame\LitJson\Platform.cs" />
     <Compile Include="Assets\LayaMiniGame\LitJson\Unity\UnityTypeBindings.cs" />
+    <Compile Include="Assets\LayaMiniGame\ReadWriteFile.cs" />
+    <Compile Include="Assets\LayaMiniGame\ResURL.cs" />
     <None Include="Assets\LayaAir3D\LayaShader\LayaShader\LayaSpecularStandard.shader" />
     <None Include="Assets\LayaAir3D\LayaShader\LayaShader\LayaMeshEffect.shader" />
     <None Include="Assets\LayaMiniGame\template\AllScenePrefabsNames.txt" />
@@ -323,6 +327,12 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="LayaAirPluginToUnity">
+      <HintPath>F:/LayaMiniGame/Unity3D/Assets/LayaAir3D/LayaTool/LayaAirPluginToUnity.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.unity">
+      <HintPath>F:/LayaMiniGame/Unity3D/Assets/LayaAir3D/LayaTool/Util/zxing.unity.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>F:/LayaMiniGame/Unity3D/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
@@ -331,12 +341,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>F:/LayaMiniGame/Unity3D/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="zxing.unity">
-      <HintPath>F:/LayaMiniGame/Unity3D/Assets/LayaAir3D/LayaTool/Util/zxing.unity.dll</HintPath>
-    </Reference>
-    <Reference Include="LayaAirPluginToUnity">
-      <HintPath>F:/LayaMiniGame/Unity3D/Assets/LayaAir3D/LayaTool/LayaAirPluginToUnity.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>E:/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

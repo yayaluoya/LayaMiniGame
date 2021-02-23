@@ -6,7 +6,7 @@
             :visible.sync="show"
             width="670px"
         >
-            <div class="content" v-html="compiledMarkdown"></div>
+            <div class="content markdown" v-html="compiledMarkdown"></div>
         </el-dialog>
     </div>
 </template>
@@ -62,10 +62,6 @@ export default {
     width: fit-content;
     /deep/.el-dialog {
         margin-top: 5vw !important;
-    }
-
-    /deep/img {
-        max-width: 100%;
     }
 
     /deep/.el-dialog__body {
