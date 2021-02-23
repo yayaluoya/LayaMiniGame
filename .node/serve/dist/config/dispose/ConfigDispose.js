@@ -79,50 +79,60 @@ class ConfigDispose {
     }
     zipJsonFile(_url) {
         return new Promise((r) => {
-            this.getJsonData(_url).then((_data) => {
-                if (_data.code != EResponseCode_1.EResponseCode.com) {
-                    r(_data);
-                    return;
-                }
-                else {
-                    let _jsonData = _data.data;
-                    if (!_jsonData.zip) {
-                        _jsonData.data = Pako_1.default.deflate(JSON.stringify(_jsonData.data));
-                        _jsonData.zip = true;
-                    }
-                    else {
-                        r(ResponseDataT_1.default.Pack(_jsonData));
+            try {
+                this.getJsonData(_url).then((_data) => {
+                    if (_data.code != EResponseCode_1.EResponseCode.com) {
+                        r(_data);
                         return;
                     }
-                    fs_1.writeFile(_url, JSON.stringify(_jsonData), () => {
-                        r(ResponseDataT_1.default.Pack(_jsonData));
-                    });
-                }
-            });
+                    else {
+                        let _jsonData = _data.data;
+                        if (!_jsonData.zip) {
+                            _jsonData.data = Pako_1.default.deflate(JSON.stringify(_jsonData.data));
+                            _jsonData.zip = true;
+                        }
+                        else {
+                            r(ResponseDataT_1.default.Pack(_jsonData));
+                            return;
+                        }
+                        fs_1.writeFile(_url, JSON.stringify(_jsonData), () => {
+                            r(ResponseDataT_1.default.Pack(_jsonData));
+                        });
+                    }
+                });
+            }
+            catch (_a) {
+                r(ResponseDataT_1.default.Pack(undefined, EResponseCode_1.EResponseCode.lose, '压缩失败'));
+            }
         });
     }
     unZipJsonFile(_url) {
         return new Promise((r) => {
-            this.getJsonData(_url).then((_data) => {
-                if (_data.code != EResponseCode_1.EResponseCode.com) {
-                    r(_data);
-                    return;
-                }
-                else {
-                    let _jsonData = _data.data;
-                    if (_jsonData.zip) {
-                        _jsonData.data = JSON.parse(Pako_1.default.inflate(_jsonData.data));
-                        _jsonData.zip = false;
-                    }
-                    else {
-                        r(ResponseDataT_1.default.Pack(_jsonData));
+            try {
+                this.getJsonData(_url).then((_data) => {
+                    if (_data.code != EResponseCode_1.EResponseCode.com) {
+                        r(_data);
                         return;
                     }
-                    fs_1.writeFile(_url, JSON.stringify(_jsonData), () => {
-                        r(ResponseDataT_1.default.Pack(_jsonData));
-                    });
-                }
-            });
+                    else {
+                        let _jsonData = _data.data;
+                        if (_jsonData.zip) {
+                            _jsonData.data = JSON.parse(Pako_1.default.inflate(_jsonData.data));
+                            _jsonData.zip = false;
+                        }
+                        else {
+                            r(ResponseDataT_1.default.Pack(_jsonData));
+                            return;
+                        }
+                        fs_1.writeFile(_url, JSON.stringify(_jsonData), () => {
+                            r(ResponseDataT_1.default.Pack(_jsonData));
+                        });
+                    }
+                });
+            }
+            catch (_a) {
+                r(ResponseDataT_1.default.Pack(undefined, EResponseCode_1.EResponseCode.lose, '解压失败'));
+            }
         });
     }
     exportExcelToJson(_excel) {

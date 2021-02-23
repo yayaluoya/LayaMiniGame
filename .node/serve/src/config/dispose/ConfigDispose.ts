@@ -117,27 +117,31 @@ export default class ConfigDispose {
      */
     public zipJsonFile(_url: string): Promise<IResponseData<any>> {
         return new Promise<IResponseData<any>>((r) => {
-            this.getJsonData(_url).then((_data) => {
-                if (_data.code != EResponseCode.com) {
-                    //压缩失败
-                    r(_data);
-                    return;
-                } else {
-                    //获取数据
-                    let _jsonData: IJsonData = _data.data as IJsonData;
-                    if (!_jsonData.zip) {
-                        _jsonData.data = Pako.deflate(JSON.stringify(_jsonData.data));
-                        _jsonData.zip = true;
-                    } else {
-                        r(ResponseDataT.Pack(_jsonData));
+            try {
+                this.getJsonData(_url).then((_data) => {
+                    if (_data.code != EResponseCode.com) {
+                        //压缩失败
+                        r(_data);
                         return;
+                    } else {
+                        //获取数据
+                        let _jsonData: IJsonData = _data.data as IJsonData;
+                        if (!_jsonData.zip) {
+                            _jsonData.data = Pako.deflate(JSON.stringify(_jsonData.data));
+                            _jsonData.zip = true;
+                        } else {
+                            r(ResponseDataT.Pack(_jsonData));
+                            return;
+                        }
+                        //重新存储数据
+                        writeFile(_url, JSON.stringify(_jsonData), () => {
+                            r(ResponseDataT.Pack(_jsonData));
+                        });
                     }
-                    //重新存储数据
-                    writeFile(_url, JSON.stringify(_jsonData), () => {
-                        r(ResponseDataT.Pack(_jsonData));
-                    });
-                }
-            });
+                });
+            } catch {
+                r(ResponseDataT.Pack(undefined, EResponseCode.lose, '压缩失败'));
+            }
         });
     }
 
@@ -147,27 +151,31 @@ export default class ConfigDispose {
      */
     public unZipJsonFile(_url: string): Promise<IResponseData<any>> {
         return new Promise<IResponseData<any>>((r) => {
-            this.getJsonData(_url).then((_data) => {
-                if (_data.code != EResponseCode.com) {
-                    //压缩失败
-                    r(_data);
-                    return;
-                } else {
-                    //获取数据
-                    let _jsonData: IJsonData = _data.data as IJsonData;
-                    if (_jsonData.zip) {
-                        _jsonData.data = JSON.parse(Pako.inflate(_jsonData.data));
-                        _jsonData.zip = false;
-                    } else {
-                        r(ResponseDataT.Pack(_jsonData));
+            try {
+                this.getJsonData(_url).then((_data) => {
+                    if (_data.code != EResponseCode.com) {
+                        //压缩失败
+                        r(_data);
                         return;
+                    } else {
+                        //获取数据
+                        let _jsonData: IJsonData = _data.data as IJsonData;
+                        if (_jsonData.zip) {
+                            _jsonData.data = JSON.parse(Pako.inflate(_jsonData.data));
+                            _jsonData.zip = false;
+                        } else {
+                            r(ResponseDataT.Pack(_jsonData));
+                            return;
+                        }
+                        //重新存储数据
+                        writeFile(_url, JSON.stringify(_jsonData), () => {
+                            r(ResponseDataT.Pack(_jsonData));
+                        });
                     }
-                    //重新存储数据
-                    writeFile(_url, JSON.stringify(_jsonData), () => {
-                        r(ResponseDataT.Pack(_jsonData));
-                    });
-                }
-            });
+                });
+            } catch {
+                r(ResponseDataT.Pack(undefined, EResponseCode.lose, '解压失败'));
+            }
         });
     }
 

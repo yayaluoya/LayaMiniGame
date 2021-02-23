@@ -217,7 +217,7 @@
         "affectsGlobalScope": false
       },
       "../src/config/dispose/configdispose.ts": {
-        "version": "cd314b133aed0d2c603f832b5b9d4fee5f28b9858a79af1683ce563c01752eb7",
+        "version": "fe04eb339c3ad9fd92194e8b4acb46d36f547dc87a3b5b86f7c5989983ba55e9",
         "signature": "67ea95939f21bac3cbcd19773c1d522997f59a1fa9ba3e259d41ecce160c44d3",
         "affectsGlobalScope": false
       },
