@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="kk7g5mmm">
+  <resources>
+    <component id="g7a1o" name="PGameLoading.xml" path="/Panel/" exported="true"/>
+    <component id="g7a1r" name="PGamePlay.xml" path="/Panel/" exported="true"/>
+    <component id="g7a1v" name="PGameStart.xml" path="/Panel/" exported="true"/>
+    <component id="g7a1y" name="PButtons.xml" path="/Panel/com/"/>
+    <component id="g7a1z" name="PButton.xml" path="/Panel/com/"/>
+    <component id="dbmi13" name="PGameCustomsLoading.xml" path="/Panel/" exported="true"/>
+    <component id="laxd19" name="PGameEnd.xml" path="/Panel/" exported="true"/>
+    <component id="6vcq4u" name="PGameSet.xml" path="/Panel/" exported="true"/>
+    <component id="6vcq5g" name="PGamePause.xml" path="/Panel/" exported="true"/>
+    <component id="syta9f" name="PGameMain.xml" path="/Panel/" exported="true"/>
+    <component id="q3ng9o" name="progress_customs.xml" path="/common/"/>
+    <component id="q3ng9p" name="progress_game.xml" path="/common/"/>
+    <image id="q3ng9u" name="sp_jindutiaobg.png" path="/_img/" scale="9grid" scale9grid="27,13,234,12"/>
+    <image id="q3ng9v" name="sp_jindutiao.png" path="/_img/" scale="9grid" scale9grid="100,18,78,6"/>
+    <component id="q3ng9w" name="PGameCom.xml" path="/Panel/" exported="true"/>
+    <component id="o9js9x" name="PGameTestMain.xml" path="/Panel/Test/" exported="true"/>
+    <component id="t1pw9y" name="PGameTestPlatform.xml" path="/Panel/Test/" exported="true"/>
+    <component id="h66e9z" name="PGameTestUI.xml" path="/Panel/Test/" exported="true"/>
+  </resources>
+  <publish name="GameMain" genCode="true"/>
+</packageDescription>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="750,1334" opaque="false">
+  <displayList>
+    <graph id="n1_yjy8" name="shade" xy="0,0" size="750,1334" type="rect" lineSize="0" fillColor="#f2222831">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <text id="n0_p2r5" name="text" xy="0,580" size="750,66" font="Microsoft YaHei" fontSize="40" color="#eff48e" align="center" vAlign="middle" autoSize="none" bold="true" shadowColor="#000000" shadowOffset="1,1" text="关卡资源加载中。。。">
+      <relation target="" sidePair="width-width,middle-middle"/>
+    </text>
+    <component id="n3_q3ng" name="progress" src="q3ng9o" fileName="cmp/progress_customs.xml" xy="75,676" size="600,50">
+      <relation target="" sidePair="width-width,middle-middle"/>
+      <ProgressBar value="100" max="100"/>
+    </component>
+  </displayList>
+</component>

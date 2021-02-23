@@ -1,21 +1,21 @@
 {
-  "libview.firstColumnWidth": 283,
-  "libview.iconScale": 0,
-  "backgroundColor": 6710886,
-  "auxline1": true,
-  "canvasColor": 10066329,
-  "auxline2": true,
-  "doc.activeDoc": "ui://m5xdsedaljag0",
-  "libview.twoColumn": false,
-  "libview.expandedNodes": [
-    "m5xdseda",
-    "/"
-  ],
-  "doc.openedDocs": [
-    "ui://m5xdsedaljag0"
-  ],
-  "snapToGrid": true,
-  "gridColor": 80,
-  "libview.currentGroup": "",
-  "gridSize": 30
+	"backgroundColor": 6710886,
+	"canvasColor": 10066329,
+	"libview.expandedNodes": [
+		"m5xdseda",
+		"/"
+	],
+	"libview.firstColumnWidth": 274,
+	"libview.twoColumn": false,
+	"doc.openedDocs": [
+		"ui://m5xdsedaljag0"
+	],
+	"gridColor": 80,
+	"auxline2": true,
+	"auxline1": true,
+	"gridSize": 30,
+	"snapToGrid": true,
+	"libview.iconScale": 0,
+	"doc.activeDoc": "ui://m5xdsedaljag0",
+	"libview.currentGroup": ""
 }
