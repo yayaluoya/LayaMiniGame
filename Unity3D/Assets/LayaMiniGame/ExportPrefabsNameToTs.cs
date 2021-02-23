@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 public class ExportPrefabsNameToTs : Editor
 {
     //导出预制体名字到ts文件 
-    [MenuItem("GameObject/ExportPrefabsNameToTs")]
+    [MenuItem("GameObject/导出预制体名字TS文件")]
     static void Start()
     {
         string sceneName = _T.CapitalizeFirstSetter(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
@@ -107,8 +107,7 @@ public class ExportPrefabsNameToTs : Editor
         //存储缓存
         ReadWriteFile.Write(_AllPrefabsNameCacheURL, _AllPrefabsNameCacheText);
         //根据缓存设置一个全局的预制体名字ts脚本
-        TextAsset AllPrefabsAsset = (TextAsset)Resources.Load(ResURL.join(ResURL.templateURL, "AllScenePrefabsNames.txt"));
-        string AllPrefabsTxt = AllPrefabsAsset.text;
+        string AllPrefabsTxt = ReadWriteFile.ReadAll(ResURL.join(ResURL.templateURL, "AllScenePrefabsNames.txt"));
         string _AllPrefabsNameSceneText = "";
         List<string> AllPrefabsNames = new List<string>();
         //读取所有预制体名字
@@ -125,13 +124,12 @@ public class ExportPrefabsNameToTs : Editor
         }
         //
         AllPrefabsTxt = new Regex("{{AllPrefab}}").Replace(AllPrefabsTxt, _AllPrefabsNameSceneText);
-        string _AllPrefabsNameSceneURL = ResURL.join(ResURL.rootURL, "/src/dMyGame/_prefabsName/_AllScenePrefabsNames.ts");
-        string _AllPrefabsNameURL = ResURL.join(ResURL.rootURL, "src/dMyGame/_prefabsName/_AllPrefabsNames.ts");
+        string _AllPrefabsNameSceneURL = ResURL.join(ResURL.rootURL, "/src/Game/_prefabsName/_AllScenePrefabsNames.ts");
+        string _AllPrefabsNameURL = ResURL.join(ResURL.rootURL, "src/Game/_prefabsName/_AllPrefabsNames.ts");
         //写入全部场景预制体名字
         ReadWriteFile.Write(_AllPrefabsNameSceneURL, AllPrefabsTxt);
         //读取模板
-        TextAsset textAsset = (TextAsset)Resources.Load(ResURL.join(ResURL.templateURL, "template/PrefabsName.txt"));
-        string template = textAsset.text;
+        string template = ReadWriteFile.ReadAll(ResURL.join(ResURL.templateURL, "PrefabsName.txt"));
         //正则替换模板内容
         string text = new Regex("{{PrefabNames}}").Replace(template, prefabsNames);
         text = new Regex("{{sceneName}}").Replace(text, sceneName);
@@ -145,8 +143,7 @@ public class ExportPrefabsNameToTs : Editor
             AllPrefabsNamesText += ("    public static readonly " + AllPrefabsNames[i] + ": string = '" + AllPrefabsNames[i] + "';" + "\n");
         }
         //读取模板
-        TextAsset AllPrefabsNamesTextAsset = (TextAsset)Resources.Load(ResURL.join(ResURL.templateURL, "template/AllPrefabsName.txt"));
-        string AllPrefabsNamesTemplate = AllPrefabsNamesTextAsset.text;
+        string AllPrefabsNamesTemplate = ReadWriteFile.ReadAll(ResURL.join(ResURL.templateURL, "AllPrefabsName.txt"));
         AllPrefabsNamesText = new Regex("{{PrefabNames}}").Replace(AllPrefabsNamesTemplate, AllPrefabsNamesText);
         //写入全部预制体名字
         ReadWriteFile.Write(_AllPrefabsNameURL, AllPrefabsNamesText);

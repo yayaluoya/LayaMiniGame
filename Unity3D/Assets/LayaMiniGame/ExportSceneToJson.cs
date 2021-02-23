@@ -8,8 +8,8 @@ using System.Text.RegularExpressions;
  */
 public class ExportSceneToJson : Editor
 {
-    //导出关卡配置json文件
-    [MenuItem("GameObject/ExportSceneToJson")]
+    //导出场景配置json文件
+    [MenuItem("GameObject/导出场景JSON文件")]
     static void Start()
     {
         string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
@@ -36,7 +36,7 @@ public class ExportSceneToJson : Editor
                 continue;
             child.Add(SetChild(item.transform, (item.GetComponent<Camera>() != null), (item.GetComponent<Light>() != null)));
         }
-        childDic.Add("root", child);
+        childDic.Add("data", child);
         string text = JsonMapper.ToJson(childDic);
         //去除空属性
         text = new Regex("\"position\":null").Replace(text, "");

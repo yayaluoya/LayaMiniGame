@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using UnityEngine;
 
 /**
  * 路径操作工具
@@ -12,7 +13,10 @@ public class ResURL
     {
         get
         {
-            return ResURL.join("../../", "");
+            string _path = Application.dataPath;
+            _path = ResURL.URLBack(_path);
+            _path = ResURL.URLBack(_path);
+            return ResURL.join(_path, "/");
         }
     }
 
@@ -23,7 +27,7 @@ public class ResURL
     {
         get
         {
-            return ResURL.join(ResURL.rootURL, "/Unity3D/Assets/LayaMiniGame/");
+            return ResURL.join(ResURL.rootURL, "Unity3D/Assets/LayaMiniGame/");
         }
     }
 
@@ -34,7 +38,7 @@ public class ResURL
     {
         get
         {
-            return ResURL.join(ResURL.unityLayaMiniGameURL, "/cache/");
+            return ResURL.join(ResURL.unityLayaMiniGameURL, "cache/");
         }
     }
 
@@ -45,7 +49,7 @@ public class ResURL
     {
         get
         {
-            return ResURL.join(ResURL.unityLayaMiniGameURL, "/template/");
+            return ResURL.join(ResURL.unityLayaMiniGameURL, "template/");
         }
     }
 
@@ -54,6 +58,20 @@ public class ResURL
      */
     public static string join(string a, string b)
     {
-        return Path.Combine(a, b);
+        var url = a+ b;
+        #if UNITY_STANDALONE_OSX
+        url = url.Replace(@"\","/");
+        #endif
+        #if UNITY_STANDALONE_WIN
+        // Debug.Log("win");
+        #endif
+        return url;
+    }
+    
+    // 路径向后退一步
+    public static string URLBack(string url){
+        var index = url.LastIndexOf("/");
+        var lastPath = url.Substring(0, index);
+        return lastPath;
     }
 }
