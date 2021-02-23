@@ -6,34 +6,32 @@
     <Scenes>False</Scenes>
     <ScenesDir>
     </ScenesDir>
-    <MeshSetting>True</MeshSetting>
+    <MeshSetting>False</MeshSetting>
     <IgnoreVerticesUV>False</IgnoreVerticesUV>
     <IgnoreVerticesNormal>False</IgnoreVerticesNormal>
     <IgnoreVerticesTangent>False</IgnoreVerticesTangent>
     <IgnoreVerticesColor>False</IgnoreVerticesColor>
     <CompressMesh>False</CompressMesh>
     <AnimatorCompress>False</AnimatorCompress>
-    <TerrainSetting>True</TerrainSetting>
+    <TerrainSetting>False</TerrainSetting>
     <TextureSetting>False</TextureSetting>
     <JPGQuality>75</JPGQuality>
     <PVRQuality>2</PVRQuality>
     <ConvertTerrain>True</ConvertTerrain>
     <TerrainToMeshResolution>8</TerrainToMeshResolution>
-    <GameObjectSetting>True</GameObjectSetting>
+    <GameObjectSetting>False</GameObjectSetting>
     <IgnoreNullGameObject>True</IgnoreNullGameObject>
-    <IgnoreNotActiveGameObject>False</IgnoreNotActiveGameObject>
+    <IgnoreNotActiveGameObject>True</IgnoreNotActiveGameObject>
     <OptimizeGameObject>False</OptimizeGameObject>
-    <BatchMade>False</BatchMade>
+    <BatchMade>True</BatchMade>
     <OtherSetting>True</OtherSetting>
     <CoverOriginalFile>True</CoverOriginalFile>
-    <CustomizeDirectory>False</CustomizeDirectory>
-    <CustomizeDirectoryName>
-    </CustomizeDirectoryName>
+    <CustomizeDirectory>True</CustomizeDirectory>
+    <CustomizeDirectoryName>Prefab</CustomizeDirectoryName>
     <Ios>False</Ios>
     <Android>False</Android>
     <Conventional>True</Conventional>
-    <SavePath>
-    </SavePath>
+    <SavePath>../bin/res</SavePath>
     <ScrollPositionY>0</ScrollPositionY>
   </config1>
   <config2>
@@ -177,7 +175,7 @@
     <ScrollPositionY>0</ScrollPositionY>
   </config5>
   <language>1</language>
-  <time>1611996129</time>
+  <time>1614071241</time>
   <saveAcount>
   </saveAcount>
   <savePassWorld>

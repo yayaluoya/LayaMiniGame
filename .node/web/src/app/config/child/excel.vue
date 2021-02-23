@@ -1,5 +1,5 @@
 <template>
-    <div class="excel">
+    <div class="excel com-box-shadow">
         <span class="name">{{ name }}</span>
         <span class="path">{{ path }}</span>
         <el-button

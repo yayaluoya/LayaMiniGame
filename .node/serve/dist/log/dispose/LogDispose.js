@@ -52,8 +52,8 @@ class LogDispose {
             let _name = _key + '_' + Date.now();
             _name = _name.replace(/[`~!@#$^&*()=|{}':;',\\\[\]\.<>\/?~！@#￥……&*（）——|{}【】'；：""'。，、？\s]/g, '');
             try {
-                fs_1.writeFile(ResURL_1.default.join(ResURL_1.default.logURL, _name + '.log').replace(/ +/g, ''), _log, () => {
-                    fs_1.writeFile(ResURL_1.default.join(ResURL_1.default.logURL, _name + '.log_').replace(/ +/g, ''), _log_, () => {
+                fs_1.writeFile(ResURL_1.default.join(ResURL_1.default.logURL, _name + '.log'), _log, () => {
+                    fs_1.writeFile(ResURL_1.default.join(ResURL_1.default.logURL, _name + '.log_'), _log_, () => {
                         r(ResponseDataT_1.default.Pack({
                             name: _name,
                         }));
@@ -62,6 +62,20 @@ class LogDispose {
             }
             catch (_a) {
                 r(ResponseDataT_1.default.Pack(undefined, EResponseCode_1.EResponseCode.lose, '写入日志失败!'));
+            }
+        });
+    }
+    editLog(_name, _log, _log_) {
+        return new Promise((r, e) => {
+            try {
+                fs_1.writeFile(ResURL_1.default.join(ResURL_1.default.logURL, _name + '.log'), _log, () => {
+                    fs_1.writeFile(ResURL_1.default.join(ResURL_1.default.logURL, _name + '.log_'), _log_, () => {
+                        r(ResponseDataT_1.default.Pack(true));
+                    });
+                });
+            }
+            catch (_a) {
+                r(ResponseDataT_1.default.Pack(undefined, EResponseCode_1.EResponseCode.lose, '修改日志失败！'));
             }
         });
     }

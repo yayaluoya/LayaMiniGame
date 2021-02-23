@@ -8,7 +8,7 @@
   },
   "scripts": {
     "-compile": "gulp compile",
-    "开启前端工具": "gulp startWeb",
+    "打开前端工具": "gulp startWeb",
     "Webpack增量编译": "gulp webpackCompile_",
     "LayaAir编译": "gulp layaCompile",
     "LayaAir增量编译": "gulp layaCompile_",

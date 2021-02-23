@@ -35,6 +35,24 @@ import JsonViewer from "vue-json-viewer";
 Vue.use(JsonViewer);
 //引入markdown解析库
 import marked from "marked";
+import hljs from "highlight.js"; // 引入 highlight.js
+// import "highlight.js/styles/github.css"; // 引入高亮样式
+import "highlight.js/styles/atom-one-dark.css"; // 引入高亮样式
+var rendererMD = new marked.Renderer();
+marked.setOptions({
+    renderer: rendererMD,
+    highlight: function (code) {
+        return hljs.highlightAuto(code).value;
+    },
+    pedantic: false,
+    gfm: true,
+    tables: true,
+    breaks: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false,
+    xhtml: false,
+});
 Vue.prototype.$marked = marked;
 //
 import Main from "./app/Main.vue";

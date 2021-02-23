@@ -1,15 +1,18 @@
 <template>
     <div id="log">
-        <edit-MD v-model="showEditMD" />
+        <edit-MD v-model="showEditMD" @addMd="addMd" />
         <show-MD ref="showMD" v-model="showMD" />
-        <edit-Log v-model="editLog" />
+        <edit-Log ref="editLog" v-model="editLog" />
         <div class="nav">
-            <span>项目日志</span>
+            <span>
+                项目日志
+                <i class="el-icon-loading" v-show="ifLoad"></i>
+            </span>
             <el-button type="primary" size="mini" @click="showEditMD = true"
                 >新建日志</el-button
             >
         </div>
-        <div class="logs" v-loading="ifLoad">
+        <div class="logs">
             <log
                 v-for="(item, index) in allLog"
                 :key="index"
@@ -44,8 +47,10 @@ export default {
             showMD: false,
             /** 是否显示log编辑器 */
             editLog: false,
-            //
+            /** 全部日志列表 */
             allLog: [],
+            /** 日志是否获取了全部数据 */
+            logIfGetData_: Symbol(),
         };
     },
     methods: {
@@ -65,14 +70,19 @@ export default {
                         this.$message.error("请求出错！", data.mes);
                         return;
                     }
-                    //
-                    this.allLog = data.data.map((item) => {
-                        return {
-                            name: item.name,
-                            data: JSON.parse(item.data),
-                            data_: item.data_,
-                        };
-                    });
+                    //提取并排序
+                    this.allLog = data.data
+                        .map((item) => {
+                            return {
+                                name: item.name,
+                                data: JSON.parse(item.data),
+                                data_: item.data_,
+                            };
+                        })
+                        .sort((a, b) => {
+                            // console.log(a.data.time, b.data.time);
+                            return b.data.time - a.data.time;
+                        });
                 })
                 .catch((E) => {
                     this.$message.error("请求出错！", E);
@@ -81,18 +91,40 @@ export default {
                     this.ifLoad = false;
                 });
         },
+        /** 添加一个日志 */
+        addMd(_data) {
+            //添加到数组头部
+            this.allLog.unshift(_data);
+            _data[this.logIfGetData_] = true;
+        },
         /** 编辑 */
         edit(index) {
-            console.log("edit", index);
+            this.getLogData_(index, (data) => {
+                this.$refs.editLog.setData(data);
+                this.editLog = true;
+            });
         },
         /** 查看 */
         show(index) {
+            this.getLogData_(index, (data) => {
+                this.$refs.showMD.setData(data);
+                this.showMD = true;
+            });
+        },
+        /** 填充全部数据 */
+        getLogData_(index, _back) {
             if (index < 0) {
                 return;
             }
             //获取数据
             let _data = this.allLog[index];
-            //发送请求
+            //判断是否已经获取了数据
+            if (_data[this.logIfGetData_]) {
+                _back(_data);
+                return;
+            }
+            this.ifLoad = true;
+            //如果没有就从远端获取
             this.$axios
                 .get(this.$api.log.getLog, {
                     params: {
@@ -108,8 +140,11 @@ export default {
                     }
                     //
                     _data.data_ = data.data.data_;
-                    this.$refs.showMD.setData(_data);
-                    this.showMD = true;
+                    _data[this.logIfGetData_] = true;
+                    _back(_data);
+                })
+                .finally(() => {
+                    this.ifLoad = false;
                 });
         },
     },

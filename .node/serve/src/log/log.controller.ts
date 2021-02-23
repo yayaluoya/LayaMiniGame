@@ -36,4 +36,12 @@ export class LogController {
     async writeLog(@Body() body): Promise<IResponseData<any>> {
         return this.m_logDispose.writeLog(body['log'], body['log_'], body['key']);
     }
+
+    /**
+     * 修改日志
+     */
+    @Post('editLog')
+    async editLog(@Body() body): Promise<IResponseData<any>> {
+        return this.m_logDispose.editLog(body['name'], body['log'], body['log_']);
+    }
 }

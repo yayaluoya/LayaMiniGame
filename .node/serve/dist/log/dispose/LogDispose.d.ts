@@ -4,6 +4,7 @@ export default class LogDispose {
     getAllLog(): Promise<IResponseData<ILogData[]>>;
     getLog(_name: string): Promise<IResponseData<ILogData>>;
     writeLog(_log: string, _log_: string, _key: string): Promise<IResponseData<any>>;
+    editLog(_name: string, _log: string, _log_: string): Promise<IResponseData<any>>;
 }
 export interface ILogData {
     name: string;
