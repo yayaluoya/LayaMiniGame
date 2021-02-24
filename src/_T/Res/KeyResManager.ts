@@ -24,9 +24,9 @@ export default class KeyResManager {
         //注册关键资源目录
         this.m_KeyResList = {
             [EKeyResName.RootRes]: EKeyResName.RootRes + '/',
-            [EKeyResName.Config]: EKeyResName.RootRes + '/' + EKeyResName.Config + '/',
+            [EKeyResName.ConfigJson]: EKeyResName.RootRes + '/' + EKeyResName.ConfigJson + '/',
             [EKeyResName.FGUI]: EKeyResName.RootRes + '/' + EKeyResName.FGUI + '/',
-            [EKeyResName.LvConfig]: EKeyResName.RootRes + '/' + EKeyResName.LvConfig + '/',
+            [EKeyResName.SceneJson]: EKeyResName.RootRes + '/' + EKeyResName.SceneJson + '/',
             [EKeyResName.Font]: EKeyResName.RootRes + '/' + EKeyResName.Font + '/',
             [EKeyResName.Other]: EKeyResName.RootRes + '/' + EKeyResName.Other + '/',
             //其他路径

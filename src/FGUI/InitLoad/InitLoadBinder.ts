@@ -1,11 +1,9 @@
 /** This is an automatically generated class by FairyGUI. Please do not modify it. **/
 
-// 导入文件
-import FGUI_splash from "./FGUI_splash";
-//! 这是由FGUI自动生成的文件，请不要修改 ~~~ **/
+import FGUI_initLoadUI from "./FGUI_initLoadUI";
 
-export default class InitLoadBinder{
+export default class InitLoadBinder {
 	public static bindAll():void {
-		fairygui.UIObjectFactory.setPackageItemExtension(FGUI_splash.URL, FGUI_splash);
+		fgui.UIObjectFactory.setExtension(FGUI_initLoadUI.URL, FGUI_initLoadUI);
 	}
 }

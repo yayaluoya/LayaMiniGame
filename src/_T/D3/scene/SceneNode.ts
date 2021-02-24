@@ -62,7 +62,7 @@ export default class SceneNode {
         let _prefabNamesURL: string[] = this.m_prefabsNames.map((item) => {
             return EssentialResUrls.PrefabURL(item);
         });
-        return ResLoad.LoadAsync(_prefabNamesURL, _onProgress);
+        return ResLoad.Load3DAsync(_prefabNamesURL, _onProgress);
     }
 
     /**

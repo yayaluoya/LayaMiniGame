@@ -1,14 +1,4 @@
 /**
- * 场景配置接口
- */
-export interface ISceneConfig {
-    /** 数据节点 */
-    nodes: INodeConfig[];
-    /** 是否压缩 */
-    zip: boolean;
-}
-
-/**
  * 节点配置
  */
 export interface INodeConfig {

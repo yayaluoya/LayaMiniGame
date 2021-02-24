@@ -14,9 +14,8 @@ export class FGUIPack {
      * 加载包
      * @param _packUrl 包地址
      * @param _atliasCount 图集数量
-     * @param _extraURL 额外的资源
      */
-    constructor(_packUrl: string, _atliasCount: number = -1, _extraURL?: any[]) {
+    constructor(_packUrl: string, _atliasCount: number = -1) {
         this.packPath = _packUrl;
         this.atliasCount = _atliasCount;
     }
@@ -26,15 +25,15 @@ export class FGUIPack {
      */
     public asyncLoad(_onProgress?: Laya.Handler): Promise<void> {
         let _urls: string[] = [];
-        this.getURL(_urls);
-        return ResLoad.Load2dAsync(_urls, _onProgress);
+        this.getResURL(_urls);
+        return ResLoad.Load2DAsync(_urls, _onProgress);
     }
 
     /**
      * 获取所有资源路径
      * @param urls 输出数组
      */
-    public getURL(urls: any[]) {
+    public getResURL(urls: any[]) {
         //加入包名
         urls.push({ url: this.packPath + '.' + _ConstConfig.FGUI.packageFileExtension, type: Laya.Loader.BUFFER });
         //加载纹理集
@@ -45,12 +44,5 @@ export class FGUIPack {
                 urls.push({ url: this.packPath + "_atlas0_" + i + ".png", type: Laya.Loader.IMAGE });
             }
         }
-    }
-
-    /**
-     * 添加包
-     */
-    public AddPackage() {
-        fgui.UIPackage.addPackage(this.packPath);
     }
 }

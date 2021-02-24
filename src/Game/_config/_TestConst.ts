@@ -1,9 +1,10 @@
 // ！ 自动导出，请不要修改
 //
 /**
- * TestConst const配置文件
+ * _TestConst const配置文件
+ * ! 自动导出，不要修改和直接引用
  */
-export namespace TestConst {
+export namespace _TestConst {
     /** 配置表类型 */
     export const type: string = 'const';
     /** 数据类型 */
@@ -42,7 +43,7 @@ export namespace TestConst {
         o3: any;
     }
     /** const数据列表 */
-    export var data: TestConst.DataType = null;
+    export var data: _TestConst.DataType = null;
     /** 文件名字 */
     export const fileName: string = 'TestConst.json';
 }

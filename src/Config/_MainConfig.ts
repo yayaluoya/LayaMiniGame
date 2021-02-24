@@ -9,7 +9,7 @@ export default class _MainConfig {
     /** 中文名字 */
     public static readonly ZHName: string = 'LayaBox小游戏';
     /** 游戏说明 */
-    public static readonly Explain: string = 'LayaBox小游戏';
+    public static readonly Explain: string = 'LayaBox小游戏，说明。';
     /** 数据版本 可以带字母但是尽量不要出现中文和特殊字符*/
     public static readonly Versions: string = '0.0.0.1';
     /** 是否上线为false则是开发环境 */

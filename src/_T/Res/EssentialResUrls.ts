@@ -10,16 +10,16 @@ export default class EssentialResUrls {
      * 获取关卡配置文件
      * @param _name 场景名字
      */
-    public static LevelConfigURL(_name: string): string {
-        return KeyResManager.getResURL(EKeyResName.LvConfig) + _name + '.json';
+    public static SceneConfigURL(_name: string): string {
+        return KeyResManager.getResURL(EKeyResName.SceneJson) + _name + '.json';
     }
 
     /**
-     * 获取配置表RUL
+     * 获取配置表Json文件RUL
      * @param _name 配置表名字
      */
-    public static ConfigURL(_name: string): string {
-        return KeyResManager.getResURL(EKeyResName.Config) + _name;
+    public static ConfigJsonURL(_name: string): string {
+        return KeyResManager.getResURL(EKeyResName.ConfigJson) + _name;
     }
 
     /**

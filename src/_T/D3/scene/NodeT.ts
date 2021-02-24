@@ -1,3 +1,4 @@
+import GamePool, { EGamePoolSign } from "src/_T/GameT/GamePool";
 import V3Utils from "src/_T/Utils/V3Utils";
 import { INodeConfig, IPrefabsConfig, IPrefabsDifferConfig } from "./INodeConfig";
 
@@ -6,7 +7,6 @@ import { INodeConfig, IPrefabsConfig, IPrefabsDifferConfig } from "./INodeConfig
  * 节点工具
  */
 export default class NodeT {
-
     /**
      * 根据节点数据初始化节点
      * @param _spr 精灵
@@ -48,8 +48,6 @@ export default class NodeT {
         }
     }
 
-    //中间临时向量
-    private static _centreV3: Laya.Vector3 = new Laya.Vector3();
     /**
      * 设置一个精灵和源精灵的差异
      * @param _spr 精灵
@@ -57,6 +55,9 @@ export default class NodeT {
      */
     private static setDiffer(_spr: Laya.Sprite3D, _differ: IPrefabsDifferConfig) {
         // console.log('设置差异', _spr, _differ);
+        //获取一个临时向量
+        let _centreV3: Laya.Vector3 = GamePool.getItem<Laya.Vector3>(EGamePoolSign.v3);
+        //
         if (_differ.child) {
             for (let _diff of _differ.child) {
                 this.setDiffer(_spr.getChildAt(_diff.index) as Laya.Sprite3D, _diff);
@@ -64,22 +65,24 @@ export default class NodeT {
         }
         //
         if (_differ.position) {
-            V3Utils.parseVector3(_differ.position, this._centreV3);
-            Laya.Vector3.add(_spr.transform.localPosition, this._centreV3, this._centreV3);
-            this._centreV3.cloneTo(_spr.transform.localPosition);
+            V3Utils.parseVector3(_differ.position, _centreV3);
+            Laya.Vector3.add(_spr.transform.localPosition, _centreV3, _centreV3);
+            _centreV3.cloneTo(_spr.transform.localPosition);
             _spr.transform.localPosition = _spr.transform.localPosition;
         }
         if (_differ.euler) {
-            V3Utils.parseVector3(_differ.euler, this._centreV3);
-            Laya.Vector3.add(_spr.transform.localRotationEuler, this._centreV3, this._centreV3);
-            this._centreV3.cloneTo(_spr.transform.localRotationEuler);
+            V3Utils.parseVector3(_differ.euler, _centreV3);
+            Laya.Vector3.add(_spr.transform.localRotationEuler, _centreV3, _centreV3);
+            _centreV3.cloneTo(_spr.transform.localRotationEuler);
             _spr.transform.localRotationEuler = _spr.transform.localRotationEuler;
         }
         if (_differ.scale) {
-            V3Utils.parseVector3(_differ.scale, this._centreV3);
-            Laya.Vector3.add(_spr.transform.localScale, this._centreV3, this._centreV3);
-            this._centreV3.cloneTo(_spr.transform.localScale);
+            V3Utils.parseVector3(_differ.scale, _centreV3);
+            Laya.Vector3.add(_spr.transform.localScale, _centreV3, _centreV3);
+            _centreV3.cloneTo(_spr.transform.localScale);
             _spr.transform.localScale = _spr.transform.localScale;
         }
+        //回收临时向量
+        GamePool.recycleItem(EGamePoolSign.v3, _centreV3);
     }
 }

@@ -19,6 +19,7 @@ class ExcelToJson {
                 return;
             }
             let _excelName = _excel.match(/([^\/\\]+)\.xlsx$/)[1].replace(/^[a-z]/, function ($1) { return $1.toLocaleUpperCase(); });
+            let __excelName = '_' + _excelName;
             if (/config$/i.test(_excelName)) {
                 let _rowsDatas = [];
                 let _explainData;
@@ -49,8 +50,8 @@ class ExcelToJson {
                     }
                 }
                 this.saveJson(_excelName, _rowsDatas, _jsonURL).then(() => {
-                    let _TSContent = TSFileT.fillConfig(_excelName, _keyData, _typeData, _explainData);
-                    this.saveTS(_excelName, _TSContent, _TSURL).then(() => {
+                    let _TSContent = TSFileT.fillConfig(_excelName, __excelName, _keyData, _typeData, _explainData);
+                    this.saveTS(__excelName, _TSContent, _TSURL).then(() => {
                         r({
                             _type: 'config',
                             _rowsDatas,
@@ -92,8 +93,8 @@ class ExcelToJson {
                     }
                 }
                 this.saveJson(_excelName, _jsonData, _jsonURL).then(() => {
-                    let _TSContent = TSFileT.fillConst(_excelName, _keyData, _typeData, _explainData);
-                    this.saveTS(_excelName, _TSContent, _TSURL).then(() => {
+                    let _TSContent = TSFileT.fillConst(_excelName, __excelName, _keyData, _typeData, _explainData);
+                    this.saveTS(__excelName, _TSContent, _TSURL).then(() => {
                         r({
                             _type: 'const',
                             _jsonData,
@@ -203,6 +204,7 @@ class TSFileT {
 ${_import}
 /**
 * 构建全部配置表
+* ! 自动导出
 */
 export class ${_name} {
     /**
@@ -214,7 +216,7 @@ ${_build}
 }
 `;
     }
-    static fillConfig(_excelName, _keyData, _typeData, _explainData) {
+    static fillConfig(_excelName, __excelName, _keyData, _typeData, _explainData) {
         let _dataType = ``;
         for (let _i in _keyData) {
             _dataType += `       /** ${_explainData[_i]} */\n        ${_keyData[_i]}: ${this.getType(_typeData[_i])};${Number(_i) == _keyData.length - 1 ? '' : '\n'}`;
@@ -222,9 +224,10 @@ ${_build}
         return `// ！ 自动导出，请不要修改
 //
 /**
- * ${_excelName} config配置文件
+ * ${__excelName} config配置文件
+ * ! 自动导出，不要修改和直接引用
  */
-export namespace ${_excelName} {
+export namespace ${__excelName} {
     /** 配置表类型 */
     export const type: string = 'config';
     /** 数据类型 */
@@ -232,13 +235,13 @@ export namespace ${_excelName} {
 ${_dataType}
     }
     /** config数据列表 */
-    export var datas: ${_excelName}.DataType[] = [];
+    export var datas: ${__excelName}.DataType[] = [];
     /** 文件名字 */
     export const fileName: string = '${_excelName}.json';
 }
     `;
     }
-    static fillConst(_excelName, _keyData, _typeData, _explainData) {
+    static fillConst(_excelName, __excelName, _keyData, _typeData, _explainData) {
         let _dataType = ``;
         for (let _i in _keyData) {
             _dataType += `       /** ${_explainData[_i]} */\n        ${_keyData[_i]}: ${this.getType(_typeData[_i])};${Number(_i) == _keyData.length - 1 ? '' : '\n'}`;
@@ -246,9 +249,10 @@ ${_dataType}
         return `// ！ 自动导出，请不要修改
 //
 /**
- * ${_excelName} const配置文件
+ * ${__excelName} const配置文件
+ * ! 自动导出，不要修改和直接引用
  */
-export namespace ${_excelName} {
+export namespace ${__excelName} {
     /** 配置表类型 */
     export const type: string = 'const';
     /** 数据类型 */
@@ -256,7 +260,7 @@ export namespace ${_excelName} {
 ${_dataType}
     }
     /** const数据列表 */
-    export var data: ${_excelName}.DataType = null;
+    export var data: ${__excelName}.DataType = null;
     /** 文件名字 */
     export const fileName: string = '${_excelName}.json';
 }
