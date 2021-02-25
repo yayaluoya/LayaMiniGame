@@ -45,7 +45,8 @@ export default class SceneNode {
      * @param _nodeConfigs 节点配置信息
      */
     public constructor(_nodeConfigs: INodeConfig[]) {
-        this.m_ifDelete = false;
+        //默认为删除状态
+        this.m_ifDelete = true;
         this.m_nodeConfigs = _nodeConfigs;
         //提取预制体名字列表
         this.m_prefabsNames = [];
@@ -88,7 +89,6 @@ export default class SceneNode {
         let _spr: Laya.Sprite3D;
         this.m_nodeConfigs.forEach((item) => {
             _spr = new Laya.Sprite3D;
-            NodeT.setNode(_spr, item);
             this.m_node.addChild(_spr);
             this.buildNode(_spr, item);
         });
@@ -101,6 +101,7 @@ export default class SceneNode {
         if (this.m_ifDelete) { return; }
         this.m_ifDelete = true;
         this.m_node.destroy();
+        this.m_node = null;
         this.m_prefabs = null;
     }
 

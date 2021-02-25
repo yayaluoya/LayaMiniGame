@@ -3,6 +3,7 @@
  * ! 此文件是Unity自动导出的，不要修改，也不要直接依赖。
  */
 export enum _EAllScenePrefabsNames {
-{{AllPrefab}}
+    Prefab = '@Cube@@Sphere@',
+
 }
 //

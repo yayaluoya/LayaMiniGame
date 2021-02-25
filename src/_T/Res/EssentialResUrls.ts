@@ -53,18 +53,28 @@ export default class EssentialResUrls {
     public static PrefabURL(prefab: string): string {
         //先在缓存中查找场景名字
         if (this._prefabsSceneCache[prefab]) {
-            return KeyResManager.getResURL(EKeyResName[this._prefabsSceneCache[prefab]]) + 'Conventional/' + prefab + '.lh';
+            return KeyResManager.getResURL(this._prefabsSceneCache[prefab]) + 'Conventional/' + prefab + '.lh';
         }
         //判断该预制体在哪个场景中被导出的
         for (let _i in this._AllScenePrefabsNames) {
             if (this._AllScenePrefabsNames[_i].indexOf('@' + prefab + '@') != -1) {
                 //添加到缓存
                 this._prefabsSceneCache[prefab] = _i;
-                //
-                return KeyResManager.getResURL(EKeyResName[_i]) + 'Conventional/' + prefab + '.lh';
+                return KeyResManager.getResURL(_i) + 'Conventional/' + prefab + '.lh';
             }
         }
         //
         console.error(...ConsoleEx.packError('没有在场景找到预制体', prefab, '可能是没有导出场景预制体列表导致的。'));
+    }
+
+    /**
+     * 设置场景预制体名字列表
+     * @param _o 场景预制体集合
+     */
+    public static setPrefabSceneNames(_o: any) {
+        //
+        for (let _i in _o) {
+            this._AllScenePrefabsNames[_i] = _o[_i];
+        }
     }
 }

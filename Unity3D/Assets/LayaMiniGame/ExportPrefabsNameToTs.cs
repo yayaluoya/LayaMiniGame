@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 public class ExportPrefabsNameToTs : Editor
 {
     //导出预制体名字到ts文件 
-    [MenuItem("GameObject/导出预制体名字TS文件")]
+    [MenuItem("LayaMiniGame/导出预制体名字TS文件")]
     static void Start()
     {
         string sceneName = _T.CapitalizeFirstSetter(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
@@ -114,7 +114,7 @@ public class ExportPrefabsNameToTs : Editor
         MatchCollection _allPrefabeMatch = new Regex("@(?<scene>.*?):{(?<prefabs>.*?)}").Matches(_AllPrefabsNameCacheText);
         for (int i = 0; i < _allPrefabeMatch.Count; i++)
         {
-            _AllPrefabsNameSceneText = _AllPrefabsNameSceneText + "    " + _allPrefabeMatch[i].Groups["scene"] + ": string = '" + _allPrefabeMatch[i].Groups["prefabs"] + "';\n";
+            _AllPrefabsNameSceneText = _AllPrefabsNameSceneText + "    " + _allPrefabeMatch[i].Groups["scene"] + " = '" + _allPrefabeMatch[i].Groups["prefabs"] + "',\n";
             // 提取所有预制体名字
             MatchCollection _prefabs = new Regex("@(?<prefabs>.*?)@").Matches("" + _allPrefabeMatch[i].Groups["prefabs"]);
             for (int _i = 0; _i < _prefabs.Count; _i++)
@@ -124,7 +124,7 @@ public class ExportPrefabsNameToTs : Editor
         }
         //
         AllPrefabsTxt = new Regex("{{AllPrefab}}").Replace(AllPrefabsTxt, _AllPrefabsNameSceneText);
-        string _AllPrefabsNameSceneURL = ResURL.join(ResURL.rootURL, "/src/Game/_prefabsName/_AllScenePrefabsNames.ts");
+        string _AllPrefabsNameSceneURL = ResURL.join(ResURL.rootURL, "/src/Game/_prefabsName/_EAllScenePrefabsNames.ts");
         string _AllPrefabsNameURL = ResURL.join(ResURL.rootURL, "src/Game/_prefabsName/_AllPrefabsNames.ts");
         //写入全部场景预制体名字
         ReadWriteFile.Write(_AllPrefabsNameSceneURL, AllPrefabsTxt);

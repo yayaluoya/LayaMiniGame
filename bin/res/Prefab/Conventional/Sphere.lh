@@ -2,7 +2,7 @@
 	"version":"LAYAHIERARCHY:02",
 	"data":{
 		"type":"MeshSprite3D",
-		"instanceID":1,
+		"instanceID":3,
 		"props":{
 			"name":"Sphere",
 			"active":true,

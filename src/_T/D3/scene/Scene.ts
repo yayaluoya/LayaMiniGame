@@ -5,10 +5,10 @@ import { INodeConfig } from "./INodeConfig";
 import SceneNode from "./SceneNode";
 
 /**
- * 基类场景
+ * 场景 实例
  * 根据指定的场景配置表构建场景
  */
-export default abstract class BaseScene {
+export default class Scene {
     /** 场景名字 */
     protected _sceneName: string;
 
@@ -20,8 +20,13 @@ export default abstract class BaseScene {
     /** 场景节点实例缓存 */
     private m_sceneNodes: SceneNode[] = [];
 
-    //
-    public constructor() {
+    /**
+     * 初始化
+     * @param _sceneName 场景名字
+     */
+    public constructor(_sceneName: string) {
+        //
+        this._sceneName = _sceneName;
         //根据场景名字读取配置表信息
         if (!this._sceneName) {
             console.error(...ConsoleEx.packError('没有初始化场景的名字！'));

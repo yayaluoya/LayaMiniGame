@@ -6,13 +6,16 @@ import ConfigT, { IBaseConfigContainer } from "src/_T/Config/ConfigT";
 import ConsoleEx from "src/_T/Console/ConsoleEx";
 import { FGUIPack } from "src/_T/D2/FGUI/FGUIPack";
 import BaseInitLoad from "src/_T/Main/BaseInitLoad";
+import { EKeyResName } from "src/_T/Res/EKeyResName";
 import EssentialResUrls from "src/_T/Res/EssentialResUrls";
+import KeyResManager from "src/_T/Res/KeyResManager";
 import { EResLoadModel } from "src/_T/Res/ResLoad";
 import ResLoadItem from "src/_T/Res/ResLoadItem";
 import InitEmptyScreenUICon from "../UICon/initLoad/initEmptyScreenUICon";
 import InitLoadUICon from "../UICon/initLoad/initLoadUICon";
 import { BuildConfigTs } from "../_config/BuildConfigTs";
 import { _TestConst } from "../_config/_TestConst";
+import { _EAllScenePrefabsNames } from "../_prefabsName/_EAllScenePrefabsNames";
 
 /**
  * 游戏初始化加载
@@ -37,7 +40,12 @@ export default class GameInitLoad extends BaseInitLoad {
      * 可以在这里初始化一些东西
      */
     protected loadBefore() {
-        //初始化平台。。。
+        //设置路径
+        for (let _i in _EAllScenePrefabsNames) {
+            KeyResManager.addResUrl(_i, KeyResManager.getResURL(EKeyResName.RootRes) + `${_i}/`);//注入预制体路径
+        }
+        //设置预制体场景对照
+        KeyResManager.setPrefabSceneNames(_EAllScenePrefabsNames);
     }
 
     /**

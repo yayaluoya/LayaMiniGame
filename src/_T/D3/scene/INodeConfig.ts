@@ -7,14 +7,7 @@ export interface INodeConfig {
     /** 子节点，可能是普通节点，也可能是预制体节点 */
     child: (INodeConfig | IPrefabsConfig)[];
     /** 3D变换 */
-    transform: {
-        /** 位置 */
-        position: string;
-        /** 旋转 */
-        euler: string;
-        /** 缩放 */
-        scale: string;
-    };
+    transform: ITransform;
 }
 
 /**
@@ -33,14 +26,22 @@ export interface IPrefabsConfig extends INodeConfig {
 export interface IPrefabsDifferConfig {
     /** 索引 */
     index: number;
+    /** 3D变换 */
+    transform: ITransform;
+    /** 子节点 */
+    child: IPrefabsDifferConfig[];
+}
+
+/**
+ * 变换接口
+ */
+export interface ITransform {
     /** 位置 */
     position: string;
     /** 旋转 */
     euler: string;
     /** 缩放 */
     scale: string;
-    /** 子节点 */
-    child: IPrefabsDifferConfig[];
 }
 
 /**
