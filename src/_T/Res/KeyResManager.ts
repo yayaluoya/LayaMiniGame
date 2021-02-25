@@ -1,5 +1,6 @@
 import ConsoleEx from "../Console/ConsoleEx";
 import { EKeyResName } from "./EKeyResName";
+import EssentialResUrls from "./EssentialResUrls";
 
 /**
  * 关键资源点列表管理器
@@ -24,9 +25,9 @@ export default class KeyResManager {
         //注册关键资源目录
         this.m_KeyResList = {
             [EKeyResName.RootRes]: EKeyResName.RootRes + '/',
-            [EKeyResName.Config]: EKeyResName.RootRes + '/' + EKeyResName.Config + '/',
+            [EKeyResName.ConfigJson]: EKeyResName.RootRes + '/' + EKeyResName.ConfigJson + '/',
             [EKeyResName.FGUI]: EKeyResName.RootRes + '/' + EKeyResName.FGUI + '/',
-            [EKeyResName.LvConfig]: EKeyResName.RootRes + '/' + EKeyResName.LvConfig + '/',
+            [EKeyResName.SceneJson]: EKeyResName.RootRes + '/' + EKeyResName.SceneJson + '/',
             [EKeyResName.Font]: EKeyResName.RootRes + '/' + EKeyResName.Font + '/',
             [EKeyResName.Other]: EKeyResName.RootRes + '/' + EKeyResName.Other + '/',
             //其他路径
@@ -83,5 +84,13 @@ export default class KeyResManager {
         }
         //
         console.log(...ConsoleEx.packLog('修改关键点资源路径', _replace, '替换成', _str));
+    }
+
+    /**
+     * 设置场景预制体名字列表
+     * @param _o 场景预制体集合
+     */
+    public static setPrefabSceneNames(_o: any) {
+        EssentialResUrls.setPrefabSceneNames(_o);
     }
 }

@@ -1,13 +1,56 @@
+import { IConfigData } from "../com/IConfigData";
+import ConsoleEx from "../Console/ConsoleEx";
+import EssentialResUrls from "../Res/EssentialResUrls";
+import ResLoad from "../Res/ResLoad";
+
 /**
  * 配置表工具
  */
 export default class ConfigT {
     /**
-     * 根据配置表列表构建配置表
+     * 构建配置表列表
+     * 只构建，不加载
      * @param _configs 配置表列表
      */
-    public static Build(_configs: IBaseConfigContainer[]) {
+    public static BuildConfigs(_configs: IBaseConfigContainer[]) {
+        let _url: string;
+        for (let _o of _configs) {
+            _url = EssentialResUrls.ConfigJsonURL(_o.fileName);
+            //填充数据
+            switch (_o.type) {
+                case 'config':
+                    (_o as IConfigContainer).datas = this.getConfigJsonData(_url);
+                    break;
+                case 'const':
+                    (_o as IConstContainer).data = this.getConfigJsonData(_url);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 获取配置表json数据
+     * ！注意，获取了该资源该资源就会被删除掉
+     * @param _url 配置表资源地址
+     */
+    public static getConfigJsonData(_url: string): any {
+        //获取资源
+        let configData: IConfigData = ResLoad.GetRes(_url, true);
+        //清理资源缓存只使用一次
+        ResLoad.ClearRes(_url);
+        //判断有没有压缩
+        if (configData.zip) {
+            //解压
+            let _time: number = Date.now();
+            configData.data = JSON.parse(pako.inflate(configData.data, { to: 'string' }));
+            _time = Date.now() - _time;
+            //判断解压时间差
+            if (_time > 500) {
+                console.warn(...ConsoleEx.packWarn('配置表解压时间过长，可能是配置表文件过大->', _url));
+            }
+        }
         //
+        return configData.data;
     }
 }
 

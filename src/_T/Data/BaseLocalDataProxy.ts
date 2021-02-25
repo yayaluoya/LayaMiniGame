@@ -67,7 +67,7 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
     public InitData() {
         //记录时间
         let _time = Date.now();
-        //
+        //获取数据代理
         this.m_dataProp = new DataProxy(Laya.Handler.create(this, this._proxyDataSet));
         this.m_saveData = this._ReadFromFile();
         //保存原始数据

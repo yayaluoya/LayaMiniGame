@@ -1,11 +1,12 @@
 // ！ 自动导出，请不要修改
 //
-import { SceneNodeConfig } from "./SceneNodeConfig";
-import { TestConfig } from "./TestConfig";
-import { TestConst } from "./TestConst";
+import { _SceneNodeConfig } from "./_SceneNodeConfig";
+import { _TestConfig } from "./_TestConfig";
+import { _TestConst } from "./_TestConst";
 
 /**
 * 构建全部配置表
+* ! 自动导出
 */
 export class BuildConfigTs {
     /**
@@ -13,9 +14,9 @@ export class BuildConfigTs {
      */
     public static getAllConfig(): any[] {
         let configs: any[] = [];
-        configs.push(SceneNodeConfig);
-        configs.push(TestConfig);
-        configs.push(TestConst);
+        configs.push(_SceneNodeConfig);
+        configs.push(_TestConfig);
+        configs.push(_TestConst);
         return configs;
     }
 }

@@ -30,6 +30,8 @@ export default class ExcelToJson {
             }
             //表名字
             let _excelName: string = _excel.match(/([^\/\\]+)\.xlsx$/)[1].replace(/^[a-z]/, function ($1) { return $1.toLocaleUpperCase(); });
+            //加个前缀，便于区分
+            let __excelName = '_' + _excelName;
             //判断是关系表还是非关系表
             if (/config$/i.test(_excelName)) {//关系表
                 let _rowsDatas: any[] = [];//行数据
@@ -65,9 +67,9 @@ export default class ExcelToJson {
                 //保存json文件
                 this.saveJson(_excelName, _rowsDatas, _jsonURL).then(() => {
                     //ts内容
-                    let _TSContent: string = TSFileT.fillConfig(_excelName, _keyData, _typeData, _explainData);
+                    let _TSContent: string = TSFileT.fillConfig(_excelName, __excelName, _keyData, _typeData, _explainData);
                     //保存ts文件
-                    this.saveTS(_excelName, _TSContent, _TSURL).then(() => {
+                    this.saveTS(__excelName, _TSContent, _TSURL).then(() => {
                         r({
                             _type: 'config',
                             _rowsDatas,
@@ -115,8 +117,8 @@ export default class ExcelToJson {
                 //保存json文件
                 this.saveJson(_excelName, _jsonData, _jsonURL).then(() => {
                     //ts内容
-                    let _TSContent: string = TSFileT.fillConst(_excelName, _keyData, _typeData, _explainData);
-                    this.saveTS(_excelName, _TSContent, _TSURL).then(() => {
+                    let _TSContent: string = TSFileT.fillConst(_excelName, __excelName, _keyData, _typeData, _explainData);
+                    this.saveTS(__excelName, _TSContent, _TSURL).then(() => {
                         r({
                             _type: 'const',
                             _jsonData,
@@ -264,6 +266,7 @@ class TSFileT {
 ${_import}
 /**
 * 构建全部配置表
+* ! 自动导出
 */
 export class ${_name} {
     /**
@@ -279,12 +282,13 @@ ${_build}
     /**
      * 填充config
      * @param _excelName 名字
+     * @param __excelName 其他名字
      * @param _keyData key
      * @param _typeData 类型
      * @param _explainData 说明
      * @returns
      */
-    public static fillConfig(_excelName: string, _keyData: string[], _typeData: string[], _explainData: string[]): string {
+    public static fillConfig(_excelName: string, __excelName: string, _keyData: string[], _typeData: string[], _explainData: string[]): string {
         /** 数据类型列表 */
         let _dataType: string = ``;
         for (let _i in _keyData) {
@@ -294,9 +298,10 @@ ${_build}
         return `// ！ 自动导出，请不要修改
 //
 /**
- * ${_excelName} config配置文件
+ * ${__excelName} config配置文件
+ * ! 自动导出，不要修改和直接引用
  */
-export namespace ${_excelName} {
+export namespace ${__excelName} {
     /** 配置表类型 */
     export const type: string = 'config';
     /** 数据类型 */
@@ -304,7 +309,7 @@ export namespace ${_excelName} {
 ${_dataType}
     }
     /** config数据列表 */
-    export var datas: ${_excelName}.DataType[] = [];
+    export var datas: ${__excelName}.DataType[] = [];
     /** 文件名字 */
     export const fileName: string = '${_excelName}.json';
 }
@@ -314,12 +319,13 @@ ${_dataType}
     /**
      * 填充const
      * @param _excelName 名字
+     * @param __excelName 其他名字
      * @param _keyData key
      * @param _typeData 类型
      * @param _explainData 说明
      * @returns
      */
-    public static fillConst(_excelName: string, _keyData: string[], _typeData: string[], _explainData: string[]): string {
+    public static fillConst(_excelName: string, __excelName: string, _keyData: string[], _typeData: string[], _explainData: string[]): string {
         /** 数据类型列表 */
         let _dataType: string = ``;
         for (let _i in _keyData) {
@@ -329,9 +335,10 @@ ${_dataType}
         return `// ！ 自动导出，请不要修改
 //
 /**
- * ${_excelName} const配置文件
+ * ${__excelName} const配置文件
+ * ! 自动导出，不要修改和直接引用
  */
-export namespace ${_excelName} {
+export namespace ${__excelName} {
     /** 配置表类型 */
     export const type: string = 'const';
     /** 数据类型 */
@@ -339,7 +346,7 @@ export namespace ${_excelName} {
 ${_dataType}
     }
     /** const数据列表 */
-    export var data: ${_excelName}.DataType = null;
+    export var data: ${__excelName}.DataType = null;
     /** 文件名字 */
     export const fileName: string = '${_excelName}.json';
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="n3oedpp6">
   <resources>
-    <component id="nihr0" name="splash.xml" path="/ui/" exported="true"/>
+    <component id="nihr0" name="initLoadUI.xml" path="/ui/" exported="true"/>
     <component id="nihr1" name="progress_simple.xml" path="/cmp/"/>
     <image id="nihr3" name="sp_jindutiao.png" path="/_img/" scale="9grid" scale9grid="100,18,78,6"/>
     <image id="m8knb" name="sp_jindutiaobg.png" path="/_img/" scale="9grid" scale9grid="27,13,234,12"/>

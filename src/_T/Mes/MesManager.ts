@@ -14,13 +14,6 @@ export default class MesManager extends Laya.EventDispatcher {
     private constructor() { super(); }
 
     /**
-     * 初始化
-     */
-    public static init() {
-        //
-    }
-
-    /**
      * 检查 EventDispatcher 对象是否为特定事件类型注册了任何侦听器。
      * @param type 事件的类型。
      * @return 如果指定类型的侦听器已注册，则值为 true；否则，值为 false。

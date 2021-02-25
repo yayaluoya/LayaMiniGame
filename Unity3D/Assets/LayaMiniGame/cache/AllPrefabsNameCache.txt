@@ -1,1 +1,1 @@
-@Scene:{}@Prefab:{@Cube@@Sphere@}
+@Prefab:{@Cube@@Sphere@}

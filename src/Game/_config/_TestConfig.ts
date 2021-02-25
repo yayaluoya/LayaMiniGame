@@ -1,9 +1,10 @@
 // ！ 自动导出，请不要修改
 //
 /**
- * TestConfig config配置文件
+ * _TestConfig config配置文件
+ * ! 自动导出，不要修改和直接引用
  */
-export namespace TestConfig {
+export namespace _TestConfig {
     /** 配置表类型 */
     export const type: string = 'config';
     /** 数据类型 */
@@ -16,7 +17,7 @@ export namespace TestConfig {
         b: boolean;
     }
     /** config数据列表 */
-    export var datas: TestConfig.DataType[] = [];
+    export var datas: _TestConfig.DataType[] = [];
     /** 文件名字 */
     export const fileName: string = 'TestConfig.json';
 }

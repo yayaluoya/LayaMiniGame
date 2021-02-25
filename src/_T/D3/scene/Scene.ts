@@ -1,14 +1,14 @@
+import ConfigT from "src/_T/Config/ConfigT";
 import ConsoleEx from "src/_T/Console/ConsoleEx";
 import EssentialResUrls from "src/_T/Res/EssentialResUrls";
-import ResLoad from "src/_T/Res/ResLoad";
-import { INodeConfig, ISceneConfig } from "./INodeConfig";
+import { INodeConfig } from "./INodeConfig";
 import SceneNode from "./SceneNode";
 
 /**
- * 基类场景
+ * 场景 实例
  * 根据指定的场景配置表构建场景
  */
-export default abstract class BaseScene {
+export default class Scene {
     /** 场景名字 */
     protected _sceneName: string;
 
@@ -20,39 +20,28 @@ export default abstract class BaseScene {
     /** 场景节点实例缓存 */
     private m_sceneNodes: SceneNode[] = [];
 
-    //
-    public constructor() {
+    /**
+     * 初始化
+     * @param _sceneName 场景名字
+     */
+    public constructor(_sceneName: string) {
+        //
+        this._sceneName = _sceneName;
         //根据场景名字读取配置表信息
         if (!this._sceneName) {
             console.error(...ConsoleEx.packError('没有初始化场景的名字！'));
             return;
         }
-        let url = EssentialResUrls.LevelConfigURL(this._sceneName);
-        //这里必须不使用克隆资源
-        let config: ISceneConfig = ResLoad.GetRes(url, true);
-        //判断有没有压缩
-        if (config.zip) {
-            //解压
-            let _time = Date.now();
-            config.nodes = JSON.parse(pako.inflate(config.nodes, { to: 'string' }));
-            _time = Date.now() - _time;
-            //判断解压时间差
-            if (_time > 500) {
-                console.warn(...ConsoleEx.packWarn('配置表解压时间过长，可能是配置表文件过大', url, _time));
-            }
-        }
+        let _data: INodeConfig[] = ConfigT.getConfigJsonData(EssentialResUrls.SceneConfigURL(this._sceneName));
         // console.log(config.root);
-        //
-        if (config.nodes) {
+        if (_data) {
             //获取根节点下的节点
-            for (let _i = 0; _i < config.nodes.length; _i++) {
-                this.m_sceneConfig[config.nodes[_i].name] = config.nodes[_i];
+            for (let _i = 0; _i < _data.length; _i++) {
+                this.m_sceneConfig[_data[_i].name] = _data[_i];
             }
         } else {
-            console.error(...ConsoleEx.packError('找不到配置表root节点数据', url));
+            console.error(...ConsoleEx.packError('获取场景数据失败->', this._sceneName));
         }
-        //清理资源缓存只使用一次
-        ResLoad.UnLoad(url);
         //
         this._init();
     }
@@ -130,4 +119,10 @@ export default abstract class BaseScene {
         //
         return _sceneNode;
     }
+
+    /**
+     * 设置环境
+     * 会根据当前场景中的摄像机和灯光位置设置全局的摄像机和灯光位置
+     */
+    public setEnvironment() { }
 }

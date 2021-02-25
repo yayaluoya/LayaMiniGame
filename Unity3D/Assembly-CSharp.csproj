@@ -85,7 +85,9 @@
     <Compile Include="Assets\LayaMiniGame\LitJson\Unity\UnityTypeBindings.cs" />
     <Compile Include="Assets\LayaMiniGame\ReadWriteFile.cs" />
     <Compile Include="Assets\LayaMiniGame\ResURL.cs" />
+    <Compile Include="Assets\LayaMiniGame\Tool.cs" />
     <None Include="Assets\LayaAir3D\LayaShader\LayaShader\LayaSpecularStandard.shader" />
+    <None Include="Assets\LayaMiniGame\cache\AllExportSceneNameCache.txt" />
     <None Include="Assets\LayaAir3D\LayaShader\LayaShader\LayaMeshEffect.shader" />
     <None Include="Assets\LayaMiniGame\template\AllScenePrefabsNames.txt" />
     <None Include="Assets\LayaAir3D\LayaTool\Configuration.xml" />
@@ -103,6 +105,7 @@
     <None Include="Assets\LayaAir3D\LayaShader\CGIncludes\libs\LayaBRDF.cginc" />
     <None Include="Assets\LayaAir3D\LayaTool\Chinese.xml" />
     <None Include="Assets\LayaAir3D\LayaShader\LayaShader\water\Water (Primary).shader" />
+    <None Include="Assets\LayaMiniGame\template\AllExportSceneName.txt" />
     <None Include="Assets\LayaAir3D\LayaShader\CGIncludes\LayaBlinnPhongFB.cginc" />
     <None Include="Assets\LayaAir3D\LayaTool\English.xml" />
     <None Include="Assets\LayaAir3D\LayaShader\LayaShader\Sky\LayaSkybox-Cubed.shader" />

@@ -1,9 +1,10 @@
 // ！ 自动导出，请不要修改
 //
 /**
- * SceneNodeConfig config配置文件
+ * _SceneNodeConfig config配置文件
+ * ! 自动导出，不要修改和直接引用
  */
-export namespace SceneNodeConfig {
+export namespace _SceneNodeConfig {
     /** 配置表类型 */
     export const type: string = 'config';
     /** 数据类型 */
@@ -16,7 +17,7 @@ export namespace SceneNodeConfig {
         sceneName: string;
     }
     /** config数据列表 */
-    export var datas: SceneNodeConfig.DataType[] = [];
+    export var datas: _SceneNodeConfig.DataType[] = [];
     /** 文件名字 */
     export const fileName: string = 'SceneNodeConfig.json';
 }

@@ -3,7 +3,6 @@ import _MainConfig from "src/Config/_MainConfig";
 import GameConfig from "src/GameConfig";
 import D2Manager from "./D2/D2Manager";
 import D3Manager from "./D3/D3Manager";
-import MesManager from "./Mes/MesManager";
 import _TConfig from "./_TConfig";
 
 /** 
@@ -29,8 +28,7 @@ export default class TMain {
             _gameConfig: { ..._GameConfig },
         };
         //初始化各种各样的管理器
-        D2Manager.init();//ui管理器
         D3Manager.init();//3D管理器
-        MesManager.init();//消息管理器
+        D2Manager.init();//ui管理器
     }
 }

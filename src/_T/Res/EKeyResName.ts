@@ -5,13 +5,13 @@ export enum EKeyResName {
     /** 根目录 */
     RootRes = 'res',
     /** 配置表目录 */
-    Config = 'Config',
+    ConfigJson = 'ConfigJson',
     /** 字体目录 */
     Font = 'Font',
     /** FGUI资源目录 */
     FGUI = 'FGUI',
     /** 关卡配置表目录 */
-    LvConfig = 'LvConfig',
+    SceneJson = 'SceneJson',
     /** 其它目录 */
     Other = 'Other',
     /** icon目录 */
