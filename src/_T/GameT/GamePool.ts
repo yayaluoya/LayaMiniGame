@@ -21,9 +21,9 @@ export default class GamePool {
         } else {
             switch (_sign) {
                 case EGamePoolSign.v3:
-                    return (new Laya.Vector3) as T;
+                    return (new Laya.Vector3) as any;
                 case EGamePoolSign.v2:
-                    return (new Laya.Vector2) as T;
+                    return (new Laya.Vector2) as any;
             }
         }
     }
@@ -58,7 +58,7 @@ export default class GamePool {
      * @param _v3 待回收的v3
      */
     public static recycleV3(..._v3s: Laya.Vector3[]) {
-        this.recycleItem(EGamePoolSign.v3, _v3s);
+        this.recycleItem(EGamePoolSign.v3, ..._v3s);
     }
 
     /**
