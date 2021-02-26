@@ -1,4 +1,4 @@
-import GamePool, { EGamePoolSign } from "src/_T/GameT/GamePool";
+import GamePool from "src/_T/GameT/GamePool";
 import V3Utils from "src/_T/Utils/V3Utils";
 import { INodeConfig, IPrefabsConfig, IPrefabsDifferConfig } from "./INodeConfig";
 
@@ -67,7 +67,7 @@ export default class NodeT {
     private static setDiffer(_spr: Laya.Sprite3D, _differ: IPrefabsDifferConfig) {
         // console.log('设置差异', _spr, _differ);
         //获取一个临时向量
-        let _centreV3: Laya.Vector3 = GamePool.getItem<Laya.Vector3>(EGamePoolSign.v3);
+        let _centreV3: Laya.Vector3 = GamePool.getV3();
         //
         if (_differ.child) {
             for (let _diff of _differ.child) {
@@ -97,6 +97,6 @@ export default class NodeT {
             }
         }
         //回收临时向量
-        GamePool.recycleItem(EGamePoolSign.v3, _centreV3);
+        GamePool.recycleV3(_centreV3);
     }
 }

@@ -20,5 +20,5 @@
     <component id="t1pw9y" name="PGameTestPlatform.xml" path="/Panel/Test/" exported="true"/>
     <component id="h66e9z" name="PGameTestUI.xml" path="/Panel/Test/" exported="true"/>
   </resources>
-  <publish name="GameMain" genCode="true"/>
+  <publish name="" genCode="true"/>
 </packageDescription>

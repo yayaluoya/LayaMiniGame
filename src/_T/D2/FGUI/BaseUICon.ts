@@ -86,9 +86,6 @@ export default abstract class BaseUICon {
         this.updateSize();
         //监听事件
         Laya.stage.on(Laya.Event.RESIZE, this, this.updateSize);
-        //播放动画
-        this.stopAni(EFGUIConst.hideAni);//先停止隐藏动画
-        this.playAni(EFGUIConst.showAni, Laya.Handler.create(this, this._OnShowAniCom, ...par));
         //
         this._OnShow(...par);
     }
@@ -97,8 +94,6 @@ export default abstract class BaseUICon {
     protected _OnshowBefore(...par: any[]) { }
     /** 显示之后调用 */
     protected _OnShow(...par: any[]) { }
-    /** 显示动画完成后调用 */
-    protected _OnShowAniCom(...par: any[]) { }
 
     /**
      * 隐藏
@@ -109,25 +104,17 @@ export default abstract class BaseUICon {
         if (!this.m_ifShow) { return; }
         this.m_ifShow = false;
         this._OnHideBefore(par);
-        let _hideF: Function = () => {
-            if (_ifClear) {
-                this.m_rootUI.dispose();
-                //清理引用
-                for (let _i in this._UIs) {
-                    this._UIs[_i].ui = null;
-                }
-            } else {
-                this.m_rootUI.visible = false;
+        if (_ifClear) {
+            this.m_rootUI.dispose();
+            //清理引用
+            for (let _i in this._UIs) {
+                this._UIs[_i].ui = null;
             }
-        };
+        } else {
+            this.m_rootUI.visible = false;
+        }
         //取消监听事件
         Laya.stage.off(Laya.Event.RESIZE, this, this.updateSize);
-        //播放动画
-        this.stopAni(EFGUIConst.showAni);//先停止显示动画
-        this.playAni(EFGUIConst.hideAni, Laya.Handler.create(this, () => {
-            _hideF();
-            this._OnHideAniCom(...par);
-        }));
         //
         this._OnHide(par);
     }
@@ -136,8 +123,6 @@ export default abstract class BaseUICon {
     protected _OnHideBefore(...par: any[]) { }
     /** 隐藏之后调用 */
     protected _OnHide(...par: any[]) { }
-    /** 隐藏动画完成后回调 */
-    protected _OnHideAniCom(...par: any[]) { }
 
     /** 更新大小 */
     private updateSize() {
@@ -155,44 +140,6 @@ export default abstract class BaseUICon {
             }
             this._UIs[_i].ui.setSize(_width - _data.left - _data.right, _height - _data.bottom - _data.top);
             this._UIs[_i].ui.setXY(_data.left, _data.top);
-        }
-    }
-
-    //临时期约
-    private aniPromise: Promise<any>;
-    /**
-     * 播放动画
-     * @param _name 动效名字
-     * @param _comBack 播放完成回调
-     */
-    private playAni(_name: string, _comBack?: Laya.Handler) {
-        let _promises: Promise<void>[] = [];
-        //遍历所有ui并添加期约列表
-        for (let _i in this._UIs) {
-            _promises.push(new Promise<void>((r) => {
-                this._UIs[_i].ui
-                    && this._UIs[_i].ui[_name]
-                    && (this._UIs[_i].ui[_name] as fgui.Transition).play(Laya.Handler.create(this, r));
-            }));
-        }
-        //执行期约
-        this.aniPromise = Promise.all(_promises).then(() => {
-            _comBack && _comBack.run();
-        });
-    }
-
-    /**
-     * 停止动效
-     * @param _name 动效名字
-     */
-    private stopAni(_name: string) {
-        //停止所有动画期约
-        // this.aniPromise && this.aniPromise;
-        //遍历所有ui并添加期约列表
-        for (let _i in this._UIs) {
-            this._UIs[_i].ui
-                && this._UIs[_i].ui[_name]
-                && (this._UIs[_i].ui[_name] as fgui.Transition).stop();
         }
     }
 }

@@ -3,6 +3,7 @@ import { _EAllExportSceneName } from "../_sceneName/_EAllExportSceneName";
 
 /**
  * 场景管理器
+ * 管理场景，获取场景，然后通过场景实例构建场景中对象的节点
  */
 export default class SceneManager {
     /** 单例 */

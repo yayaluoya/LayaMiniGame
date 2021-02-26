@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<packageDescription id="367ibbjj">
+<packageDescription id="hxu4zc9d">
   <resources>
-    <component id="elyz4p" name="PGameNode.xml" path="/" exported="true"/>
+    <component id="ioo80" name="TestMain.xml" path="/ui/" exported="true"/>
   </resources>
   <publish name="" genCode="true"/>
 </packageDescription>

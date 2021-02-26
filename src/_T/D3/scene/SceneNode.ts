@@ -2,12 +2,15 @@ import EssentialResUrls from "src/_T/Res/EssentialResUrls";
 import ResLoad from "src/_T/Res/ResLoad";
 import { INodeConfig, IPrefabsConfig, IPrefabsGather } from "./INodeConfig";
 import NodeT from "./NodeT";
+import Scene from "./Scene";
 
 /**
  * 场景节点
  * 用来构建场景节点
  */
 export default class SceneNode {
+    /** 所属场景 */
+    private m_scene: Scene;
     /** 是否删除 */
     private m_ifDelete: boolean;
     /** 节点配置信息列表 */
@@ -19,6 +22,10 @@ export default class SceneNode {
     /** 预制体集合 */
     private m_prefabs: IPrefabsGather;
 
+    /** 获取所属场景 */
+    public get scene(): Scene {
+        return this.m_scene;
+    }
     /** 获取节点配置信息 */
     public get nodeConfigs(): INodeConfig[] {
         return this.m_nodeConfigs;
@@ -43,8 +50,11 @@ export default class SceneNode {
     /**
      * 初始化场景节点实例
      * @param _nodeConfigs 节点配置信息
+     * @param _scene 所属场景
      */
-    public constructor(_nodeConfigs: INodeConfig[]) {
+    public constructor(_nodeConfigs: INodeConfig[], _scene: Scene) {
+        //
+        this.m_scene = _scene;
         //默认为删除状态
         this.m_ifDelete = true;
         this.m_nodeConfigs = _nodeConfigs;
@@ -85,6 +95,8 @@ export default class SceneNode {
         if (!this.m_ifDelete) { return; }
         this.m_ifDelete = false;
         this.m_node = new Laya.Node;
+        //添加到所属场景环境中
+        this.m_scene.environment.scene.addChild(this.m_node);
         this.m_prefabs = {};
         let _spr: Laya.Sprite3D;
         this.m_nodeConfigs.forEach((item) => {
@@ -101,6 +113,7 @@ export default class SceneNode {
         if (this.m_ifDelete) { return; }
         this.m_ifDelete = true;
         this.m_node.destroy();
+        //清理引用
         this.m_node = null;
         this.m_prefabs = null;
     }

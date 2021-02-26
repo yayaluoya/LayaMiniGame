@@ -1,7 +1,8 @@
 
 /**
  * 游戏对象池
- * ! 只能游戏内使用，不要在工具中引用
+ * ! 只能游戏内使用，不要在工具中使用
+ * ! 尽量只在计算量非常大的地方使用，不然会得不偿失
  */
 export default class GamePool {
     /** 对象池列表 */
@@ -28,15 +29,52 @@ export default class GamePool {
     }
 
     /**
-     * 回收一个元素
+     * 回收元素
      * @param _sign 回收标识
      * @param _item 回收内容
      */
-    public static recycleItem(_sign: EGamePoolSign, _item: any) {
+    public static recycleItem(_sign: EGamePoolSign, ..._items: any[]) {
         if (!this.poolList[_sign]) {
             this.poolList[_sign] = [];
         }
-        this.poolList[_sign].push(_item);
+        //只添加不包含的元素
+        for (let _o of _items) {
+            if (!this.poolList[_sign].includes(_o)) {
+                this.poolList[_sign].push(_o);
+            }
+        }
+    }
+
+    /**
+     * 获取v3
+     */
+    public static getV3(): Laya.Vector3 {
+        let _v3: Laya.Vector3 = this.getItem<Laya.Vector3>(EGamePoolSign.v3);
+        _v3.setValue(0, 0, 0);
+        return _v3;
+    }
+    /**
+     * 回收v3
+     * @param _v3 待回收的v3
+     */
+    public static recycleV3(..._v3s: Laya.Vector3[]) {
+        this.recycleItem(EGamePoolSign.v3, _v3s);
+    }
+
+    /**
+     * 获取v2
+     */
+    public static getV2(): Laya.Vector2 {
+        let _v2: Laya.Vector2 = this.getItem<Laya.Vector2>(EGamePoolSign.v2);
+        _v2.setValue(0, 0);
+        return _v2;
+    }
+    /**
+     * 回收v2
+     * @param _v2 待回收的v2
+     */
+    public static recycleV2(..._v2s: Laya.Vector2[]) {
+        this.recycleItem(EGamePoolSign.v2, ..._v2s);
     }
 }
 

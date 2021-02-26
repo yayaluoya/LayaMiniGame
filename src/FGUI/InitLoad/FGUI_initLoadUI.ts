@@ -12,8 +12,6 @@ export default class FGUI_initLoadUI extends fgui.GComponent {
 	public m_text_v:fgui.GTextField;
 	public m_text_laya_v:fgui.GTextField;
 	public m_text_game_explain:fgui.GTextField;
-	public m__show:fgui.Transition;
-	public m__hide:fgui.Transition;
 	public static URL:string = "ui://n3oedpp6nihr0";
 
 	public static createInstance():FGUI_initLoadUI {
@@ -31,7 +29,5 @@ export default class FGUI_initLoadUI extends fgui.GComponent {
 		this.m_text_v = <fgui.GTextField>(this.getChildAt(7));
 		this.m_text_laya_v = <fgui.GTextField>(this.getChildAt(8));
 		this.m_text_game_explain = <fgui.GTextField>(this.getChildAt(9));
-		this.m__show = this.getTransitionAt(0);
-		this.m__hide = this.getTransitionAt(1);
 	}
 }

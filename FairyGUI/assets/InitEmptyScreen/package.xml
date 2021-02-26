@@ -4,5 +4,5 @@
     <component id="q3ng0" name="EmptyScreenUI.xml" path="/ui/" exported="true"/>
     <image id="q3ng1" name="LAYABOX_Logo.png" path="/_img/"/>
   </resources>
-  <publish name="InitEmptyScreen" genCode="true"/>
+  <publish name="" genCode="true"/>
 </packageDescription>

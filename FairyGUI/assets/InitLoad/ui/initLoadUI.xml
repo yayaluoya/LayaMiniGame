@@ -33,10 +33,4 @@
       <relation target="" sidePair="width-width,center-center,top-top"/>
     </text>
   </displayList>
-  <transition name="_show">
-    <item time="0" type="Alpha" tween="true" startValue="0" endValue="1" duration="6"/>
-  </transition>
-  <transition name="_hide">
-    <item time="0" type="Alpha" tween="true" startValue="1" endValue="0" duration="6"/>
-  </transition>
 </component>

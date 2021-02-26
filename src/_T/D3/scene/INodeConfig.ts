@@ -11,6 +11,18 @@ export interface INodeConfig {
 }
 
 /**
+ * 场景配置
+ */
+export interface ISceneConfig {
+    /** 节点内容 */
+    [_index: string]: INodeConfig,
+    /** 摄像机 */
+    camera: INodeConfig,
+    /** 灯光 */
+    light: INodeConfig,
+}
+
+/**
  * 预制体配置
  */
 export interface IPrefabsConfig extends INodeConfig {

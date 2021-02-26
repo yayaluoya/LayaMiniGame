@@ -1,7 +1,9 @@
+import ISceneEnvironment from "./ISceneEnvironment";
+
 /**
- * 场景根管理器
+ * 全局3D环境
  */
-export default class SceneRootManager {
+export default class GlobalD3Environment {
     /** 3d场景 */
     private static m_Scene3D: Laya.Scene3D;
     /** 摄像机 */
@@ -20,6 +22,15 @@ export default class SceneRootManager {
     /** 获取 灯光 */
     public static get Light(): Laya.DirectionLight {
         return this.m_Light;
+    }
+
+    /** 获取场景 */
+    public static get Environment(): ISceneEnvironment {
+        return {
+            scene: this.m_Scene3D,
+            camera: this.m_Camera,
+            light: this.m_Light,
+        };
     }
 
     /**

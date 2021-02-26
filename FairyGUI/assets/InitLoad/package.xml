@@ -6,7 +6,7 @@
     <image id="nihr3" name="sp_jindutiao.png" path="/_img/" scale="9grid" scale9grid="100,18,78,6"/>
     <image id="m8knb" name="sp_jindutiaobg.png" path="/_img/" scale="9grid" scale9grid="27,13,234,12"/>
   </resources>
-  <publish name="InitLoad" genCode="true">
+  <publish name="" genCode="true">
     <atlas compression="true" index="0"/>
   </publish>
 </packageDescription>

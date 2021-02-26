@@ -1,1 +1,50 @@
-{"data":[{"name":"camera","transform":{"position":"0,10,0","euler":"-90,180,0"}},{"name":"light","transform":{"position":"0,3,0","euler":"-50,-150,0"}},{"name":"debug","child":[{"name":"Sphere","prefabName":"Sphere"},{"name":"Cube","prefabName":"Cube","transform":{"position":"0,0,2"},"prefabDiffer":{"index":0,"child":[{"index":0,"child":[{"index":0,"transform":{"position":"0,0,2"}}]}]}}]}]}
+{
+    "data": [
+        {
+            "name": "camera",
+            "transform": {
+                "position": "0,10,0",
+                "euler": "-90,180,0"
+            }
+        },
+        {
+            "name": "light",
+            "transform": {
+                "position": "0,3,0",
+                "euler": "-50,-150,0"
+            }
+        },
+        {
+            "name": "debug",
+            "child": [
+                {
+                    "name": "Sphere",
+                    "prefabName": "Sphere"
+                },
+                {
+                    "name": "Cube",
+                    "prefabName": "Cube",
+                    "transform": {
+                        "position": "0,0,2"
+                    },
+                    "prefabDiffer": {
+                        "index": 0,
+                        "child": [
+                            {
+                                "index": 0,
+                                "child": [
+                                    {
+                                        "index": 0,
+                                        "transform": {
+                                            "position": "0,0,2"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

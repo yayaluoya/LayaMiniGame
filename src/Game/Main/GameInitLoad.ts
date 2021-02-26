@@ -2,6 +2,7 @@ import GameCommonBinder from "src/FGUI/GameCommon/GameCommonBinder";
 import GameMainBinder from "src/FGUI/GameMain/GameMainBinder";
 import InitEmptyScreenBinder from "src/FGUI/InitEmptyScreen/InitEmptyScreenBinder";
 import InitLoadBinder from "src/FGUI/InitLoad/InitLoadBinder";
+import _TestBinder from "src/FGUI/_Test/_TestBinder";
 import ConfigT, { IBaseConfigContainer } from "src/_T/Config/ConfigT";
 import ConsoleEx from "src/_T/Console/ConsoleEx";
 import { FGUIPack } from "src/_T/D2/FGUI/FGUIPack";
@@ -31,6 +32,7 @@ export default class GameInitLoad extends BaseInitLoad {
      * 初始化
      */
     protected init() {
+        //初始化需要的ui控制器实例
         this.m_initEmptyScreenUICon = new InitEmptyScreenUICon();
         this.m_initLoadUICon = new InitLoadUICon();
     }
@@ -79,6 +81,7 @@ export default class GameInitLoad extends BaseInitLoad {
         _loadItems.push(this.getFGUILoadItems('InitLoad', 0, Laya.Handler.create(this, this.initLoad)));//加载界面包
         _loadItems.push(this.getFGUILoadItems('GameBag'));//原包，通常为资源包
         _loadItems.push(this.getFGUILoadItems('GameCommon'));//公共包
+        _loadItems.push(this.getFGUILoadItems('_Test'));//测试包
         _loadItems.push(this.getFGUILoadItems('GameMain', 0));//主包
     }
     //fgui绑定
@@ -86,6 +89,7 @@ export default class GameInitLoad extends BaseInitLoad {
         InitEmptyScreenBinder.bindAll();
         InitLoadBinder.bindAll();
         GameCommonBinder.bindAll();
+        _TestBinder.bindAll();
         GameMainBinder.bindAll();
     }
     //获取FGUI加载项

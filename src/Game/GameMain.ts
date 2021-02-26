@@ -1,6 +1,9 @@
 import ConsoleEx from "src/_T/Console/ConsoleEx";
+import DataManager from "./Data/DataManager";
 import GameInitLoad from "./Main/GameInitLoad";
 import SceneManager from "./Scene/SceneManager";
+import UIConManager from "./UICon/UIConManager";
+import TestMain from "./_test/TestMain";
 
 /**
  * 游戏入口
@@ -26,15 +29,15 @@ export default class GameMain {
     private gameInitLoadCom() {
         //初始化各个管理器
         SceneManager.instance.init();//场景管理器
+        UIConManager.instance.init();//ui控制器管理器
+        DataManager.instance.init();//数据管理器
     }
 
     //进入游戏
     private enterGame() {
         //进入游戏
         console.log(...ConsoleEx.packLog('进入游戏'));
-        //
-        SceneManager.instance.getScene('Scene').getSceneNode('debug').asyncBuild().then((node) => {
-            console.log(node);
-        });
+        //TODO 进入主测试模块
+        TestMain.instance.start();
     }
 }
