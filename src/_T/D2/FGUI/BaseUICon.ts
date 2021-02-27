@@ -1,4 +1,3 @@
-import { EFGUIConst } from "./EFGUIConst";
 import { EUILayer } from "./EUILayer";
 import FGuiData from "./FGuiData";
 import FGUIRootManager from "./FGUIRootManager";

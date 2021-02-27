@@ -1,3 +1,9 @@
+import { MainDataProxy } from "./MainDataProxy";
+import { SetDataProxy } from "./SetDataProxy";
+import ShortDataProxy from "./ShortDataProxy";
+import { SignDataProxy } from "./SignDataProxy";
+import { TestDataProxy } from "./TestDataProxy";
+
 /**
  * 数据管理器
  */
@@ -16,5 +22,12 @@ export default class DataManager {
     /**
      * 初始化
      */
-    public init() { }
+    public init() {
+        //初始化所有数据
+        TestDataProxy.instance.InitData();
+        MainDataProxy.instance.InitData();
+        SetDataProxy.instance.InitData();
+        SignDataProxy.instance.InitData();
+        ShortDataProxy.instance.InitData();
+    }
 }

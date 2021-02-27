@@ -1,3 +1,4 @@
+import SceneNodeConfigProxy from "../ConfigProxy/SceneNodeConfigProxy";
 import SceneManager from "../Scene/SceneManager";
 import _TestMainUICon from "../UICon/_test/_TestMainUICon";
 
@@ -29,8 +30,12 @@ export default class TestMain {
                 console.log('当前节点', node);
                 //为该场景设置环境
                 node.scene.setEnvironment();
+                console.log('场景节点配置表内容');
+                console.log(SceneNodeConfigProxy.instance.dataList);
             });
         //显示测试ui
         _TestMainUICon.instance.Show();
+        //
+        console.log('打包测试2');
     }
 }

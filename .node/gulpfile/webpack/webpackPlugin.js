@@ -3,6 +3,7 @@
  */
 class webpackPlugin {
     apply(compiler) {
+        //
     }
 }
 

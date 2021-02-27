@@ -23,7 +23,7 @@ export default class DataProxy {
      * 实例化
      * @param _setCom 被代理的数据被设置时的回调
      */
-    public constructor(_setCom: Laya.Handler) {
+    public constructor(_setCom?: Laya.Handler) {
         this.m_setCom = _setCom;
     }
 
@@ -35,7 +35,7 @@ export default class DataProxy {
     public addKeySetMonitor(_dataSetMonitor: IDataMonitor, _key?: string | number | boolean | (string | number | boolean)[]) {
         let __key: string[] = [];
         //判断是否是对象属性
-        if (_key instanceof Array) {
+        if (Array.isArray(_key)) {
             __key.push(..._key as string[]);
         } else {
             __key.push(_key as string);
@@ -81,7 +81,7 @@ export default class DataProxy {
     public addObjectSetMonitor(_dataSetMonitor: IDataMonitor, _rootData?: object, _key?: string | number | boolean | (string | number | boolean)[]) {
         let __key: string[] = [];
         if (typeof _key != "undefined") {
-            if (_key instanceof Array) {
+            if (Array.isArray(_key)) {
                 __key.push(..._key as string[]);
             } else {
                 __key.push(_key as string);
@@ -143,13 +143,13 @@ export default class DataProxy {
      * @param _obj 需要代理的对象
      * @return 代理对象
      */
-    public getProxyData(_obj: any): any {
+    public getProxyData<Data>(_obj: any): Data {
         //防止原始对象被污染
         let _rootObj: any = {};
         //
         if (typeof _obj == 'object' && _obj) {
             //不监听数组中的对象
-            if (!Array.prototype.isPrototypeOf(_obj)) {
+            if (!Array.isArray(_obj)) {
                 //遍历对象属性
                 for (let _i in _obj) {
                     //注意 null 也为object
@@ -173,7 +173,7 @@ export default class DataProxy {
                 _rootObj = _obj;
             }
         } else {
-            return _obj;
+            return _obj as Data;
         }
         //设置原始对象
         _rootObj[SaticBaseDataProxy.$RootObjectKey] = _obj;
@@ -184,7 +184,7 @@ export default class DataProxy {
                 this.proxyDataSet(target, key, value);
                 return true;
             },
-        });
+        }) as Data;
     }
 
     /** 代理数据被设置时调用 */
@@ -194,18 +194,24 @@ export default class DataProxy {
             console.warn('试图更改数据的原始对象，被阻止', target, key, value);
             return;
         }
-        //原来的值
-        let _rootValue: any = target[key];
         //如果赋的值是一个对象则继续监听
-        if (typeof value == 'object' && value && !Array.prototype.isPrototypeOf(target)) {
+        if (typeof value == 'object' && value && !Array.isArray(target)) {
             target[key] = this.getProxyData(value);
         } else {
             target[key] = value;
             //判断是不是数组长度改变，这个不用被监听
-            if (Array.prototype.isPrototypeOf(target) && key == 'length') {
+            if (Array.isArray(target) && key == 'length') {
                 return;
             }
         }
+        //
+        this.performMonitoring(target, key, value);
+    }
+
+    /** 执行监听 */
+    private performMonitoring(target, key, value) {
+        //原来的值
+        let _rootValue: any = target[key];
         //执行数据监听
         let _ifIncludes: boolean;
         for (let item of this._dataSetMonitor) {
@@ -236,8 +242,10 @@ export default class DataProxy {
             item._dataMonitor._backF.call(item._dataMonitor._this, target, key, value, _rootValue);
         }
         //执行回调
-        this.m_setCom.args = [key, value];
-        this.m_setCom.run;
+        if (this.m_setCom) {
+            this.m_setCom.args = [key, value];
+            this.m_setCom.run();
+        }
     }
 }
 
