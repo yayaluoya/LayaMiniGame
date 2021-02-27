@@ -232,7 +232,7 @@
         "affectsGlobalScope": false
       },
       "../src/log/dispose/logdispose.ts": {
-        "version": "023896ceebeaee8ba614cff7998673d7926a683c971ca44b77e5bffec67c2129",
+        "version": "876ba92a8206a2dc74f01578b1ee359e9feebc17c68a9799416790609cea48fc",
         "signature": "ca5dd45d3b68e89a37ef5dce80af2e2057091ef711908fbfa938541cc05f18b1",
         "affectsGlobalScope": false
       },

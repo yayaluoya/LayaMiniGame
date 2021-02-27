@@ -54,7 +54,7 @@ export default class LogDispose {
                     data: _data,
                     data_: _data_,
                 }));
-            } catch {
+            } catch (e) {
                 r(ResponseDataT.Pack(undefined, EResponseCode.lose));
             }
         });

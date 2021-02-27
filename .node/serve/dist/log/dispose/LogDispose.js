@@ -42,7 +42,7 @@ class LogDispose {
                     data_: _data_,
                 }));
             }
-            catch (_a) {
+            catch (e) {
                 r(ResponseDataT_1.default.Pack(undefined, EResponseCode_1.EResponseCode.lose));
             }
         });
