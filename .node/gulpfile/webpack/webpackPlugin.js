@@ -29,6 +29,7 @@ class webpackPlugin {
 			} else {
 				mes = chalk.blue(' 完成 ');
 			}
+			// console.log(stats.compilation);
 			//首页提示
 			console.log(chalk.yellow('----▷ 主页：', path.resolve(__dirname, '../../../bin/index.html')));
 			console.log(chalk.magenta('----▷ 第'), chalk.green(` ${count} `), chalk.magenta('次编辑'), ` ${getTime()} `, chalk.red(mes));

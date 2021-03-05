@@ -27,9 +27,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/yayaluoya/laya-mini-game.git"
+    "url": "https://github.com/yayaluoya/LayaMiniGame.git"
   },
-  "author": "https://gitee.com",
+  "author": "https://github.com/yayaluoya",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",

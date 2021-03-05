@@ -38,7 +38,7 @@ export default class TestMain {
         //显示测试ui
         _TestMainUICon.instance.Show();
         //
-        console.log('打包测试17');
+        console.log('打包测试20');
         //
         DataTest.instance.start();
         //

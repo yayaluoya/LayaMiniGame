@@ -54,9 +54,8 @@ const webpackConfig = {
     devtool: 'inline-source-map',
     // 缓存
     cache: true, // boolean
-    // 禁用/启用缓存
-    watch: true, // boolean
     // 启用观察
+    watch: true, // boolean
     watchOptions: {
         // 限制并行处理模块的数量
         aggregateTimeout: 1000, // in ms
