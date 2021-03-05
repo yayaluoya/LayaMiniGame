@@ -1,4 +1,3 @@
-import ConsoleEx from "src/_T/Console/ConsoleEx";
 import { EPlatformType } from "./T/EPlatformType";
 import IPlatform from "./T/IPlatform";
 /**
@@ -20,7 +19,7 @@ export default class PlatformManagerProxy {
     /** 获取平台实例 */
     public get PlatformInstance(): IPlatform {
         if (!this.m_platformInstance) {
-            console.error(...ConsoleEx.packError('还没有设置过平台实例代理！'));
+            console.error('还没有设置过平台实例代理！');
         }
         return this.m_platformInstance;
     }

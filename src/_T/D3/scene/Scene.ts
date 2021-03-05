@@ -27,9 +27,17 @@ export default class Scene {
     /** 场景节点实例缓存 */
     private m_sceneNodes: SceneNode[] = [];
 
+    /** 场景中存在的node节点 */
+    private m_onSceneNodes: Set<SceneNode> = new Set();
+
     /** 获取环境 */
     public get environment(): ISceneEnvironment {
         return this.m_environment;
+    }
+
+    /** 获取场景当前存在的节点列表 */
+    public get onSceneNodes(): SceneNode[] {
+        return [...this.m_onSceneNodes];
     }
 
     /**
@@ -88,7 +96,7 @@ export default class Scene {
             }
         });
         if (_nodeConfig.length == 0) {
-            console.warn(...ConsoleEx.packWarn('获取场景节点时，一个配置信息都没找到', _name));
+            console.warn(...ConsoleEx.packWarn('获取场景节点时，一个配置信息都没找到', _names));
             return;
         }
         //在缓存中找
@@ -130,6 +138,24 @@ export default class Scene {
     }
 
     /**
+     * 添加当前节点
+     * 当这个场景下的某个节点被构建时会自动执行这个方法
+     * @param _node 节点
+     */
+    public addOnNode(_node: SceneNode) {
+        this.m_onSceneNodes.add(_node);
+    }
+
+    /**
+     * 删除当前节点
+     * 当这个场景下的某个节点被删除时会自动执行这个方法
+     * @param _node 节点
+     */
+    public deleteOnNode(_node: SceneNode) {
+        this.m_onSceneNodes.delete(_node);
+    }
+
+    /**
      * 设置环境
      * 会根据当前场景中的摄像机和灯光位置设置全局的摄像机和灯光位置
      */
@@ -147,6 +173,16 @@ export default class Scene {
         this._setEnvironment();
     }
 
+    /**
+     * 加载进度
+     * @param _n 进度值
+     * @param _node 当前加载的节点
+     */
+    public loadProgress(_n: number, _node: SceneNode) {
+        // console.log(_n, _node);
+        this._loadProgress(_n, _node);
+    }
+
     // * -----------
 
     /** 初始化回调 */
@@ -154,4 +190,11 @@ export default class Scene {
 
     /** 设置环境后执行的回调 */
     protected _setEnvironment() { }
+
+    /**
+     * 节点加载进度回调
+     * @param _n 进度值
+     * @param _node 当前加载的节点
+     */
+    protected _loadProgress(_n: number, _node: SceneNode) { }
 }

@@ -1,10 +1,10 @@
 import Md5 from './Md5';
-import Base64 from './Base64';
 import ConsoleEx from '../Console/ConsoleEx';
 import BaseDataProxy from './BaseDataProxy';
 import BaseData from './BaseData';
 import _MainConfig from 'src/Config/_MainConfig';
-import DataProxy from './DataProxy';
+import ObjectProxyT from './ObjectProxyT';
+
 /**
  * 基类本地数据代理，通过此类可以访问本地保存的数据
  * 泛型为数据类型
@@ -40,7 +40,7 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
     /**
      * 初始化数据
      */
-    public InitData() {
+    public initData() {
         //判断数据模板
         if (!this.m_dataTemplate) {
             console.error(...ConsoleEx.packError('没有找到数据模板', this._saveName));
@@ -48,15 +48,14 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
         //记录时间
         let _time = Date.now();
         //
-        this.m_rootData = this._ReadFromFile();
-        //设置代理
+        this.m_data = this._readData();
+        //设置代理包装数据
         if (this.m_ifSetProxy) {
-            //获取数据代理
-            this.m_dataProp = new DataProxy(Laya.Handler.create(this, this._proxyDataSet, undefined, false));
-            //直接代理本地保存数据
-            this.m_data = this.m_dataProp.getProxyData<Data>(this.m_rootData);
-        } else {
-            this.m_data = this.m_rootData;
+            //获取数据代理工具
+            this.m_objectProxyT = new ObjectProxyT();
+            this.m_data = this.m_objectProxyT.setProxy(this.m_data);
+            //添加设置监听
+            this.m_objectProxyT.addMonitor(this, this._dataSetMonitor);
         }
         //
         this._initData();
@@ -70,9 +69,17 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
     /** 初始化完成，继承使用 */
     protected _initData() { }
 
-    /** 数据被设置回调 */
-    private _proxyDataSet() {
-        this.SaveToDisk(this.m_data);
+    /** 数据被设置监听 */
+    private _dataSetMonitor() {
+        this.save(this.m_data);
+    }
+
+    /**
+     * 手动保存数据
+     * @param _ifCl 是否限流 默认为true
+     */
+    public Save(_ifCl: boolean = true) {
+        this.save(this.m_data, _ifCl);
     }
 
     /** 保存执行队列 */
@@ -83,33 +90,34 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
      * @param m_data 数据
      * @param _ifCl 是否限流
      */
-    private SaveToDisk(m_data: Data, _ifCl: boolean = true) {
+    private save(m_data: Data, _ifCl: boolean = true) {
         //添加时间判断
         if (this.m_saveToDiskTime == 0) {
             this.m_saveToDiskTime = Date.now();
         }
         //判断是否限流
         if (!_ifCl) {
-            this._SaveToDisk(m_data);
+            this._save(m_data);
         }
         else {
             this.m_saveToDiskQueue++;
-            //当前帧末尾执行
+            //
             setTimeout(() => {
                 this.m_saveToDiskQueue--;
                 // console.log('保存数据前');
                 if (this.m_saveToDiskQueue == 0) {
-                    //限流，每一帧只保存一次数据
-                    this._SaveToDisk(m_data);
+                    //限流，每一次执行只保存一次数据
+                    this._save(m_data);
                 }
             }, 0);
         }
     }
     //保存数据到本地
-    private _SaveToDisk(m_data?: Data) {
+    private _save(m_data?: Data) {
         // console.log('保存数据');
         //序列化
         let json = JSON.stringify(m_data);
+        //
         Laya.LocalStorage.setJSON(this.saveName, json);
         //判断是否是线上环境
         if (_MainConfig.OnLine && this._ifDifferData) {
@@ -128,7 +136,7 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
     }
 
     //从本地获取数据
-    private _ReadFromFile(): Data {
+    private _readData(): Data {
         //读取本地数据
         let readStr = Laya.LocalStorage.getJSON(this.saveName);
         //判断是否是线上环境
@@ -145,7 +153,7 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
         try {
             if (readStr) {
                 let jsonData = JSON.parse(readStr);
-                //用本地的数据获取当前数据
+                //用本地的数据填充当前数据
                 for (let key in _saveData) {
                     _saveData[key] = jsonData[key];
                 }
@@ -163,8 +171,8 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
     //获取并保存一个新数据
     private _saveNewData(): Data {
         let m_data: Data = this.getNewData();
-        //保存数据，马上保存，不然后续这个数据会被修改
-        this.SaveToDisk(m_data as Data, false);
+        //保存数据，不限流
+        this.save(m_data as Data, false);
         //
         return m_data as Data;
     }
@@ -177,15 +185,15 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
         return this.encrypt(_string);
     }
 
-    //加密
+    //数据单向加密
     private encrypt(_string: string) {
-        let _encryptStr: string = 'LayaMiniGame-(-' + _string + '-)-ModifiedWithout-' + this.saveName;
+        let _encryptStr: string = `LayaMiniGame-${this.saveName}:${_string}`;
         //判断能否使用md5
         if (Md5.ifUse) {
             return Md5.hashStr(_encryptStr).toString();
         } else {
-            //使用base64
-            return Base64.encode(_encryptStr);
+            //不用任何加密
+            return 'noEncrypt';
         }
     }
 }

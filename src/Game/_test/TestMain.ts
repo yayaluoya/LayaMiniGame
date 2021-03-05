@@ -1,6 +1,8 @@
 import SceneNodeConfigProxy from "../ConfigProxy/SceneNodeConfigProxy";
 import SceneManager from "../Scene/SceneManager";
 import _TestMainUICon from "../UICon/_test/_TestMainUICon";
+import DataTest from "./DataTest";
+import LibraryTest from "./LibraryTest";
 
 /**
  * 测试主脚本
@@ -36,6 +38,10 @@ export default class TestMain {
         //显示测试ui
         _TestMainUICon.instance.Show();
         //
-        console.log('打包测试2');
+        console.log('打包测试17');
+        //
+        DataTest.instance.start();
+        //
+        LibraryTest.instance.start();
     }
 }

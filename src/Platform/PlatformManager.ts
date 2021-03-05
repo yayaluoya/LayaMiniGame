@@ -4,7 +4,6 @@ import QQData from "src/Platform/Data/QQData";
 import QTTData from "src/Platform/Data/QTTData";
 import TTData from "src/Platform/Data/TTData";
 import WXData from "src/Platform/Data/WXData";
-import ConsoleEx from "src/_T/Console/ConsoleEx";
 import PlatformData from "./Data/PlatformData";
 import BDPlatform from "./PlatformClass/BDPlatform";
 import DefaultPlatform from "./PlatformClass/DefaultPlatform";
@@ -37,7 +36,7 @@ export default class PlatformManager {
     /** 获取平台实例 */
     public static get PlatformInstance(): IPlatform {
         if (!this.instance.m_platformInstance) {
-            console.error(...ConsoleEx.packError('还没有设置过平台实例代理！'));
+            console.error('还没有设置过平台实例代理！');
         }
         return this.instance.m_platformInstance;
     }
@@ -48,7 +47,7 @@ export default class PlatformManager {
      */
     public init() {
         if (this.m_platformInstance != null) {
-            console.error(...ConsoleEx.packError("已调用过平台创建为", PlatformManagerProxy.GetPlatformStr(this.m_platformInstance.platform), "不能重复创建"));
+            console.error("已调用过平台创建为", PlatformManagerProxy.GetPlatformStr(this.m_platformInstance.platform), "不能重复创建");
             return this.m_platformInstance;
         }
         let isQTT = window["qttGame"] != null;
@@ -81,7 +80,7 @@ export default class PlatformManager {
             this.m_platformData = new OPPOData();
         }
         else {
-            console.warn(...ConsoleEx.packWarn("未识别平台,默认创建为web"));
+            console.warn("未识别平台,默认创建为web");
             result = new DefaultPlatform();
         }
         this.m_platformInstance = result;
@@ -90,7 +89,7 @@ export default class PlatformManager {
         //设置到全局
         window['$Platform'] = this.m_platformInstance;
         //
-        console.log(...ConsoleEx.packPlatform("平台实例创建完成", PlatformManagerProxy.GetPlatformStr(this.m_platformInstance.platform)));
+        console.log("平台实例创建完成", PlatformManagerProxy.GetPlatformStr(this.m_platformInstance.platform));
     }
 
     /**
@@ -100,6 +99,6 @@ export default class PlatformManager {
         //
         this.m_platformInstance.Init(this.m_platformData);
         //
-        console.log(...ConsoleEx.packPlatform('平台初始化完成'));
+        console.log('平台初始化完成');
     }
 }

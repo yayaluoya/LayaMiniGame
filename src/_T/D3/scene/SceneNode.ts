@@ -1,3 +1,4 @@
+import ConsoleEx from "src/_T/Console/ConsoleEx";
 import EssentialResUrls from "src/_T/Res/EssentialResUrls";
 import ResLoad from "src/_T/Res/ResLoad";
 import { INodeConfig, IPrefabsConfig, IPrefabsGather } from "./INodeConfig";
@@ -21,6 +22,8 @@ export default class SceneNode {
     private m_prefabsNames: string[];
     /** 预制体集合 */
     private m_prefabs: IPrefabsGather;
+    /** 是否在加载 */
+    private m_ifLoad: boolean;
 
     /** 获取所属场景 */
     public get scene(): Scene {
@@ -45,6 +48,10 @@ export default class SceneNode {
     /** 获取预制体名字列表 */
     public get prefabsName(): string[] {
         return this.m_prefabsNames;
+    }
+    /** 是否在加载 */
+    public get ifLoad(): boolean {
+        return this.m_ifLoad;
     }
 
     /**
@@ -73,27 +80,47 @@ export default class SceneNode {
         let _prefabNamesURL: string[] = this.m_prefabsNames.map((item) => {
             return EssentialResUrls.PrefabURL(item);
         });
-        return ResLoad.Load3DAsync(_prefabNamesURL, _onProgress);
+        return ResLoad.Load3DAsync(_prefabNamesURL, Laya.Handler.create(this, (n) => {
+            this.loadProgress(n);
+            if (_onProgress) {
+                _onProgress.args = [n];
+                _onProgress.run();
+            }
+        }, undefined, false));
     }
 
     /**
-     * 异步构建场景
+     * 异步构建
      * @param onProgress 进度回调
      */
     public asyncBuild(_onProgress?: Laya.Handler): Promise<SceneNode> {
+        this.m_ifLoad = true;
         return new Promise<SceneNode>((resolve) => {
             this.asyncLoad(_onProgress).then(() => {
-                this.build();
+                this.m_ifLoad = false;
                 //
+                this.build();
                 resolve(this);
             });
         });
     }
 
-    /** 构建场景 */
+    /**
+     * 加载进度
+     * @param _n 进度值
+     */
+    private loadProgress(_n: number) {
+        //向场景传出加载进度
+        this.m_scene.loadProgress(_n, this);
+    }
+
+    /**
+     * 构建
+     */
     private build() {
         if (!this.m_ifDelete) { return; }
         this.m_ifDelete = false;
+        this.m_scene.addOnNode(this);
         this.m_node = new Laya.Node;
         //添加到所属场景环境中
         this.m_scene.environment.scene.addChild(this.m_node);
@@ -107,11 +134,16 @@ export default class SceneNode {
     }
 
     /**
-     * 删除场景
+     * 删除
      */
     public delete() {
         if (this.m_ifDelete) { return; }
+        if (this.m_ifLoad) {
+            console.warn(...ConsoleEx.packWarn('场景节点还在构建却试图删除。'));
+            return;
+        }
         this.m_ifDelete = true;
+        this.m_scene.deleteOnNode(this);
         this.m_node.destroy();
         //清理引用
         this.m_node = null;

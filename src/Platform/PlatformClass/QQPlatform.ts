@@ -1,4 +1,3 @@
-import ConsoleEx from "src/_T/Console/ConsoleEx";
 import { PlatformCommonEvent } from "../Common/PlatformCommonEventId";
 import PlatformData from "../Data/PlatformData";
 import PlatformManagerProxy from "../PlatformManagerProxy";
@@ -15,7 +14,7 @@ export default class QQPlatform extends WXPlatform {
     Init(platformData: PlatformData) {
         this._base = window["qq"];
         if (this._base == null) {
-            console.error(...ConsoleEx.packError("平台初始化错误", PlatformManagerProxy.platformStr));
+            console.error("平台初始化错误", PlatformManagerProxy.platformStr);
             return;
         }
         this.platformData = platformData;

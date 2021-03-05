@@ -2,12 +2,13 @@ import ConsoleEx from 'src/_T/Console/ConsoleEx';
 import { EUILayer } from './EUILayer';
 import FGUIRootManager from './FGUIRootManager';
 import IUICreate from './IUICreate';
+import RootUICon from './RootUICon';
 
 /**
  * 基类 UI实例控制器
  * 可以直接实例化一个ui并进行显示和隐藏
  */
-export default abstract class BaseUIInstanceCon<UI extends fgui.GComponent> {
+export default abstract class BaseUIInstanceCon<UI extends fgui.GComponent> extends RootUICon {
     /** UI类型，必须初始化前设置 */
     protected _UIDefine: IUICreate;
 
@@ -39,43 +40,54 @@ export default abstract class BaseUIInstanceCon<UI extends fgui.GComponent> {
         this.m_ui = this._UIDefine.createInstance() as UI;
         //
         FGUIRootManager.getLayerUI(this._layer).addChild(this.m_ui);
+        //
+        this._createUI();
     }
 
-    /**
-     * 显示
-     */
-    public Show() {
+    /** 创建完ui后回调 */
+    protected _createUI() { }
+
+    public Show(...par) {
         if (this.m_ifShow) { return; }
+        this._onShowBefore(...par);
+        let _ifNew: boolean = false;
         if (!this.m_ui || this.m_ui.isDisposed) {
             //创建ui
             this.createUI();
+            _ifNew = true;
+        } else {
+            this.m_ui.visible = true;
         }
         this.m_ifShow = true;
-        this.m_ui.visible = true;
-        this._Show();
+        this._onShow(_ifNew, ...par);
     }
 
     /**
      * 隐藏
+     * @param _ifClear 是否清理
+     * @param par 其他参数，会传到隐藏的回调中
      */
-    public Hide(_ifClear: boolean = this._ifClear) {
+    public Hide(_ifClear: boolean = this._ifClear, ...par) {
         if (!this.m_ifShow) { return; }
+        this._onHideBefore();
         this.m_ifShow = false;
         if (_ifClear) {
             this.m_ui.dispose();
+            this._disposeUI();
         } else {
             this.m_ui.visible = false;
         }
-        this._Hide();
+        this._onHide(_ifClear, ...par);
     }
 
-    /**
-     * 显示回调
-     */
-    protected _Show() { }
+    /** ui被清理时的回调 */
+    protected _disposeUI() { }
 
-    /**
-     * 隐藏回调
-     */
-    protected _Hide() { }
+    protected _onShowBefore(...par) { }
+
+    protected _onShow(_ifNew: boolean, ...par) { }
+
+    protected _onHideBefore(...par) { }
+
+    protected _onHide(_ifDelete: boolean, ...par) { }
 }

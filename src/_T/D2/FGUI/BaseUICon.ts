@@ -1,13 +1,15 @@
+import BaseUIConProxy from "./BaseUIConProxy";
 import { EUILayer } from "./EUILayer";
 import FGuiData from "./FGuiData";
 import FGUIRootManager from "./FGUIRootManager";
 import FGUIT from "./FGUIT";
 import IUICreate from "./IUICreate";
+import RootUICon from "./RootUICon";
 
 /**
  * UI控制器基类(用来控制UI界面)
  */
-export default abstract class BaseUICon {
+export default abstract class BaseUICon extends RootUICon {
     /** UI列表，可以显示很多个ui */
     protected _UIs: {
         [_index: string]: IBaseUIConDefines;
@@ -46,6 +48,52 @@ export default abstract class BaseUICon {
         return this.m_ifShow;
     }
 
+    /** ui代理列表 */
+    private m_proxyUIList: Set<BaseUIConProxy<fgui.GComponent, BaseUICon>> = new Set();
+
+    /**
+     * 添加一个ui代理
+     * @param _proxy 该代理
+     */
+    public addUIProxy(_proxy: BaseUIConProxy<fgui.GComponent, BaseUICon>) {
+        this.m_proxyUIList.add(_proxy);
+    }
+
+    /**
+     * 删除一个ui代理
+     * @param _proxy 该代理
+     */
+    public removeUIProxy(_proxy: BaseUIConProxy<fgui.GComponent, BaseUICon>) {
+        this.m_proxyUIList.delete(_proxy);
+    }
+
+    /**
+     * 显示代理ui
+     */
+    public showUIProxy() {
+        this.m_proxyUIList.forEach((item) => {
+            item.Show();
+        });
+    }
+
+    /**
+     * 隐藏代理ui
+     */
+    public hideUIProxy() {
+        this.m_proxyUIList.forEach((item) => {
+            item.Hide();
+        });
+    }
+
+    /**
+     * 结束ui代理
+     */
+    public endUIProxy() {
+        this.m_proxyUIList.forEach((item) => {
+            item.endProxy();
+        });
+    }
+
     //创建ui
     private createUI() {
         //初始化根节点ui
@@ -54,7 +102,12 @@ export default abstract class BaseUICon {
         for (let _i in this._UIs) {
             this._UIs[_i].ui = this.m_rootUI.addChild(this._UIs[_i].uiCreate.createInstance()) as fgui.GComponent;
         }
+        //
+        this._createUI();
     }
+
+    /** 创建完ui后回调 */
+    protected _createUI() { }
 
     /**
      * 获取ui
@@ -64,17 +117,15 @@ export default abstract class BaseUICon {
         return this._UIs[_name].ui as UI;
     }
 
-    /**
-     * 显示UI
-     * @param par 其他参数，会传到显示之后的回调中
-     */
     public Show(...par: any[]) {
         if (this.m_ifShow) { return; }
         this.m_ifShow = true;
-        this._OnshowBefore();
+        this._onShowBefore(...par);
+        let _ifNew: boolean = false;
         if (!this.m_rootUI || this.m_rootUI.isDisposed) {
             //创建ui
             this.createUI();
+            _ifNew = true;
         }
         if (!this.m_rootUI.visible) {
             this.m_rootUI.visible = true;
@@ -86,13 +137,11 @@ export default abstract class BaseUICon {
         //监听事件
         Laya.stage.on(Laya.Event.RESIZE, this, this.updateSize);
         //
-        this._OnShow(...par);
+        this._onShow(_ifNew, ...par);
     }
 
-    /** 显示之前调用 */
-    protected _OnshowBefore(...par: any[]) { }
-    /** 显示之后调用 */
-    protected _OnShow(...par: any[]) { }
+    protected _onShowBefore(...par: any[]) { }
+    protected _onShow(_ifNew: boolean, ...par: any[]) { }
 
     /**
      * 隐藏
@@ -102,26 +151,29 @@ export default abstract class BaseUICon {
     public Hide(_ifClear: boolean = this._ifClear, ...par: any[]) {
         if (!this.m_ifShow) { return; }
         this.m_ifShow = false;
-        this._OnHideBefore(par);
+        this._onHideBefore(par);
         if (_ifClear) {
             this.m_rootUI.dispose();
             //清理引用
             for (let _i in this._UIs) {
                 this._UIs[_i].ui = null;
             }
+            //
+            this._disposeUI();
         } else {
             this.m_rootUI.visible = false;
         }
         //取消监听事件
         Laya.stage.off(Laya.Event.RESIZE, this, this.updateSize);
         //
-        this._OnHide(par);
+        this._onHide(_ifClear, par);
     }
 
-    /** 隐藏之前调用 */
-    protected _OnHideBefore(...par: any[]) { }
-    /** 隐藏之后调用 */
-    protected _OnHide(...par: any[]) { }
+    /** ui被清理时的回调 */
+    protected _disposeUI() { }
+
+    protected _onHideBefore(...par: any[]) { }
+    protected _onHide(_ifDelete: boolean, ...par: any[]) { }
 
     /** 更新大小 */
     private updateSize() {

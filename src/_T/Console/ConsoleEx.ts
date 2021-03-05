@@ -6,86 +6,60 @@ import ConsoleConst from "./ConsoleConst";
  */
 export default class ConsoleEx {
     /**
-     * 打印普通消息
-     * @param any 内容
+     * 包装信息
+     * @param _style 样式
+     * @param _par 参数
      */
-    public static log(...any) {
-        console.log(`%c ${any}`, ConsoleConst.logStyle);
+    private static pack(_style: string, _par: any[]): any {
+        return ['%c%s', _style, 'log', ..._par];
     }
-
-    /**
-     * 打印警告消息
-     * @param any 内容
-     */
-    public static warn(...any) {
-        console.log(`%c ${any}`, ConsoleConst.warnStyle);
-    }
-
-    /**
-     * 打印错误消息
-     * @param any 内容
-     */
-    public static error(...any) {
-        console.log(`%c ${any}`, ConsoleConst.errorStyle);
-    }
-
-    //* ---------- *//
-
     /**
      * 包装普通消息
      * @param any 内容
      */
-    public static packLog(...any) {
+    public static packLog(...any: any[]) {
         if (_MainConfig.OnLine) { return any; }
         //
-        return [`%c ${any} `, ConsoleConst.logStyle];
+        return this.pack(ConsoleConst.logStyle, any);
     }
 
     /**
      * 包装普通轻消息
      * @param any 内容
      */
-    public static packLogLight(...any) {
+    public static packLogLight(...any: any[]) {
         if (_MainConfig.OnLine) { return any; }
         //
-        return [`%c ${any} `, ConsoleConst.logLightStyle];
+        return this.pack(ConsoleConst.logLightStyle, any);
     }
 
     /**
      * 包装成功消息
      * @param any 内容
      */
-    public static packCom(...any) {
+    public static packCom(...any: any[]) {
         if (_MainConfig.OnLine) { return any; }
         //
-        return [`%c ${any} `, ConsoleConst.comStyle];
+        return this.pack(ConsoleConst.comStyle, any);
     }
 
     /**
      * 包装警告消息
      * @param any 内容
      */
-    public static packWarn(...any) {
+    public static packWarn(...any: any[]) {
         if (_MainConfig.OnLine) { return any; }
         //
-        return [`%c 警告: ${any} `, ConsoleConst.warnStyle];
+        return this.pack(ConsoleConst.warnStyle, any);
     }
 
     /**
      * 包装错误消息
      * @param any 内容
      */
-    public static packError(...any) {
+    public static packError(...any: any[]) {
         if (_MainConfig.OnLine) { return any; }
         //
-        return [`%c 错误: ${any} `, ConsoleConst.errorStyle];
-    }
-
-    /**
-     * 包装平台消息
-     * @param any 内容
-     */
-    public static packPlatform(...any) {
-        return [`%c 平台: ${any} `, ConsoleConst.platformStyle];
+        return this.pack(ConsoleConst.errorStyle, any);
     }
 }

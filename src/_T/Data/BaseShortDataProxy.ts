@@ -1,6 +1,6 @@
 import BaseData from "./BaseData";
 import BaseDataProxy from "./BaseDataProxy";
-import DataProxy from "./DataProxy";
+import ObjectProxyT from "./ObjectProxyT";
 
 /**
  * 临时数据代理基类
@@ -13,14 +13,12 @@ export default abstract class BaseShortDataProxy<Data extends BaseData> extends 
     /**
      * 初始化数据
      */
-    public InitData() {
-        this.m_rootData = new this.m_dataTemplate();
+    public initData() {
+        this.m_data = new this.m_dataTemplate();
         //设置代理
         if (this.m_ifSetProxy) {
-            this.m_dataProp = new DataProxy();
-            this.m_data = this.m_dataProp.getProxyData<Data>(this.m_rootData);
-        } else {
-            this.m_data = this.m_rootData;
+            this.m_objectProxyT = new ObjectProxyT();
+            this.m_data = this.m_objectProxyT.setProxy(this.m_data);
         }
         //
         this._initData();

@@ -6,6 +6,9 @@
     nvm uninstall> vXX // 卸载对应vXX版本的node
     nvm use xxx // 选择使用XXX版本
 
+    推荐使用 node v11.11.0 高版本不能使用layaAir编译
+    如果只用webpack编译建议使用 node v12.21.0
+
 ## NVM安装方法
 
     先卸载Node

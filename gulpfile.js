@@ -3,12 +3,8 @@
  */
 //开启web
 require("./.node/gulpfile/startWeb.js");
-//webpack打包
-require("./.node/gulpfile/webpackCompile.js");
 //laya打包
 require("./.node/gulpfile/layaCompile.js");
-//局域网服务
-require("./.node/gulpfile/openServer.js");
 
 const { task } = require("gulp");
 

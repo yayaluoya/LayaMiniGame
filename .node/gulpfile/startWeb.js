@@ -2,13 +2,14 @@ const { task } = require("gulp");
 const { exec } = require("child_process");
 const { server } = require("gulp-connect");
 const path = require('path');
+const chalk = require('chalk');
 const { getLocalIP } = require("./_T");
 
 //打开web
 task('startWeb', function (f) {
     f();
     //先开启server
-    console.log('\033[35m', '开启Serve。。。', '\033[0m');
+    console.log(chalk.magenta('开启Serve。。。'));
     //
     let _path = path.resolve(__dirname, '../serve/dist/main.js');
     let process = exec("node " + _path);//执行一个shell命令
@@ -19,7 +20,7 @@ task('startWeb', function (f) {
             let _data = JSON.parse(data);
             if (_data.com) {
                 //然后开启web
-                console.log('\033[35m', '开启Web。。。', '\033[0m');
+                console.log(chalk.magenta('开启Web。。。'));
                 //
                 let _ip = getLocalIP();
                 //新建一个服务
@@ -32,7 +33,7 @@ task('startWeb', function (f) {
                     serverInit: (_server) => {
                         //
                         console.log(' ->');
-                        console.log('\033[33m', ' ----▷ 在浏览器中打开 http://' + _ip, '\033[0m');
+                        console.log(chalk.hex('#ff4b5c')(' ----▷ 在浏览器中打开 http://' + _ip));
                         console.log(' ->');
                     },
                 });

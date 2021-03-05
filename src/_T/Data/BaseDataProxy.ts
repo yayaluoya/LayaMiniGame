@@ -1,5 +1,5 @@
 import BaseData from "./BaseData"
-import DataProxy from "./DataProxy";
+import ObjectProxyT from "./ObjectProxyT";
 
 /**
  * 基类数据代理
@@ -12,11 +12,8 @@ export default abstract class BaseDataProxy<Data extends BaseData> {
     /** 是否设置代理 */
     protected m_ifSetProxy: boolean = true;
 
-    /** 数据代理器 */
-    protected m_dataProp: DataProxy;
-
-    /** 原始数据，用来和和代理数据对比查看哪个数据被改动了*/
-    protected m_rootData: Data;
+    /** 数据代理工具 */
+    protected m_objectProxyT: ObjectProxyT;
 
     /** 需要保存的数据 */
     protected m_data: Data;
@@ -30,16 +27,8 @@ export default abstract class BaseDataProxy<Data extends BaseData> {
      * 获取数据代理器
      * 通过这个数据代理器可以添加代理数据，和添加数据监听回调 [配合 rootData 使用]
      */
-    public get dataProp(): DataProxy {
-        return this.m_dataProp;
-    }
-
-    /** 
-     * 获取原始数据，不能更改
-     * 使用这个数据来设置监听数据的层级和位置
-     */
-    public get rootData(): Data {
-        return this.m_rootData;
+    public get objectProxyT(): ObjectProxyT {
+        return this.m_objectProxyT;
     }
 
     /** 获取数据 */
@@ -58,5 +47,5 @@ export default abstract class BaseDataProxy<Data extends BaseData> {
     /**
      * 初始化数据
      */
-    public abstract InitData();
+    public abstract initData();
 }

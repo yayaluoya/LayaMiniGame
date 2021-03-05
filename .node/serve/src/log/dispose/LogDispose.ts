@@ -19,15 +19,15 @@ export default class LogDispose {
             let _datas: ILogData[] = [];
             try {
                 let _urls: string[] = readdirSync(ResURL.logURL).filter((item) => {
-                    return /\.log$/.test(item);
+                    return /\.log\_$/.test(item);
                 });
                 //
                 let _name: string;
                 for (let _o of _urls) {
-                    _name = _o.replace('.log', '');
+                    _name = _o.replace('.log_', '');
                     _datas.push({
                         name: _name,
-                        data: readFileSync(ResURL.join(ResURL.logURL, _name + '.log')).toString(),
+                        data: readFileSync(ResURL.join(ResURL.logURL, _name + '.log_')).toString(),
                         data_: '',
                     });
                 }
@@ -47,14 +47,14 @@ export default class LogDispose {
     public getLog(_name: string): Promise<IResponseData<ILogData>> {
         return new Promise<IResponseData<ILogData>>((r, e) => {
             try {
-                let _data: string = readFileSync(ResURL.join(ResURL.logURL, _name + '.log')).toString();
-                let _data_: string = readFileSync(ResURL.join(ResURL.logURL, _name + '.log_')).toString();
+                let _data: string = readFileSync(ResURL.join(ResURL.logURL, _name + '.log_')).toString();
+                let _data_: string = readFileSync(ResURL.join(ResURL.logURL, _name + '.log__')).toString();
                 r(ResponseDataT.Pack({
                     name: _name,
                     data: _data,
                     data_: _data_,
                 }));
-            } catch (e) {
+            } catch {
                 r(ResponseDataT.Pack(undefined, EResponseCode.lose));
             }
         });
@@ -72,8 +72,8 @@ export default class LogDispose {
             //去除特殊符号
             _name = _name.replace(/[`~!@#$^&*()=|{}':;',\\\[\]\.<>\/?~！@#￥……&*（）——|{}【】'；：""'。，、？\s]/g, '');
             try {
-                writeFile(ResURL.join(ResURL.logURL, _name + '.log'), _log, () => {
-                    writeFile(ResURL.join(ResURL.logURL, _name + '.log_'), _log_, () => {
+                writeFile(ResURL.join(ResURL.logURL, _name + '.log_'), _log, () => {
+                    writeFile(ResURL.join(ResURL.logURL, _name + '.log__'), _log_, () => {
                         r(ResponseDataT.Pack({
                             name: _name,
                         }));
@@ -94,8 +94,8 @@ export default class LogDispose {
     public editLog(_name: string, _log: string, _log_: string): Promise<IResponseData<any>> {
         return new Promise<IResponseData<boolean>>((r, e) => {
             try {
-                writeFile(ResURL.join(ResURL.logURL, _name + '.log'), _log, () => {
-                    writeFile(ResURL.join(ResURL.logURL, _name + '.log_'), _log_, () => {
+                writeFile(ResURL.join(ResURL.logURL, _name + '.log_'), _log, () => {
+                    writeFile(ResURL.join(ResURL.logURL, _name + '.log__'), _log_, () => {
                         r(ResponseDataT.Pack(true));
                     });
                 });

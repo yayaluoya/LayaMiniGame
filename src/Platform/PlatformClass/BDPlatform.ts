@@ -1,5 +1,4 @@
 import BDData from "src/Platform/Data/BDData";
-import ConsoleEx from "src/_T/Console/ConsoleEx";
 import { PlatformCommonEvent } from "../Common/PlatformCommonEventId";
 import PlatformData from "../Data/PlatformData";
 import { EPlatformType } from "../T/EPlatformType";
@@ -18,7 +17,7 @@ export default class BDPlatform extends WXPlatform {
     Init(platformData: PlatformData) {
         this._base = window["swan"];
         if (this._base == null) {
-            console.error(...ConsoleEx.packError("平台初始化错误"));
+            console.error("平台初始化错误");
             return;
         }
         this.platformData = platformData;

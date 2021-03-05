@@ -47,7 +47,7 @@ export default class GameInitLoad extends BaseInitLoad {
             KeyResManager.addResUrl(_i, KeyResManager.getResURL(EKeyResName.RootRes) + `${_i}/`);//注入预制体路径
         }
         //设置预制体场景对照
-        KeyResManager.setPrefabSceneNames(_EAllScenePrefabsNames);
+        EssentialResUrls.setPrefabSceneNames(_EAllScenePrefabsNames);
     }
 
     /**
@@ -126,8 +126,7 @@ export default class GameInitLoad extends BaseInitLoad {
         _loadItems.push(new ResLoadItem([..._configRes, ...sceneJsonRes], EResLoadModel.D2, 'config', Laya.Handler.create(this, () => {
             //初始化全部配置表内容
             ConfigT.BuildConfigs(BuildConfigTs.getAllConfig());
-            console.log(...ConsoleEx.packLogLight('所有配置表内容->'));
-            console.log(BuildConfigTs.getAllConfig());
+            console.log(...ConsoleEx.packLogLight('所有配置表内容->', BuildConfigTs.getAllConfig()));
         })));
     }
 

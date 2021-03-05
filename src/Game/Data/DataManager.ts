@@ -24,10 +24,10 @@ export default class DataManager {
      */
     public init() {
         //初始化所有数据
-        TestDataProxy.instance.InitData();
-        MainDataProxy.instance.InitData();
-        SetDataProxy.instance.InitData();
-        SignDataProxy.instance.InitData();
-        ShortDataProxy.instance.InitData();
+        TestDataProxy.instance.initData();
+        MainDataProxy.instance.initData();
+        SetDataProxy.instance.initData();
+        SignDataProxy.instance.initData();
+        ShortDataProxy.instance.initData();
     }
 }

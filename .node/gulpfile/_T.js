@@ -1,4 +1,12 @@
 const os = require('os');
+var moment = require('moment');
+
+/**
+ * 获取时间
+ */
+function getTime() {
+    return moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+}
 
 /**
  * 获取局域网ip地址
@@ -19,6 +27,8 @@ function getLocalIP() {
     return _ip;
 }
 
+//
 module.exports = {
+    getTime,
     getLocalIP,
 };

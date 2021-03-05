@@ -8,7 +8,6 @@ import { IDevice } from "../T/IDevice";
 import { PlatformCommonEvent } from "../Common/PlatformCommonEventId";
 import PlatformManagerProxy from "../PlatformManagerProxy";
 import PlatformData from "../Data/PlatformData";
-import ConsoleEx from "src/_T/Console/ConsoleEx";
 /**
  * OPPO平台实例
  */
@@ -58,7 +57,7 @@ export default class OppoPlatform extends WXPlatform {
     Init(platformData: PlatformData) {
         this._base = window["qg"];
         if (this._base == null) {
-            console.error(...ConsoleEx.packError("平台初始化错误", PlatformManagerProxy.platformStr));
+            console.error("平台初始化错误", PlatformManagerProxy.platformStr);
             return;
         }
         this.platformData = platformData;

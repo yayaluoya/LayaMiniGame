@@ -8,9 +8,13 @@ export default class TestData extends BaseData {
     string: string = 'string';
     boolean: boolean = true;
     array: string[] = [];
-    object: object = {
-        a: 1,
-        b: 'b',
-        c: true,
-    };
+    object: {
+        a: number,
+        b: string,
+        c: boolean
+    } = {
+            a: 1,
+            b: 'b',
+            c: true,
+        };
 }

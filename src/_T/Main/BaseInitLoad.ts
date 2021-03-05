@@ -23,7 +23,7 @@ export default abstract class BaseInitLoad {
      * @param _comBack 加载完成回调
      */
     public load(_comBack?: Laya.Handler) {
-        console.log(...ConsoleEx.packLogLight('开始加载游戏初始化资源'));
+        console.log(...ConsoleEx.packCom('开始加载游戏初始化资源'));
         //获取加载项
         let _resLoadItems: ResLoadItem[] = this.getLoadItems();
         //异步加载加载项

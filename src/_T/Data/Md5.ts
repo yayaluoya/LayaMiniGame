@@ -378,5 +378,6 @@ export default class Md5 {
 if (Md5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592') {
     //设置不能使用
     Md5.ifUse = false;
+    //
     console.warn('Md5 self test failed.');
 }

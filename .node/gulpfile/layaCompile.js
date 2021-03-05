@@ -2,6 +2,7 @@ const { watch, task, src } = require("gulp");
 const { exec } = require("child_process");
 const { server, reload } = require("gulp-connect");
 const rev = require("gulp-rev-append");
+const chalk = require('chalk');
 
 /** 编译配置 */
 const LayaAirCompileConfig = require("../config/LayaAirCompileConfig");
@@ -19,10 +20,10 @@ let _awakeTime = 0;
 //创建laya增量编译
 task("layaCompile_", function (f) {
     f();
-    console.log('\033[35m', '开启LayaAir增量编译。。。', '\033[0m');
+    console.log(chalk.magenta('开启LayaAir增量编译。。。'));
     //自动编译
     compile((code, signal) => {
-        console.log('\033[35m', '正在创建服务。。。', '\033[0m');
+        console.log(chalk.magenta('正在创建服务。。。'));
         //获取ip
         let _ip = getLocalIP();
         //主页地址
@@ -36,13 +37,9 @@ task("layaCompile_", function (f) {
             host: _ip,
             //建立服务完成
             serverInit: (_server) => {
-                //
-                console.log(' ----▷');
-                // console.log(' ----▷ 配置参数：\n', LayaAirCompileConfig);
-                console.log(' ----▷');
-                console.log('\033[34m', '----▶ ' + _homePage, '\033[0m');
+                console.log(chalk.red('----▶ ' + _homePage));
                 console.log(' --');
-                console.log('\033[33m', ' ----▷ 按 F5 键启动 DeBug浏览器，并打开 游戏主页 地址', '\033[0m');
+                console.log(chalk.red(' ----▷ 按 F5 键启动 DeBug浏览器，并打开 游戏主页 地址'));
                 console.log(' -');
 
                 /**
@@ -62,9 +59,9 @@ task("layaCompile_", function (f) {
 /** 监听编译 */
 function watchCompile(cb) {
     let _onTime = (new Date()).getTime();
-    console.log('监听到文件变化');
+    console.log(chalk.yellow('监听到文件变化'));
     if (_onTime - _time >= LayaAirCompileConfig.watchFileDelay) {
-        console.log('\033[35m', '开始编译。。。', '\033[0m');
+        console.log(chalk.magenta('开始编译。。。'));
         _time = _onTime;
         _awakeTime = LayaAirCompileConfig.autoAwakeCompileTime;
     } else {
@@ -72,9 +69,9 @@ function watchCompile(cb) {
     }
     //开始编译
     compile((code, signal) => {
-        console.log(code, signal);
+        // console.log(code, signal);
         //抛出提示
-        console.log('\033[34m', '----▶ ' + _homePage, '\033[0m');
+        console.log(chalk.red('----▶ ' + _homePage));
         if (LayaAirCompileConfig.ifAutoUpdate) {
             //重新刷新页面
             src(LayaAirCompileConfig.indexPage)
@@ -109,7 +106,7 @@ function _autoCompile() {
             console.log('\n ----▷ 自动唤醒编译完成');
             console.log(code, signal);
             //抛出提示
-            console.log('\033[34m', '----▶ ' + _homePage, '\033[0m');
+            console.log(chalk.magenta('----▶ ' + _homePage));
         });
     }
 }
@@ -126,7 +123,7 @@ task("layaCompile", function (f) {
 /** 编译代码 */
 function compile(_back) {
     if (_ifCompile) {
-        console.log('\033[31m', '正在编译中。。。', '\033[0m');
+        console.log(chalk.red('正在编译中。。。'));
         return;
     }
     _ifCompile = true;
@@ -140,7 +137,7 @@ function compile(_back) {
     });
     process.on("exit", (code, signal) => {
         _ifCompile = false;
-        console.log('\n ----▷ 编译完成', new Date());
+        console.log(chalk.green('----▷ 编译完成', new Date().toLocaleString()));
         _back(code, signal);
     });
 }

@@ -1,4 +1,3 @@
-import ConsoleEx from "src/_T/Console/ConsoleEx";
 import PlatformData from "../Data/PlatformData";
 import TTDevice from "../Device/TTDevice";
 import TTRecordManager from "../Record/TTRecordManager";
@@ -22,7 +21,7 @@ export default class TTPlatform extends WXPlatform {
     Init(platformData: PlatformData) {
         this._base = window["tt"];
         if (this._base == null) {
-            console.error(...ConsoleEx.packError("平台初始化错误"));
+            console.error("平台初始化错误");
             return;
         }
         this.platformData = platformData;

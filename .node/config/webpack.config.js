@@ -1,18 +1,26 @@
 const path = require('path');
+const chalk = require('chalk');
 
 /** ts路径映射插件 */
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const Webpackbar = require('webpackbar');
 const webpackPlugin = require('../gulpfile/webpack/webpackPlugin');
+
 
 /** webpack参数 */
 const webpackConfig = {
+    //开发模式
     mode: "development",
+    //入口
     entry: path.resolve(__dirname, '../../src/Main.ts'),
+    //输出
     output: {
         path: path.resolve(__dirname, '../../bin/js'),
         filename: 'bundle.js'
     },
+    //模块
     module: {
+        //定义 loader
         rules: [
             {
                 test: /\.tsx?$/,
@@ -29,11 +37,19 @@ const webpackConfig = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js', 'glsl', 'md', 'txt', 'vs', 'fs'],
         plugins: [
-            //TODO 这里有个大bug，ts文件结构过深时会使用非相对路径，这个时候就会出错，所以需要这个路径映射插件
+            //! 这里有个大bug，ts文件结构过深时会使用非相对路径，这个时候就会出错，所以需要这个路径映射插件
             new TsconfigPathsPlugin(),
-            new webpackPlugin(),
-        ]
+        ],
     },
+    //插件
+    plugins: [
+        //* 进度栏 */
+        // new ProgressBarPlugin(),
+        //* 使用交互式可缩放树图可视化webpack输出文件的大小。
+        // new BundleAnalyzerPlugin(),
+        new Webpackbar(),
+        new webpackPlugin(),
+    ],
     //源代码调试工具
     devtool: 'inline-source-map',
     // 缓存

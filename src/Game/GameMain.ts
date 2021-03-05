@@ -37,7 +37,7 @@ export default class GameMain {
     private enterGame() {
         //进入游戏
         console.log(...ConsoleEx.packLog('进入游戏'));
-        //TODO 进入主测试模块
+        //TODO 进入测试模块
         TestMain.instance.start();
     }
 }
