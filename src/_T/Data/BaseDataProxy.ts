@@ -1,3 +1,4 @@
+import ConsoleEx from "../Console/ConsoleEx";
 import BaseData from "./BaseData"
 import ObjectProxyT from "./ObjectProxyT";
 
@@ -41,6 +42,11 @@ export default abstract class BaseDataProxy<Data extends BaseData> {
      * 用于重构数据
      */
     protected getNewData(): Data {
+        //如果没有数据模板的话
+        if (!this.m_dataTemplate) {
+            console.error(...ConsoleEx.packError('没有找到数据模板！'));
+            return {} as Data;
+        }
         return new this.m_dataTemplate() as Data;
     }
 
