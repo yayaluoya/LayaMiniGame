@@ -7,17 +7,17 @@
 /**
  * Pako压缩
  */
-declare class pako {
+declare namespace pako {
     /**
      * 解压
      * @param _data 数据
      * @param _par 参数
      */
-    public static inflate(_data: any, _par?: object);
+    export function inflate(_data: any, _par?: object);
 
     /**
      * 压缩数据
      * @param _string 字符串
      */
-    public static deflate(_data: string);
+    export function deflate(_data: string);
 }
