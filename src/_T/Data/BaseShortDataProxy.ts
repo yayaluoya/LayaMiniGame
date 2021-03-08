@@ -14,7 +14,7 @@ export default abstract class BaseShortDataProxy<Data extends BaseData> extends 
      * 初始化数据
      */
     public initData() {
-        this.m_data = new this.m_dataTemplate();
+        this.m_data = this.getNewData();
         //设置代理
         if (this.m_ifSetProxy) {
             this.m_objectProxyT = new ObjectProxyT();

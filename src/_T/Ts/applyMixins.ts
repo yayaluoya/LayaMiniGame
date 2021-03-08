@@ -15,6 +15,7 @@ export default function applyMixins(...baseCtors: any[]) {
 }
 
 //使用方法
+
 /**
 class _A {
     _a() {

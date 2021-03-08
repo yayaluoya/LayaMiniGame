@@ -1,17 +1,13 @@
 import FGUI_TestMain from "src/FGUI/_Test/FGUI_TestMain";
 import BaseUICon, { IBaseUIConDefines } from "src/_T/D2/FGUI/BaseUICon";
+import InstanceT from "src/_T/Ts/InstanceT";
 /**
  * 测试主页面控制器
  */
+@InstanceT.DecorateInstance()
 export default class _TestMainUICon extends BaseUICon {
     /** 单例 */
-    private static _instance: _TestMainUICon;
-    public static get instance(): _TestMainUICon {
-        if (this._instance == null) {
-            this._instance = new _TestMainUICon();
-        }
-        return this._instance;
-    }
+    public static readonly instance: _TestMainUICon;
     //
     private constructor() { super(); }
 

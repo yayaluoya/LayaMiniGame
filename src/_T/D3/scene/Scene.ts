@@ -10,14 +10,14 @@ import GlobalD3Environment from "./GlobalD3Environment";
 /**
  * 场景 实例
  * 根据指定的场景配置表构建场景
- * 可以继承此类自定义场景
+ * * 可以继承此类自定义场景
  */
 export default class Scene {
     /** 场景名字 */
     protected _sceneName: string;
 
     /** 环境 */
-    private m_environment: ISceneEnvironment;
+    protected m_environment: ISceneEnvironment;
 
     /** 场景配置信息 */
     private m_sceneConfig: {
@@ -140,6 +140,7 @@ export default class Scene {
     /**
      * 添加当前节点
      * 当这个场景下的某个节点被构建时会自动执行这个方法
+     * ! 框架执行
      * @param _node 节点
      */
     public addOnNode(_node: SceneNode) {
@@ -149,6 +150,7 @@ export default class Scene {
     /**
      * 删除当前节点
      * 当这个场景下的某个节点被删除时会自动执行这个方法
+     * ! 框架执行
      * @param _node 节点
      */
     public deleteOnNode(_node: SceneNode) {
@@ -157,7 +159,7 @@ export default class Scene {
 
     /**
      * 设置环境
-     * 会根据当前场景中的摄像机和灯光位置设置全局的摄像机和灯光位置
+     * 会根据当前场景中环境配置设置环境
      */
     public setEnvironment() {
         let _sceneConfig: ISceneConfig = this.m_sceneConfig as ISceneConfig;
@@ -183,7 +185,7 @@ export default class Scene {
         this._loadProgress(_n, _node);
     }
 
-    // * -----------
+    // * ----------- 回调函数
 
     /** 初始化回调 */
     protected _init() { }

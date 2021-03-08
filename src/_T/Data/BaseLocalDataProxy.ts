@@ -41,10 +41,6 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
      * 初始化数据
      */
     public initData() {
-        //判断数据模板
-        if (!this.m_dataTemplate) {
-            console.error(...ConsoleEx.packError('没有找到数据模板', this._saveName));
-        }
         //记录时间
         let _time = Date.now();
         //
@@ -101,15 +97,15 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
         }
         else {
             this.m_saveToDiskQueue++;
-            //
-            setTimeout(() => {
+            //限流，每一次宏任务只保存一次数据
+            //把保存任务注册进微任务列表，将会在本次数据修改的宏任务完成后并在下次宏任务开始前被全部执行
+            Promise.resolve().then(() => {
                 this.m_saveToDiskQueue--;
                 // console.log('保存数据前');
                 if (this.m_saveToDiskQueue == 0) {
-                    //限流，每一次执行只保存一次数据
                     this._save(m_data);
                 }
-            }, 0);
+            });
         }
     }
     //保存数据到本地

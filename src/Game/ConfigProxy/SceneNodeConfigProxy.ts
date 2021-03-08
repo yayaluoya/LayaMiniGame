@@ -1,17 +1,13 @@
 import BaseConfigProxy from "src/_T/Config/BaseConfigProxy";
+import InstanceT from "src/_T/Ts/InstanceT";
 import { _SceneNodeConfig } from "../_config/_SceneNodeConfig";
 /**
  * 场景节点配置表代理
  */
+@InstanceT.DecorateInstance()
 export default class SceneNodeConfigProxy extends BaseConfigProxy<_SceneNodeConfig.DataType> {
     /** 单例 */
-    private static _instance: SceneNodeConfigProxy;
-    public static get instance(): SceneNodeConfigProxy {
-        if (this._instance == null) {
-            this._instance = new SceneNodeConfigProxy();
-        }
-        return this._instance;
-    }
+    public static readonly instance: SceneNodeConfigProxy;
     //
     private constructor() { super(); }
 

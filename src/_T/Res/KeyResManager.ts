@@ -1,20 +1,14 @@
 import ConsoleEx from "../Console/ConsoleEx";
+import InstanceT from "../Ts/InstanceT";
 import { EKeyResName } from "./EKeyResName";
 
 /**
  * 关键资源点列表管理器
  */
+@InstanceT.DecorateInstance()
 export default class KeyResManager {
-    //
-    private static _instance: KeyResManager;
     /** 单例 */
-    private static get instance(): KeyResManager {
-        if (this._instance == null) {
-            this._instance = new KeyResManager();
-        }
-        //
-        return this._instance;
-    }
+    private static readonly instance: KeyResManager;
 
     //关键资源列表
     private m_KeyResList: { [index: string]: string } = {};
