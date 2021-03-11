@@ -8,6 +8,17 @@ import ResLoad from "../Res/ResLoad";
  */
 export default class ConfigT {
     /**
+     * 装饰配置表代理
+     * @param _config 配置表
+     */
+    public static DecorateConfigProxy(_config: IBaseConfigContainer) {
+        return function (target: any) {
+            //设置配置表模板
+            target.prototype.configTemplate = _config;
+        }
+    }
+
+    /**
      * 构建配置表列表
      * 只构建，不加载
      * @param _configs 配置表列表
