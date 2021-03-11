@@ -76,4 +76,18 @@ export default class V3Utils {
         //
         return _ifEnd;
     }
+
+    private static readonly rotateAxisV3: Laya.Vector3 = new Laya.Vector3(0, 1, 0);
+    /**
+     * 旋转一个向量
+     * @param _v3 需要旋转的那个向量
+     * @param _anger 旋转角度
+     * @param _axis 旋转轴
+     */
+    public static RotateV3(_v3: Laya.Vector3, _anger: number, _axis: Laya.Vector3 = this.rotateAxisV3) {
+        //旋转四元数
+        var q = new Laya.Quaternion();
+        Laya.Quaternion.createFromAxisAngle(_axis, (_anger / 180) * Math.PI, q);
+        Laya.Vector3.transformQuat(_v3, q, _v3);
+    }
 }
