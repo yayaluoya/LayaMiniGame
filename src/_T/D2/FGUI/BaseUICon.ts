@@ -1,3 +1,4 @@
+import ConsoleEx from "src/_T/Console/ConsoleEx";
 import BaseUIConProxy from "./BaseUIConProxy";
 import { EUILayer } from "./EUILayer";
 import FGuiData from "./FGuiData";
@@ -13,7 +14,7 @@ export default abstract class BaseUICon extends RootUICon {
     /** UI列表，可以显示很多个ui */
     protected _UIs: {
         [_index: string]: IBaseUIConDefines;
-    } = {};
+    };
 
     /** 唯一键值 */
     private m_key: symbol = Symbol();
@@ -96,6 +97,10 @@ export default abstract class BaseUICon extends RootUICon {
 
     //创建ui
     private createUI() {
+        this._createUIBeforeEx();
+        if (!this._UIs) {
+            console.error(...ConsoleEx.packError('没有找到ui创建器列表!'));
+        }
         //初始化根节点ui
         this.m_rootUI = new fgui.GComponent();
         FGUIRootManager.getLayerUI(this._layer).addChild(this.m_rootUI);
@@ -103,8 +108,14 @@ export default abstract class BaseUICon extends RootUICon {
             this._UIs[_i].ui = this.m_rootUI.addChild(this._UIs[_i].uiCreate.createInstance()) as fgui.GComponent;
         }
         //
+        this._createUIEX();
         this._createUI();
     }
+
+    /** 创建ui之前的扩展回调 只能在扩展中使用 */
+    protected _createUIBeforeEx() { }
+    /** 创建完成ui后的扩展回调 只能在扩展中使用 */
+    protected _createUIEX() { }
 
     /** 创建完ui后回调 */
     protected _createUI() { }
@@ -200,7 +211,7 @@ export default abstract class BaseUICon extends RootUICon {
  */
 export interface IBaseUIConDefines {
     /** ui创建器 */
-    uiCreate: IUICreate;
+    uiCreate: IUICreate<fgui.GComponent>;
     /** 数据 */
     data?: FGuiData;
     /** ui */

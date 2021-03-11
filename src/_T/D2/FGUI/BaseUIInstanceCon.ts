@@ -10,7 +10,7 @@ import RootUICon from './RootUICon';
  */
 export default abstract class BaseUIInstanceCon<UI extends fgui.GComponent> extends RootUICon {
     /** UI类型，必须初始化前设置 */
-    protected _UIDefine: IUICreate;
+    protected _UIDefine: IUICreate<UI>;
 
     //是否隐藏
     private m_ifShow: boolean = false;
