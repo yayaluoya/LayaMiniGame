@@ -22,8 +22,8 @@ export default class SceneManager {
      * 通过场景名字获取场景
      * @param _name 场景名字
      */
-    public getScene(_name: string): Scene {
-        return this.m_sceneList[_name];
+    public getScene<S extends Scene>(_name: string): S {
+        return this.m_sceneList[_name] as S;
     }
 
     /**
