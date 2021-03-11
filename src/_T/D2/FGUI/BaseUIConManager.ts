@@ -64,6 +64,8 @@ export abstract class BaseUIConManagerProxy {
     }) {
         this.m_uiConList = _uiList;
         this.m_onShowUICon = [];
+        //
+        this._init();
     }
 
     /**
@@ -124,4 +126,7 @@ export abstract class BaseUIConManagerProxy {
         });
         this.m_onShowUICon = [];
     }
+
+    /** 初始化回调 */
+    protected _init() { }
 }
