@@ -12,4 +12,14 @@ export default class SceneNodeConfigProxy extends BaseConfigProxy<_SceneNodeConf
     public static readonly instance: SceneNodeConfigProxy;
     //
     private constructor() { super(); }
+
+    /**
+     * 通过id获取数据
+     * @param _id id
+     */
+    public static byIdGetData(_id: number): _SceneNodeConfig.DataType {
+        return this.instance.m_dataList.find((item) => {
+            return item.id == _id;
+        });
+    }
 }
