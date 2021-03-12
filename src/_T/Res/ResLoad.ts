@@ -12,6 +12,11 @@ export default class ResLoad {
      * @param _onProgress 加载进度
      */
     public static Load(urls: any, model: EResLoadModel, onCompleted: Laya.Handler, _onProgress?: Laya.Handler) {
+        //
+        if (Array.isArray(urls)) {
+            //去除虚值
+            urls = urls.filter(Boolean);
+        }
         //判断是否有内容需要加载
         if (!urls || (Array.isArray(urls) && urls.length == 0)) {
             onCompleted.run();
