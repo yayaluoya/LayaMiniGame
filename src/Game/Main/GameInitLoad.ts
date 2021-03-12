@@ -17,6 +17,7 @@ import InitLoadUICon from "../UICon/initLoad/initLoadUICon";
 import { BuildConfigTs } from "../_config/BuildConfigTs";
 import { _TestConst } from "../_config/_TestConst";
 import { _EAllScenePrefabsNames } from "../_prefabsName/_EAllScenePrefabsNames";
+import { _EAllExportSceneName } from "../_sceneName/_EAllExportSceneName";
 
 /**
  * 游戏初始化加载
@@ -117,11 +118,10 @@ export default class GameInitLoad extends BaseInitLoad {
             return EssentialResUrls.ConfigJsonURL((item as IBaseConfigContainer).fileName);
         });
         //场景json文件
-        let sceneJsonRes: any[] = [
-            'Scene'
-        ].map((item) => {
-            return EssentialResUrls.SceneConfigURL(item);
-        });
+        let sceneJsonRes: any[] = [];
+        for (let _i in _EAllExportSceneName) {
+            sceneJsonRes.push(EssentialResUrls.SceneConfigURL(_EAllExportSceneName[_i]));
+        }
         //
         _loadItems.push(new ResLoadItem([..._configRes, ...sceneJsonRes], EResLoadModel.D2, 'config', Laya.Handler.create(this, () => {
             //初始化全部配置表内容
