@@ -30,6 +30,11 @@ export default class Scene {
     /** 场景中存在的node节点 */
     private m_onSceneNodes: Set<SceneNode> = new Set();
 
+    /** 获取场景配置 */
+    public get sceneConfig(): ISceneConfig {
+        return this.m_sceneConfig as ISceneConfig;
+    }
+
     /** 获取环境 */
     public get environment(): ISceneEnvironment {
         return this.m_environment;
