@@ -10,7 +10,9 @@ export namespace _SceneNodeConfig {
     /** 数据类型 */
     export class DataType {
        /** 关卡id[必要] */
-        id: any;
+        id: number;
+       /** 关卡名字，可以通过名字获取关卡数据 */
+        name: string;
        /** 所属场景 */
         scene: string;
        /** 节点名字列表 */

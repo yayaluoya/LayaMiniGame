@@ -17,9 +17,29 @@ export default class SceneNodeConfigProxy extends BaseConfigProxy<_SceneNodeConf
      * 通过id获取数据
      * @param _id id
      */
-    public static byIdGetData(_id: number): _SceneNodeConfig.DataType {
-        return this.instance.m_dataList.find((item) => {
+    public byIdGetData(_id: number): _SceneNodeConfig.DataType {
+        return this.m_dataList.find((item) => {
             return item.id == _id;
+        });
+    }
+
+    /**
+     * 通过关卡名字获取关卡数据
+     * @param _name 关卡名字
+     */
+    public byNameGetData(_name: string): _SceneNodeConfig.DataType {
+        return this.m_dataList.find((item) => {
+            return item.name == _name;
+        });
+    }
+
+    /**
+     * 通过场景名字获取数据列表
+     * @param _name 场景名字
+     */
+    public bySceneNameGetData(_name: string): _SceneNodeConfig.DataType[] {
+        return this.m_dataList.filter((item) => {
+            return item.scene == _name;
         });
     }
 }
