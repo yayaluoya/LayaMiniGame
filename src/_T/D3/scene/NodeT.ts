@@ -1,6 +1,6 @@
 import GamePool from "src/_T/GameT/GamePool";
 import V3Utils from "src/_T/Utils/V3Utils";
-import { INodeConfig, IPrefabsConfig, IPrefabsDifferConfig } from "./INodeConfig";
+import { INodeConfig, IPrefabsConfig, IPrefabsDifferConfig, ITransform } from "./INodeConfig";
 
 /**
  * 节点工具
@@ -73,29 +73,42 @@ export default class NodeT {
                 this.setDiffer(_spr.getChildAt(_diff.index) as Laya.Sprite3D, _diff);
             }
         }
+        //获取源变换
+        let _transform: Laya.Vector3[] = [GamePool.getV3(), GamePool.getV3(), GamePool.getV3()];
+        if (_differ._transform) {
+            if (_differ._transform.position) {
+                V3Utils.parseVector3(_differ._transform.position, _transform[0]);
+            }
+            if (_differ._transform.euler) {
+                V3Utils.parseVector3(_differ._transform.euler, _transform[1]);
+            }
+            if (_differ._transform.scale) {
+                V3Utils.parseVector3(_differ._transform.scale, _transform[2]);
+            }
+        }
         //判断是否有transform属性
         if (_differ.transform) {
             //
             if (_differ.transform.position) {
                 V3Utils.parseVector3(_differ.transform.position, _centreV3);
-                Laya.Vector3.add(_spr.transform.localPosition, _centreV3, _centreV3);
+                Laya.Vector3.add(_transform[0], _centreV3, _centreV3);
                 _centreV3.cloneTo(_spr.transform.localPosition);
                 _spr.transform.localPosition = _spr.transform.localPosition;
             }
             if (_differ.transform.euler) {
                 V3Utils.parseVector3(_differ.transform.euler, _centreV3);
-                Laya.Vector3.add(_spr.transform.localRotationEuler, _centreV3, _centreV3);
+                Laya.Vector3.add(_transform[1], _centreV3, _centreV3);
                 _centreV3.cloneTo(_spr.transform.localRotationEuler);
                 _spr.transform.localRotationEuler = _spr.transform.localRotationEuler;
             }
             if (_differ.transform.scale) {
                 V3Utils.parseVector3(_differ.transform.scale, _centreV3);
-                Laya.Vector3.add(_spr.transform.localScale, _centreV3, _centreV3);
+                Laya.Vector3.add(_transform[2], _centreV3, _centreV3);
                 _centreV3.cloneTo(_spr.transform.localScale);
                 _spr.transform.localScale = _spr.transform.localScale;
             }
         }
         //回收临时向量
-        GamePool.recycleV3(_centreV3);
+        GamePool.recycleV3(...[_centreV3, ..._transform]);
     }
 }

@@ -40,6 +40,8 @@ export interface IPrefabsDifferConfig {
     index: number;
     /** 3D变换 */
     transform: ITransform;
+    /** 原始位置 */
+    _transform: ITransform;
     /** 子节点 */
     child: IPrefabsDifferConfig[];
 }
