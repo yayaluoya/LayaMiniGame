@@ -1,1 +1,1 @@
-{"data":[{"id":0,"name":"debug","scene":"Scene","sceneName":"scene_debug"},{"id":1,"name":"scene_1","scene":"Scene","sceneName":"scene_1"},{"id":2,"name":"scene_2","scene":"Scene","sceneName":"scene_2"},{"id":3,"name":"scene_3","scene":"Scene","sceneName":"scene_3"}],"zip":false}
+{"data":[{"id":0,"name":"debug","scene":"Scene","nodeName":"scene_debug"},{"id":1,"name":"scene_1","scene":"Scene","nodeName":"scene_1"},{"id":2,"name":"scene_2","scene":"Scene","nodeName":"scene_2"},{"id":3,"name":"scene_3","scene":"Scene","nodeName":"scene_3"}],"zip":false}

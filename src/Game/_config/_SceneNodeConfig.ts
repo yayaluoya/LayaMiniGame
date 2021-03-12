@@ -16,7 +16,7 @@ export namespace _SceneNodeConfig {
        /** 所属场景 */
         scene: string;
        /** 节点名字列表 */
-        sceneName: string;
+        nodeName: string;
     }
     /** config数据列表 */
     export var datas: _SceneNodeConfig.DataType[] = [];
