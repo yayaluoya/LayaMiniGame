@@ -42,6 +42,7 @@ public class ExportSceneToJson : Editor
         //去除空属性
         text = new Regex("\"[a-zA-Z]+?\":null,?").Replace(text, "");
         text = new Regex("\"transform\":{},?").Replace(text, "");
+        text = new Regex("\"_transform\":{},?").Replace(text, "");
         //整理逗号
         text = new Regex("\",+\"").Replace(text, "\",\"");
         text = new Regex("\",}").Replace(text, "\"}");
