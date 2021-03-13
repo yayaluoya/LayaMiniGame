@@ -1,11 +1,21 @@
 import GamePool from "src/_T/GameT/GamePool";
+import EssentialResUrls from "src/_T/Res/EssentialResUrls";
+import ResLoad from "src/_T/Res/ResLoad";
 import V3Utils from "src/_T/Utils/V3Utils";
-import { INodeConfig, IPrefabsConfig, IPrefabsDifferConfig, ITransform } from "./INodeConfig";
+import { INodeConfig, IPrefabsConfig, IPrefabsDifferConfig, IPrefabsGather } from "./INodeConfig";
 
 /**
  * 节点工具
  */
 export default class NodeT {
+    /**
+     * 是否是预制体配置
+     * @param _config 配置数据
+     */
+    public static ifPrefabsConfig(_config: INodeConfig): boolean {
+        return (_config as IPrefabsConfig).prefabName && true;
+    }
+
     /**
      * 根据节点数据初始化节点
      * @param _spr 精灵
@@ -110,5 +120,59 @@ export default class NodeT {
         }
         //回收临时向量
         GamePool.recycleV3(...[_centreV3, ..._transform]);
+    }
+
+    /**
+     * 获取预制体名字
+     * @param _prefabsNames 输出的预制体名字列表
+     * @param _nodeConfig 节点配置数据
+     */
+    public static getPrefabsNames(_prefabsNames: string[], _nodeConfig: INodeConfig) {
+        if (!_nodeConfig) { return; }
+        //先判断是否是预制体
+        let _prefabName: string = (_nodeConfig as IPrefabsConfig).prefabName;
+        if (_prefabName) {
+            //去重
+            if (!_prefabsNames.includes(_prefabName)) {
+                _prefabsNames.push(_prefabName);
+            }
+        } else {
+            //判断是否还有子节点
+            if (_nodeConfig.child && _nodeConfig.child.length > 0) {
+                _nodeConfig.child.forEach((item) => {
+                    this.getPrefabsNames(_prefabsNames, item);
+                });
+            }
+        }
+    }
+
+    /**
+     * 构建节点
+     * @param _node 父节点
+     * @param _nodeConfig 节点配置数据
+     */
+    public static buildNode(_node: Laya.Node, _nodeConfig: INodeConfig, _prefabs: IPrefabsGather) {
+        if (!_nodeConfig) { return; }
+        //先判断是不是预制体
+        let _prefabName: string = (_nodeConfig as IPrefabsConfig).prefabName;
+        let _spr: Laya.Sprite3D;
+        if (_prefabName) {
+            _spr = ResLoad.GetRes(EssentialResUrls.PrefabURL(_prefabName)) as Laya.Sprite3D;
+            _node.addChild(_spr);
+            NodeT.setNode(_spr, _nodeConfig);
+            //
+            _prefabs[_prefabName] = _prefabs[_prefabName] || [];
+            _prefabs[_prefabName].push(_spr);
+        } else {
+            //判断是否有子节点
+            if (_nodeConfig.child && _nodeConfig.child.length > 0) {
+                _spr = new Laya.Sprite3D;
+                _node.addChild(_spr);
+                NodeT.setNode(_spr, _nodeConfig);
+                _nodeConfig.child.forEach((item) => {
+                    this.buildNode(_node, item, _prefabs);
+                });
+            }
+        }
     }
 }

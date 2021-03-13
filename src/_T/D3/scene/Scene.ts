@@ -182,6 +182,7 @@ export default class Scene {
 
     /**
      * 加载进度
+     * ! 框架执行
      * @param _n 进度值
      * @param _node 当前加载的节点
      */
