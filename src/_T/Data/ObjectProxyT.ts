@@ -81,13 +81,17 @@ export default class ObjectProxyT {
              * @returns {boolean}
              */
             set(trapTarget, key, value, receiver) {
-                //判断是是不是数组的length属性被修改
-                if (!(Array.isArray(trapTarget) && key == 'length')) {
-                    //执行回调
-                    _this.proxySet(trapTarget, key, value, receiver);
+                //修改属性
+                let _if: boolean = Reflect.set(trapTarget, key, value, receiver);
+                if (_if) {
+                    //判断是是不是数组的length属性被修改
+                    if (!(Array.isArray(trapTarget) && key == 'length')) {
+                        //执行回调
+                        _this.proxySet(trapTarget, key, value, receiver);
+                    }
                 }
-                //反射方法
-                return Reflect.set(trapTarget, key, value, receiver);
+                //
+                return _if;
             },
 
             /***
@@ -97,7 +101,7 @@ export default class ObjectProxyT {
              * @param receiver receiver 操作发生的对象（通常是代理）
              */
             get(trapTarget, key, receiver) {
-                //反射方法
+                //获取属性
                 return Reflect.get(trapTarget, key, receiver);
             },
         });
