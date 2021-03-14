@@ -7,16 +7,16 @@ import RootUICon from "./RootUICon";
  */
 export default abstract class BaseUIConProxy<UI extends fgui.GComponent, Con extends BaseUICon> extends RootUICon {
     /** 是否开始代理 */
-    protected m_ifProxy: boolean = false;
+    private m_ifProxy: boolean = false;
 
     /** 是否显示 */
-    protected m_ifShow: boolean = false;
+    private m_ifShow: boolean = false;
 
     /** 代理的控制器 */
-    protected m_con: Con;
+    private m_con: Con;
 
     /** 代理的UI */
-    protected m_ui: UI;
+    private m_ui: UI;
 
     /** 是否开始代理 */
     public get ifProxy(): boolean {
@@ -26,6 +26,11 @@ export default abstract class BaseUIConProxy<UI extends fgui.GComponent, Con ext
     /** 获取是否显示 */
     public get ifShow(): boolean {
         return this.m_ifShow;
+    }
+
+    /** 获取控制器 */
+    public get con(): Con {
+        return this.m_con;
     }
 
     /** 获取ui */

@@ -8,7 +8,7 @@ import ObjectProxyT from "./ObjectProxyT";
  */
 export default abstract class BaseDataProxy<Data extends BaseData> {
     /** 数据模板 */
-    protected m_dataTemplate: { new(): Data };
+    private dataTemplate: { new(): Data };
 
     /** 是否设置代理 */
     protected m_ifSetProxy: boolean = true;
@@ -43,11 +43,11 @@ export default abstract class BaseDataProxy<Data extends BaseData> {
      */
     protected getNewData(): Data {
         //如果没有数据模板的话
-        if (!this.m_dataTemplate) {
-            console.error(...ConsoleEx.packError('没有找到数据模板！'));
+        if (!this.dataTemplate) {
+            console.error(...ConsoleEx.packError('没有找到数据模板！请使用数据模板装饰器装饰该类', this.constructor.name));
             return {} as Data;
         }
-        return new this.m_dataTemplate() as Data;
+        return new this.dataTemplate() as Data;
     }
 
     /**

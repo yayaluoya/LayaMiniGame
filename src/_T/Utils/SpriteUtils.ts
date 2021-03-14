@@ -119,10 +119,12 @@ export default class SpriteUtils {
         let _scrs: Scr[] = [];
         //获取脚本列表
         let __scrs: Laya.Script3D[] = _spr['_components'] as Laya.Script3D[];
-        //遍历脚本列表
-        for (let _o of __scrs) {
-            if (_o instanceof _scr) {
-                _scrs.push(_o as Scr);
+        if (Array.isArray(__scrs)) {
+            //遍历脚本列表
+            for (let _o of __scrs) {
+                if (_o instanceof _scr) {
+                    _scrs.push(_o as Scr);
+                }
             }
         }
         return _scrs;

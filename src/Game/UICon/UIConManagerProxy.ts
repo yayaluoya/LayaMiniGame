@@ -1,17 +1,13 @@
 import { BaseUIConManagerProxy } from "src/_T/D2/FGUI/BaseUIConManager";
+import InstanceT from "src/_T/Ts/InstanceT";
 
 /**
  * ui控制器管理器代理
  */
+@InstanceT.DecorateInstance()
 export default class UIConManagerProxy extends BaseUIConManagerProxy {
     /** 单例 */
-    private static _instance: UIConManagerProxy;
-    public static get instance(): UIConManagerProxy {
-        if (this._instance == null) {
-            this._instance = new UIConManagerProxy();
-        }
-        return this._instance;
-    }
+    public static readonly instance: UIConManagerProxy;
     //
     private constructor() { super(); }
 }

@@ -7,17 +7,20 @@
 /**
  * Pako压缩
  */
-declare namespace pako {
+interface IPako {
     /**
      * 解压
      * @param _data 数据
      * @param _par 参数
      */
-    export function inflate(_data: any, _par?: object);
+    inflate(_data: any, _par?: object);
 
     /**
      * 压缩数据
      * @param _string 字符串
      */
-    export function deflate(_data: string);
+    deflate(_data: string);
 }
+
+/** Pako压缩实例 */
+declare const pako: IPako;

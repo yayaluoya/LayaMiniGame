@@ -1,19 +1,16 @@
 import BaseLocalDataProxy from "src/_T/Data/BaseLocalDataProxy";
+import DataT from "src/_T/Data/DataT";
+import InstanceT from "src/_T/Ts/InstanceT";
 import SignData from "./type/SignData";
 
 /**
  * 签到数据代理
  */
+@InstanceT.DecorateInstance()
+@DataT.DecorateDataTemplate(SignData)
 export class SignDataProxy extends BaseLocalDataProxy<SignData>{
     /** 单例 */
-    private static _instance: SignDataProxy;
-    public static get instance(): SignDataProxy {
-        if (this._instance == null) {
-            this._instance = new SignDataProxy();
-            this._instance.m_dataTemplate = SignData;
-        }
-        return this._instance;
-    }
+    public static readonly instance: SignDataProxy;
     //
     private constructor() { super(); }
 }

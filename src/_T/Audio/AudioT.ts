@@ -1,20 +1,15 @@
 import ConsoleEx from "../Console/ConsoleEx";
 import ComResUrl from "../Res/ComResUrl";
+import InstanceT from "../Ts/InstanceT";
 
 /**
  * 音效工具类
  * 必须要先预加载音效，不然播放会有延迟
  */
+@InstanceT.DecorateInstance()
 export default class AudioT {
-    //
-    private static _instance: AudioT;
     /** 单例 */
-    public static get instance(): AudioT {
-        if (this._instance == null) {
-            this._instance = new AudioT();
-        }
-        return this._instance;
-    }
+    public static readonly instance: AudioT;
     //
     private constructor() { }
 

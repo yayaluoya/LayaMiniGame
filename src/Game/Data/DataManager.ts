@@ -1,3 +1,4 @@
+import InstanceT from "src/_T/Ts/InstanceT";
 import { MainDataProxy } from "./MainDataProxy";
 import { SetDataProxy } from "./SetDataProxy";
 import ShortDataProxy from "./ShortDataProxy";
@@ -7,15 +8,10 @@ import { TestDataProxy } from "./TestDataProxy";
 /**
  * 数据管理器
  */
+@InstanceT.DecorateInstance()
 export default class DataManager {
     /** 单例 */
-    private static _instance: DataManager;
-    public static get instance(): DataManager {
-        if (this._instance == null) {
-            this._instance = new DataManager();
-        }
-        return this._instance;
-    }
+    public static readonly instance: DataManager;
     //
     private constructor() { }
 

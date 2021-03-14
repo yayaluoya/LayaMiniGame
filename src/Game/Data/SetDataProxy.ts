@@ -1,19 +1,16 @@
 import BaseLocalDataProxy from "src/_T/Data/BaseLocalDataProxy";
+import DataT from "src/_T/Data/DataT";
+import InstanceT from "src/_T/Ts/InstanceT";
 import SetData from "./type/SetData";
 
 /**
  * 设置数据代理
  */
+@InstanceT.DecorateInstance()
+@DataT.DecorateDataTemplate(SetData)
 export class SetDataProxy extends BaseLocalDataProxy<SetData>{
     /** 单例 */
-    private static _instance: SetDataProxy;
-    public static get instance(): SetDataProxy {
-        if (this._instance == null) {
-            this._instance = new SetDataProxy();
-            this._instance.m_dataTemplate = SetData;
-        }
-        return this._instance;
-    }
+    public static readonly instance: SetDataProxy;
     //
     private constructor() { super(); }
 }

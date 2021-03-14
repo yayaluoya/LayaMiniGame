@@ -1,15 +1,12 @@
+import InstanceT from "../Ts/InstanceT";
+
 /**
  * 简易信息处理类
  */
+@InstanceT.DecorateInstance()
 export default class MesManager extends Laya.EventDispatcher {
-    private static _instance: MesManager;
     /** 单例 */
-    private static get instance(): MesManager {
-        if (this._instance == null) {
-            this._instance = new MesManager();
-        }
-        return this._instance;
-    }
+    private static readonly instance: MesManager;
     //
     private constructor() { super(); }
 

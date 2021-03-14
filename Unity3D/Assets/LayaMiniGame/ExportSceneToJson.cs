@@ -42,6 +42,7 @@ public class ExportSceneToJson : Editor
         //去除空属性
         text = new Regex("\"[a-zA-Z]+?\":null,?").Replace(text, "");
         text = new Regex("\"transform\":{},?").Replace(text, "");
+        text = new Regex("\"_transform\":{},?").Replace(text, "");
         //整理逗号
         text = new Regex("\",+\"").Replace(text, "\",\"");
         text = new Regex("\",}").Replace(text, "\"}");
@@ -248,6 +249,8 @@ public class Differ
     public int index;
     //变换信息
     public TransformData transform = new TransformData();
+    //原信息
+    public TransformData _transform = new TransformData();
     //子节点差异
     public List<Differ> child;
 
@@ -300,18 +303,33 @@ public class Differ
         if (v3.magnitude > 0)
         {
             ifNull = true;
+            if(node.localPosition.magnitude > 0){
+                _differ._transform.position = _T.calcValue(-node.localPosition.x) + "," + _T.calcValue(node.localPosition.y) + "," + _T.calcValue(node.localPosition.z);
+            }else{
+                _differ._transform.position = null;
+            }
             _differ.transform.position = _T.calcValue(-v3.x) + "," + _T.calcValue(v3.y) + "," + _T.calcValue(v3.z);
         }
         v3 = _node.localRotation.eulerAngles - node.localRotation.eulerAngles;
         if (v3.magnitude > 0)
         {
             ifNull = true;
+            if(node.localRotation.eulerAngles.magnitude > 0){
+                _differ._transform.euler = _T.calcValue(node.localRotation.eulerAngles.x) + "," + _T.calcValue(-node.localRotation.eulerAngles.y) + "," + _T.calcValue(-node.localRotation.eulerAngles.z);
+            }else{
+                _differ._transform.euler = null;
+            }
             _differ.transform.euler = _T.calcValue(v3.x) + "," + _T.calcValue(-v3.y) + "," + _T.calcValue(-v3.z);
         }
         v3 = _node.localScale - node.localScale;
         if (v3.magnitude > 0)
         {
             ifNull = true;
+            if(node.localScale.magnitude > 0){
+                _differ._transform.scale = _T.calcValue(node.localScale.x) + "," + _T.calcValue(node.localScale.y) + "," + _T.calcValue(node.localScale.z);
+            }else{
+                _differ._transform.scale = null;
+            }
             _differ.transform.scale = _T.calcValue(v3.x) + "," + _T.calcValue(v3.y) + "," + _T.calcValue(v3.z);
         }
         if (ifNull)

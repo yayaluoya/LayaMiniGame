@@ -77,6 +77,7 @@ interface IUnderscore {
     sortedIndex(obj: any, f: Function, iter: Function): any[];
 
     shuffle(obj: any[]): any[];
+    sample(obj: any[], n?: number): any[];
     toArray(obj: any[]): any[];
     size(obj: any[]): number;
 

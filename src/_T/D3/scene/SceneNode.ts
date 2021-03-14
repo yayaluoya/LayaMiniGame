@@ -1,7 +1,7 @@
 import ConsoleEx from "src/_T/Console/ConsoleEx";
 import EssentialResUrls from "src/_T/Res/EssentialResUrls";
 import ResLoad from "src/_T/Res/ResLoad";
-import { INodeConfig, IPrefabsConfig, IPrefabsGather } from "./INodeConfig";
+import { INodeConfig, IPrefabsGather } from "./INodeConfig";
 import NodeT from "./NodeT";
 import Scene from "./Scene";
 
@@ -68,7 +68,7 @@ export default class SceneNode {
         //提取预制体名字列表
         this.m_prefabsNames = [];
         this.m_nodeConfigs.forEach((item) => {
-            this.getPrefabsNames(this.m_prefabsNames, item);
+            NodeT.getPrefabsNames(this.m_prefabsNames, item);
         });
     }
 
@@ -129,7 +129,7 @@ export default class SceneNode {
         this.m_nodeConfigs.forEach((item) => {
             _spr = new Laya.Sprite3D;
             this.m_node.addChild(_spr);
-            this.buildNode(_spr, item);
+            NodeT.buildNode(_spr, item, this.m_prefabs);
         });
     }
 
@@ -148,61 +148,5 @@ export default class SceneNode {
         //清理引用
         this.m_node = null;
         this.m_prefabs = null;
-    }
-
-    // * -------------------- //
-
-    /**
-     * 获取预制体名字
-     * @param _prefabsNames 输出的预制体名字列表
-     * @param _nodeConfig 节点配置数据
-     */
-    private getPrefabsNames(_prefabsNames: string[], _nodeConfig: INodeConfig) {
-        if (!_nodeConfig) { return; }
-        //先判断是否是预制体
-        let _prefabName: string = (_nodeConfig as IPrefabsConfig).prefabName;
-        if (_prefabName) {
-            //去重
-            if (!_prefabsNames.includes(_prefabName)) {
-                _prefabsNames.push(_prefabName);
-            }
-        } else {
-            //判断是否还有子节点
-            if (_nodeConfig.child && _nodeConfig.child.length > 0) {
-                _nodeConfig.child.forEach((item) => {
-                    this.getPrefabsNames(_prefabsNames, item);
-                });
-            }
-        }
-    }
-
-    /**
-     * 构建节点
-     * @param _node 父节点
-     * @param _nodeConfig 节点配置数据
-     */
-    private buildNode(_node: Laya.Node, _nodeConfig: INodeConfig) {
-        if (!_nodeConfig) { return; }
-        //先判断是不是预制体
-        let _prefabName: string = (_nodeConfig as IPrefabsConfig).prefabName;
-        let _spr: Laya.Sprite3D;
-        if (_prefabName) {
-            _spr = ResLoad.GetRes(EssentialResUrls.PrefabURL(_prefabName)) as Laya.Sprite3D;
-            _node.addChild(_spr);
-            NodeT.setNode(_spr, _nodeConfig);
-            //
-            this.m_prefabs[_prefabName] = this.m_prefabs[_prefabName] || [];
-            this.m_prefabs[_prefabName].push(_spr);
-        } else {
-            //判断是否有子节点
-            if (_nodeConfig.child && _nodeConfig.child.length > 0) {
-                _spr = new Laya.Sprite3D;
-                _node.addChild(_spr);
-                NodeT.setNode(_spr, _nodeConfig);
-                _nodeConfig.child.forEach((item) => {
-                    this.buildNode(_node, item);
-                });
-            }
-        }
     }
 }

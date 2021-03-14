@@ -52,8 +52,15 @@ export abstract class BaseUIConManagerProxy {
         [_index: string]: BaseUICon,
     };
 
-    /** 当前显示的ui控制器索引列表 */
-    protected m_onShowUICon: string[];
+    /** 获取当前显示的ui */
+    public get onShowUI(): BaseUICon[] {
+        let _uiCons: BaseUICon[] = [];
+        for (let _i in this.m_uiConList) {
+            this.m_uiConList[_i].ifShow && _uiCons.push(this.m_uiConList[_i]);
+        }
+        //
+        return _uiCons;
+    }
 
     /**
      * 设置ui代理
@@ -63,7 +70,8 @@ export abstract class BaseUIConManagerProxy {
         [_index: string]: BaseUICon,
     }) {
         this.m_uiConList = _uiList;
-        this.m_onShowUICon = [];
+        //
+        this._init();
     }
 
     /**
@@ -77,22 +85,28 @@ export abstract class BaseUIConManagerProxy {
     /**
      * 显示ui控制器
      * @param _uiCon ui控制器索引或者索引列表
+     * @param _ifHideOtherUI 是否隐藏其他ui [true]
      */
-    public showUI(_uiCon: string | string[]) {
+    public showUI(_uiCon: string | string[], _ifHideOtherUI: boolean = true) {
         let _uiCons: string[] = [];
         if (_uiCon instanceof Array) {
             _uiCons.push(..._uiCon);
         } else {
             _uiCons.push(_uiCon);
         }
+        //判断是否隐藏其他ui
+        if (_ifHideOtherUI) {
+            for (let _i in this.m_uiConList) {
+                if (!_uiCons.includes(_i)) {
+                    this.m_uiConList[_i].Hide();
+                }
+            }
+        }
         _uiCons.forEach((item) => {
             if (this.m_uiConList[item]) {
                 this.m_uiConList[item].Show();
-                this.m_onShowUICon.push(..._uiCons);
             }
         });
-        //去重
-        this.m_onShowUICon = Array.from(new Set(this.m_onShowUICon));
     }
 
     /**
@@ -109,19 +123,17 @@ export abstract class BaseUIConManagerProxy {
         _uiCons.forEach((item) => {
             this.m_uiConList[item] && this.m_uiConList[item].Hide();
         });
-        //
-        this.m_onShowUICon = this.m_onShowUICon.filter((item) => {
-            return this.m_uiConList[item] && this.m_uiConList[item].ifShow;
-        });
     }
 
     /**
      * 隐藏当前显示的所有ui
      */
     public hideAllUI() {
-        this.m_onShowUICon.forEach((item) => {
-            this.m_uiConList[item] && this.m_uiConList[item].Hide();
+        this.onShowUI.forEach((item) => {
+            item.Hide();
         });
-        this.m_onShowUICon = [];
     }
+
+    /** 初始化回调 */
+    protected _init() { }
 }
