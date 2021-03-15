@@ -23,7 +23,7 @@ export default {
         //端口
         port: '3003',
         //禁用hmr连接
-        hmr: false,
+        // hmr: false,
         //使用固定端口
         strictPort: true,
     },
