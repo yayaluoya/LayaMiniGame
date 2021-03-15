@@ -14,7 +14,7 @@ function MyPlugin() {
                 console.log(chalk.magenta('vite准备完成,按 F5 打开浏览器'));
                 console.log('');
                 console.log(chalk.yellow('----▷ 主页：', path.resolve(__dirname, '../../../bin/viteIndex.html')));
-            }, 0);
+            }, 100);
         },
     }
 }
