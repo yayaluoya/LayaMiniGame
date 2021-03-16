@@ -77,7 +77,7 @@ export default class GameInitLoad extends BaseInitLoad {
     private immitFGUiLoadItems(_loadItems: ResLoadItem[]) {
         //先绑定所有ui
         this.FGUIBinder();
-        //
+        //加载fgui包
         _loadItems.push(this.getFGUILoadItems('InitEmptyScreen', undefined, Laya.Handler.create(this, this.initEmptyScreen)));//白屏ui包
         _loadItems.push(this.getFGUILoadItems('InitLoad', 0, Laya.Handler.create(this, this.initLoad)));//加载界面包
         _loadItems.push(this.getFGUILoadItems('GameBag'));//原包，通常为资源包
@@ -127,7 +127,9 @@ export default class GameInitLoad extends BaseInitLoad {
             //初始化全部配置表内容
             ConfigT.BuildConfigs(BuildConfigTs.getAllConfig());
             console.log(...ConsoleEx.packLogLight('所有配置表内容->', BuildConfigTs.getAllConfig()));
-        })));
+        }), Laya.Handler.create(this, (i) => {
+            // console.log('配置表加载进度', i);
+        }, undefined, false)));
     }
 
     //注入其他资源加载项
