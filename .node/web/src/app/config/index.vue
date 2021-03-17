@@ -1,6 +1,6 @@
 <template>
     <div id="config">
-        <el-tabs v-model="navName">
+        <el-tabs v-model="navName" v-loading="loading">
             <el-tab-pane label="配置表导出" name="excel">
                 <span class="null" v-if="allConfigsNames.length == 0"
                     >空空如也</span
@@ -62,8 +62,10 @@ export default {
     },
     data() {
         return {
+            /** 是否在加载 */
+            loading: false,
             /** 导航名字 */
-            navName: "excel",
+            navName: "",
             /** 所有路径关键值 */
             allURL: [],
             /** 所有配置文件列表 */
@@ -74,20 +76,31 @@ export default {
             allSceneJsonNames: [],
         };
     },
+    watch: {
+        /** 监听当前导航页变化 */
+        navName() {
+            switch (this.navName) {
+                case "excel":
+                    this.getAllConfigsNames();
+                    break;
+                case "config-json":
+                    this.getAllConfigJsonNames();
+                    break;
+                case "scene-json":
+                    this.getAllSceneJsonNames();
+                    break;
+                case "edit-url":
+                    this.getAllURL();
+                    break;
+            }
+        },
+    },
     methods: {
         /**
          * 获取所有配置表名字
          */
-        getAllURL() {
-            this.http(this.$api.config.getAllURL, (_data) => {
-                this.allURL = _data;
-            });
-        },
-
-        /**
-         * 获取所有配置表名字
-         */
         getAllConfigsNames() {
+            this.allConfigsNames = [];
             this.http(this.$api.config.getAllConfigsNames, (_data) => {
                 this.allConfigsNames = _data;
             });
@@ -97,6 +110,7 @@ export default {
          * 获取所有配置表json名字
          */
         getAllConfigJsonNames() {
+            this.allConfigJsonNames = [];
             this.http(this.$api.config.getAllConfigJsonNames, (_data) => {
                 this.allConfigJsonNames = _data;
             });
@@ -106,8 +120,19 @@ export default {
          * 获取所有场景json文件名字
          */
         getAllSceneJsonNames() {
+            this.allSceneJsonNames = [];
             this.http(this.$api.config.getAllSceneJsonNames, (_data) => {
                 this.allSceneJsonNames = _data;
+            });
+        },
+
+        /**
+         * 获取所有路径
+         */
+        getAllURL() {
+            this.allURL = [];
+            this.http(this.$api.config.getAllURL, (_data) => {
+                this.allURL = _data;
             });
         },
 
@@ -115,6 +140,10 @@ export default {
          * 发送请求并回调数据
          */
         http(_url, _comBack, _loseBack, _back) {
+            if (this.loading) {
+                return;
+            }
+            this.loading = true;
             //
             this.$axios
                 .get(_url)
@@ -135,20 +164,25 @@ export default {
                 })
                 .finally(() => {
                     _back && _back.call(this);
+                    this.loading = false;
                 });
         },
+
         /** 全部导出json */
         exportJson() {
             this.$refs.excels.forEach((item) => {
                 item.exportJson();
             });
         },
+
+        /** 导航按钮点击 */
+        handleClick(_item) {
+            console.log(_item);
+        },
     },
     mounted() {
-        this.getAllURL();
-        this.getAllConfigsNames();
-        this.getAllConfigJsonNames();
-        this.getAllSceneJsonNames();
+        //默认页面为导出配置表
+        this.navName = "excel";
     },
 };
 </script>

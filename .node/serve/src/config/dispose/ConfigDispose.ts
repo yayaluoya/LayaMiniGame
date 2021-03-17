@@ -29,7 +29,7 @@ export default class ConfigDispose {
                 let _info: Stats = null;
                 let _excelInfos: IExcelInfo[] = ConfigLocalData.instance.getItem(EConfigLocalDataKey.excelInfoData) || [];
                 let _excelInfo: IExcelInfo;
-                let _ifAlter: boolean = true;
+                let _ifAlter: boolean;
                 //添加属性
                 data.data = data.data.map((item) => {
                     //判断修改时间
@@ -37,6 +37,8 @@ export default class ConfigDispose {
                     _excelInfo = _excelInfos.find((_item) => {
                         return _item.url == item.path;
                     });
+                    //默认为修改过
+                    _ifAlter = true;
                     if (_excelInfo) {
                         //判断时间是否正确，如果不正确就说明有修改
                         // console.log(_info.mtime.toLocaleString(), _excelInfo.info.mtime);
