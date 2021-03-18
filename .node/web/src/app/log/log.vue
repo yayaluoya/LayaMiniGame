@@ -59,6 +59,11 @@ export default {
     background-color: #eeeeee;
     border-radius: 0 3px 3px 0;
     border-left: 3px solid #444461;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #e8e8e8;
+    }
 
     > .nav {
         display: flex;

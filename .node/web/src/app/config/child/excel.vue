@@ -83,6 +83,11 @@ export default {
     justify-content: space-between;
     align-items: center;
     border-radius: 5px;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #e4e3e3;
+    }
 
     > span.name {
         color: #3a3a59;

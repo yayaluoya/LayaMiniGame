@@ -3,6 +3,29 @@
  */
 export default class ArrayUtils {
     /**
+     * 判断两个数组内容是否相同
+     * @param x x数组
+     * @param y y数组
+     */
+    public static ContentIfSame(x: any[], y: any[]): boolean {
+        if (!(x) || !(y)) return false;
+        if (x.length != y.length) return false;
+        //方法： 用一个mop来统计x数组各个元素出现的次数，再用y数组来递减各元素出现的次数，如果最终结果为0则两个数组相同
+        let m: Map<any, number> = new Map();
+        x.forEach((item) => {
+            m.set(item, (m.get(item) || 0) + 1);
+        });
+        y.forEach((item) => {
+            m.set(item, (m.get(item) || 0) - 1);
+        });
+        let i: number = 0;
+        m.forEach((value) => {
+            i += value;
+        });
+        return i == 0;
+    }
+
+    /**
      * 数组去重保留靠前的内容
      * @param arr 源数组
      */

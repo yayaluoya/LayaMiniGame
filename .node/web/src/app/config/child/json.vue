@@ -119,6 +119,11 @@ export default {
     margin: 5px 0;
     background-color: #ebebeb;
     border-radius: 5px;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #e4e3e3;
+    }
 
     > .nav {
         margin-bottom: 5px;

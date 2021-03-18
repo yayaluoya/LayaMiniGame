@@ -26,14 +26,14 @@ task('startWeb', function (f) {
                 //新建一个服务
                 server({
                     name: 'LayaMiniGameWeb',//项目名字
-                    port: 80,//端口
+                    port: 8080,//端口
                     root: path.resolve(__dirname, '../web/dist/'),//默认路径
                     host: _ip,
                     //建立服务完成
                     serverInit: (_server) => {
                         //
                         console.log(' ->');
-                        console.log(chalk.hex('#ff4b5c')(' ----▷ 在浏览器中打开 http://' + _ip));
+                        console.log(chalk.hex('#ff4b5c')(' ----▷ 在浏览器中打开 http://' + _ip + ':8080'));
                         console.log(' ->');
                     },
                 });
