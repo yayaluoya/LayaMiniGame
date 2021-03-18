@@ -6,6 +6,7 @@ import ISceneEnvironment from "./ISceneEnvironment";
 import NodeT from "./NodeT";
 import SceneNode from "./SceneNode";
 import GlobalD3Environment from "./GlobalD3Environment";
+import ArrayUtils from "src/_T/Utils/ArrayUtils";
 
 /**
  * 场景 实例
@@ -25,7 +26,7 @@ export default class Scene {
     } = {};
 
     /** 场景节点实例缓存 */
-    private m_sceneNodes: SceneNode[] = [];
+    private m_sceneNodesCache: Map<string[], SceneNode[]> = new Map();
 
     /** 场景中存在的node节点 */
     private m_onSceneNodes: Set<SceneNode> = new Set();
@@ -82,10 +83,12 @@ export default class Scene {
     }
 
     /**
-     * 获取场景节点
-     * @param _name 节点名字，可以多个一起构建
-     */
-    public getSceneNode(_name: string | string[]): SceneNode {
+         * 获取场景节点
+         * @param _name 节点名字，可以多个一起构建
+         * @param _findCache 是否在缓存中查找 true
+         * @param _addCache 是否添加到缓存 true
+         */
+    public getSceneNode(_name: string | string[], _findCache: boolean = true, _addCache: boolean = true): SceneNode {
         let _names: string[] = [];
         if (typeof _name == "string") {
             _names.push(_name);
@@ -104,40 +107,42 @@ export default class Scene {
             console.warn(...ConsoleEx.packWarn('获取场景节点时，一个配置信息都没找到', _names));
             return;
         }
-        //在缓存中找
-        let __nodeConfig: INodeConfig[];
-        let _a;
-        let _number: number;
-        let _index: number = this.m_sceneNodes.findIndex((item) => {
-            __nodeConfig = item.nodeConfigs;
-            if (_nodeConfig.length != __nodeConfig.length) { return false; }
-            _a = {};
-            _nodeConfig.forEach((_o) => {
-                if (typeof _a[_o.name] == "undefined") {
-                    _a[_o.name] = 1;
-                } else {
-                    _a[_o.name]++;
+        let _sceneNode: SceneNode;
+        //判断是否在缓存中找
+        if (_findCache) {
+            for (let [_key, _value] of this.m_sceneNodesCache) {
+                if (ArrayUtils.ContentIfSame(_key, _names)) {
+                    let _usable: SceneNode[] = _value.filter((item) => {
+                        return item.ifDelete;
+                    });
+                    if (_usable.length > 0) {
+                        _sceneNode = _usable.pop();
+                    }
+                    break;
                 }
-            });
-            __nodeConfig.forEach((__o) => {
-                if (typeof _a[__o.name] == "undefined") {
-                    _a[__o.name] = -1;
-                } else {
-                    _a[__o.name]--;
-                }
-            });
-            _number = 0;
-            for (let _i in _a) {
-                _number += _a[_i];
             }
-            return _number == 0;
-        });
-        if (_index != -1) {
-            return this.m_sceneNodes[_index];
         }
-        let _sceneNode: SceneNode = new SceneNode(_nodeConfig, this);
-        //添加到缓存
-        this.m_sceneNodes.push(_sceneNode);
+        //
+        if (!_sceneNode) {
+            //新建一个实例
+            _sceneNode = new SceneNode(_nodeConfig, this);
+            //判断是否添加到缓存
+            if (_addCache) {
+                let _if: boolean = false;
+                for (let [_key, _value] of this.m_sceneNodesCache) {
+                    //
+                    if (ArrayUtils.ContentIfSame(_key, _names)) {
+                        _value.push(_sceneNode);
+                        //
+                        _if = true;
+                        break;
+                    }
+                }
+                if (!_if) {
+                    this.m_sceneNodesCache.set(_names, [_sceneNode]);
+                }
+            }
+        }
         //
         return _sceneNode;
     }

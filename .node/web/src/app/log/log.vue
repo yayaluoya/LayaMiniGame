@@ -59,17 +59,27 @@ export default {
     background-color: #eeeeee;
     border-radius: 0 3px 3px 0;
     border-left: 3px solid #444461;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #e8e8e8;
+    }
 
     > .nav {
         display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
+        flex-wrap: wrap;
         padding: 5px;
         color: #393e46;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        align-content: center;
+
         > div {
             padding: 0 10px;
             color: #444461;
             font-weight: 550;
+            width: 200px;
             > .head {
                 color: #9ba4b4;
             }
@@ -92,8 +102,9 @@ export default {
         }
         > .button {
             display: flex;
-            flex-wrap: nowrap;
             align-items: center;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
         }
     }
 

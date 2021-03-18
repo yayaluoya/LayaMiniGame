@@ -8,6 +8,7 @@ export default class ResLoadGroup {
 
     /**
      * 加载资源列表集合
+     * ! 这里是依次加载并不是同时加载的
      * @param items 资源加载项集合
      * @param onCompleted 完成时回调
      * @param _onProgress 加载进度回调

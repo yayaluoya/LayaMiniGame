@@ -19,12 +19,13 @@ class ConfigDispose {
                 let _info = null;
                 let _excelInfos = ConfigLocalData_1.default.instance.getItem(EConfigLocalDataKey_1.EConfigLocalDataKey.excelInfoData) || [];
                 let _excelInfo;
-                let _ifAlter = true;
+                let _ifAlter;
                 data.data = data.data.map((item) => {
                     _info = fs_1.statSync(item.path);
                     _excelInfo = _excelInfos.find((_item) => {
                         return _item.url == item.path;
                     });
+                    _ifAlter = true;
                     if (_excelInfo) {
                         _ifAlter = (_info.mtime.toLocaleString() != _excelInfo.info.mtime);
                     }
