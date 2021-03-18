@@ -5,7 +5,8 @@
         ".laya/chrome/**": true, //谷歌插件代码
         ".laya/**": true, //laya自带
         "node_modules/**": true, //npm 包文件夹
-        ".node/**": true, //node工具代码
+        // ".node/**": true, //node工具代码
+        "public/**": true, //
         "Doc/**": true, //配置文件目录
         "Unity3D/**": true, //unity项目文件夹
         "FairyGUI/**": true, //FGUI项目文件夹
