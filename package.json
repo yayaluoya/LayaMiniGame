@@ -5,7 +5,6 @@
   "scripts": {
     "-compile": "gulp compile",
     "打开前端工具": "gulp startWeb",
-    "Vite-增量-构建-超快-dev": "vite --config ./.node/config/vite.config.js",
     "Webpack-增量-编译": "webpack --config ./.node/config/webpack.config.js",
     "LayaAir-直接-编译": "gulp layaCompile",
     "LayaAir-增量-编译": "gulp layaCompile_",
@@ -35,6 +34,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "core-js": "^3.8.1",
+    "esbuild": "^0.9.3",
     "gulp": "^4.0.2",
     "gulp-connect": "^5.7.0",
     "gulp-rev-append": "^0.1.8",
