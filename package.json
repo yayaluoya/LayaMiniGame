@@ -5,7 +5,6 @@
   "scripts": {
     "-compile": "gulp compile",
     "打开前端工具": "gulp startWeb",
-    "Snowpack-增量-构建-超快-dev": "snowpack dev",
     "Vite-增量-构建-超快-dev": "vite --config ./.node/config/vite.config.js",
     "Webpack-增量-编译": "webpack --config ./.node/config/webpack.config.js",
     "LayaAir-直接-编译": "gulp layaCompile",
