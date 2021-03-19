@@ -1,15 +1,11 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "declaration": true,
+    "target": "es6",
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2017",
     "sourceMap": true,
-    "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
   }
 }
