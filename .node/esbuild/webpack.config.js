@@ -10,6 +10,8 @@ const Webpackbar = require('webpackbar');
 const webpackConfig = {
     //开发模式
     mode: "development",
+    //
+    target: 'node',
     //入口
     entry: path.resolve(__dirname, './src/Main.ts'),
     //输出
