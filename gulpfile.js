@@ -5,6 +5,8 @@
 require("./.node/gulpfile/startWeb.js");
 //laya打包
 require("./.node/gulpfile/layaCompile.js");
+//安装工具包
+require("./.node/gulpfile/installTPack.js");
 
 const { task } = require("gulp");
 

@@ -22,7 +22,7 @@
     "设置-cnpm": "npm install -g cnpm --registry=https://registry.npm.taobao.org",
     "设置-淘宝镜像": "npm config set registry https://registry.npm.taobao.org",
     "安装-全局包-必要": "npm i layaair2-cmd http-server -g --ignore-scripts",
-    "安装-Server包-必要": "cd .node/serve && npm install",
+    "安装-工具包-必要": "gulp installTPack",
     "安装-本地包-必要": "npm install"
   },
   "repository": {
