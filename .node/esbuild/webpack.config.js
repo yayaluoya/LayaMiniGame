@@ -1,10 +1,8 @@
 const path = require('path');
-const chalk = require('chalk');
 
 /** ts路径映射插件 */
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const Webpackbar = require('webpackbar');
-
 
 /** webpack参数 */
 const webpackConfig = {
@@ -16,8 +14,18 @@ const webpackConfig = {
     entry: path.resolve(__dirname, './src/Main.ts'),
     //输出
     output: {
-        path: path.resolve(__dirname, './dist/'),
+        path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js'
+    },
+    //node打包，不配置的话node里面的获取路径啥的会乱
+    node: {
+        console: true,
+        global: true,
+        process: true,
+        Buffer: true,
+        __filename: true,
+        __dirname: true,
+        setImmediate: true
     },
     //模块
     module: {
