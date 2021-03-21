@@ -18,6 +18,11 @@ export default class FileModule {
     /** 更新次数 */
     private m_updateNumber: number = 0;
 
+    /** 获取模块路径 */
+    public get url(): string {
+        return this.m_url;
+    }
+
     /** 获取 模块期约 */
     public get promise(): Promise<FileModule> {
         return this.m_promise;
