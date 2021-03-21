@@ -1,21 +1,37 @@
 const { task } = require("gulp");
 const { exec } = require("child_process");
 const path = require('path');
+const chalk = require('chalk');
 
 //安装工具包
 task('installTPack', function (f) {
     f();
     //
-    let _esbuildUrl = path.resolve(__dirname, '../esbuild');
-    let _serveUrl = path.resolve(__dirname, '../serve');
+    let _pArray = [];
     //
-    let _esbuild = exec(`cd ${_esbuildUrl} && npm install`);//打包工具
-    let _serve = exec(`cd ${_serveUrl} && npm install`);//后端工具
+    _pArray.push(new Promise((r) => {
+        let _url = path.resolve(__dirname, '../esbuild');
+        let _esbuild = exec(`cd ${_url} && npm install --ignore-scripts`);//打包工具
+        _esbuild.stdout.on("data", (data) => {
+            console.log(data);
+        });
+        _esbuild.stdout.on("end", (data) => {
+            r();
+        });
+    }));
+    _pArray.push(new Promise((r) => {
+        let _url = path.resolve(__dirname, '../serve');
+        let _serve = exec(`cd ${_url} && npm install --ignore-scripts`);//后端工具
+        _serve.stdout.on("data", (data) => {
+            console.log(data);
+        });
+        _serve.stdout.on("end", (data) => {
+            r();
+        });
+    }));
     //
-    _esbuild.stdout.on("data", (data) => {
-        console.log(data);
+    Promise.all(_pArray).then(() => {
+        console.log(chalk.magenta('安装完成'));
     });
-    _serve.stdout.on("data", (data) => {
-        console.log(data);
-    });
+    //
 });
