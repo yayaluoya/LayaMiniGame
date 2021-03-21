@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>LayaMiniGame-esBuildIndex</title>
+    <title>LayaMiniGame-esbuild</title>
     <meta charset='utf-8' />
     <meta name='renderer' content='webkit' />
     <meta name='viewport'
@@ -20,21 +20,15 @@
 
 <body>
     <script type="text/javascript">
-        function loadLib(url) {
-            //判断是不是目标编译文件
-            if (/bundle/g.test(url)) {
-                return;
-            }
-            //
+        function loadLib(url, type = 'text/javascript') {
             var script = document.createElement("script");
             script.async = false;
             script.src = url;
+            script.type = type;
             document.body.appendChild(script);
         }
     </script>
-    <script type="text/javascript" src="index.js"></script>
-    <!-- 使用vite编译的文件 -->
-    <script type="module" src="http://localhost:3060/Main"></script>
+    <script type="text/javascript" src="esbuild.js"></script>
 </body>
 
 </html>
