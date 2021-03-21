@@ -11,7 +11,7 @@ task('installTPack', function (f) {
     //
     _pArray.push(new Promise((r) => {
         let _url = path.resolve(__dirname, '../esbuild');
-        let _esbuild = exec(`cd ${_url} && npm install --ignore-scripts`);//打包工具
+        let _esbuild = exec(`cd ${_url} && npm install`);//打包工具
         _esbuild.stdout.on("data", (data) => {
             console.log(data);
         });
@@ -21,7 +21,7 @@ task('installTPack', function (f) {
     }));
     _pArray.push(new Promise((r) => {
         let _url = path.resolve(__dirname, '../serve');
-        let _serve = exec(`cd ${_url} && npm install --ignore-scripts`);//后端工具
+        let _serve = exec(`cd ${_url} && npm install`);//后端工具
         _serve.stdout.on("data", (data) => {
             console.log(data);
         });
