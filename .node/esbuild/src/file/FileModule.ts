@@ -1,4 +1,6 @@
 import FileBuild from "./FileBuild";
+const chalk = require('chalk');
+var moment = require('moment');
 
 /**
  * 文件模块
@@ -13,13 +15,16 @@ export default class FileModule {
     /** 内容 */
     private m_content: string;
 
+    /** 更新次数 */
+    private m_updateNumber: number = 0;
+
     /** 获取 模块期约 */
     public get promise(): Promise<FileModule> {
         return this.m_promise;
     }
 
-    /** 获取 模块内容 */
-    public get content(): string {
+    /** 获取 代码内容 */
+    public get code(): string {
         return this.m_content;
     }
 
@@ -30,6 +35,8 @@ export default class FileModule {
     public constructor(_url: string) {
         this.m_url = _url;
         //
+        console.log(chalk.gray('-> 创建模块', this.m_url));
+        //
         this.getContent();
     }
 
@@ -37,7 +44,22 @@ export default class FileModule {
      * 更新内容
      */
     public update() {
+        //
+        // console.log('更新模块', this.m_url);
+        let _time: number = Date.now();
+        //
         this.getContent();
+        //记录当前的promis
+        let _promise: Promise<any> = this.promise;
+        //
+        _promise.then(() => {
+            //判断当前的promise是否是最后一个执行的promise
+            if (_promise == this.promise) {
+                this.m_updateNumber++;
+                console.log(chalk.gray('>'));
+                console.log(chalk.green('----> 模块更新'), chalk.gray((Date.now() - _time) + 'ms'), chalk.yellow(this.m_url), chalk.magenta('x', this.m_updateNumber), chalk.gray(moment(Date.now()).format('HH:mm:ss')));
+            }
+        });
     }
 
     /** 获取内容 */

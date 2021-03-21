@@ -1,4 +1,4 @@
 import "./a/a";
-import "./a/b";
+import "src/a/b";
 
 console.log('main1');

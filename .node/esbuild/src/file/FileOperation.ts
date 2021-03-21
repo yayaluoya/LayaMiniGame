@@ -11,7 +11,7 @@ export default class FileOperation {
     public static getFile(_url: string): Promise<string> {
         return new Promise<string>((r, e) => {
             FileCache.getModule(_url).promise.then((module) => {
-                r(module.content);
+                r(module.code);
             });
         });
     }

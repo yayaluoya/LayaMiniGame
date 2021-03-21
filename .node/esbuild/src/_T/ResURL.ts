@@ -1,3 +1,4 @@
+import Config from "src/config/Config";
 import URLT from "./URLT";
 
 /**
@@ -16,12 +17,6 @@ export default class ResURL {
 
     /** src路径 */
     public static get srcURL(): string {
-        // return resolve(this.rootURL, '../../src/');
-        return URLT.join(this.rootURL, 'testSrc/');
-    }
-
-    /** 代码打包缓存路径 */
-    public static get codeBuildCacheURL(): string {
-        return URLT.join(this.rootURL, 'node_modules/_esBuildCodeUrl/');
+        return Config.src;
     }
 }

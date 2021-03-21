@@ -5,6 +5,7 @@
   "scripts": {
     "-compile": "gulp compile",
     "打开前端工具": "gulp startWeb",
+    "EsBuild-增量-构建-超快": "cd .node/esbuild && ts-node -r tsconfig-paths/register src/main.ts",
     "Webpack-增量-编译": "webpack --config ./.node/config/webpack.config.js",
     "LayaAir-直接-编译": "gulp layaCompile",
     "LayaAir-增量-编译": "gulp layaCompile_",
@@ -45,6 +46,7 @@
     "raw-loader": "^4.0.2",
     "source-map-loader": "^2.0.1",
     "ts-loader": "^8.0.13",
+    "ts-node": "^9.1.1",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
     "tslib": "^2.1.0",
     "typescript": "^4.1.3",

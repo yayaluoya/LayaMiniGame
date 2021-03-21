@@ -1,5 +1,7 @@
+import Config from "./config/Config";
 import FileOperation from "./file/FileOperation";
 import Init from "./Init";
+import ResURL from "./_T/ResURL";
 const chalk = require('chalk');
 const http = require('http');
 
@@ -33,5 +35,7 @@ Init.init().then(() => {
     //设置端口
     app.listen(3060);
     //提示
-    console.log(chalk.magenta('服务器打开成功 http://localhost:3060'));
+    // console.log('后端路径', ResURL.rootURL);
+    console.log('代理路径 ', ResURL.srcURL);
+    console.log(chalk.magenta('主页地址 ', Config.home));
 });
