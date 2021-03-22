@@ -143,7 +143,7 @@ export default class GameInitLoad extends BaseInitLoad {
             EMusics[_i] && _audios.push(ComResUrl.MusicURL(EMusics[_i]));
         }
         for (let _i in ESounds) {
-            ESounds[_i] && _audios.push(ComResUrl.MusicURL(ESounds[_i]));
+            ESounds[_i] && _audios.push(ComResUrl.SoundURL(ESounds[_i]));
         }
         _loadItems.push(new ResLoadItem(_audios, EResLoadModel.D2, 'audio', Laya.Handler.create(this, () => {
             console.log('所有音效资源：', _audios);
