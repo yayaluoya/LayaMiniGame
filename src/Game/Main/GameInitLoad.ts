@@ -7,11 +7,15 @@ import ConfigT, { IBaseConfigContainer } from "src/_T/Config/ConfigT";
 import ConsoleEx from "src/_T/Console/ConsoleEx";
 import { FGUIPack } from "src/_T/D2/FGUI/FGUIPack";
 import BaseInitLoad from "src/_T/Main/BaseInitLoad";
+import ComResUrl from "src/_T/Res/ComResUrl";
 import { EKeyResName } from "src/_T/Res/EKeyResName";
 import EssentialResUrls from "src/_T/Res/EssentialResUrls";
 import KeyResManager from "src/_T/Res/KeyResManager";
 import { EResLoadModel } from "src/_T/Res/ResLoad";
 import ResLoadItem from "src/_T/Res/ResLoadItem";
+import { EFont } from "../ResE/EFont";
+import { EMusics } from "../ResE/EMusics";
+import { ESounds } from "../ResE/ESounds";
 import InitEmptyScreenUICon from "../UICon/initLoad/initEmptyScreenUICon";
 import InitLoadUICon from "../UICon/initLoad/initLoadUICon";
 import { BuildConfigTs } from "../_config/BuildConfigTs";
@@ -126,7 +130,7 @@ export default class GameInitLoad extends BaseInitLoad {
         _loadItems.push(new ResLoadItem([..._configRes, ...sceneJsonRes], EResLoadModel.D2, 'config', Laya.Handler.create(this, () => {
             //初始化全部配置表内容
             ConfigT.BuildConfigs(BuildConfigTs.getAllConfig());
-            console.log(...ConsoleEx.packLogLight('所有配置表内容->', BuildConfigTs.getAllConfig()));
+            console.log(...ConsoleEx.packLogLight('所有配置表内容：', BuildConfigTs.getAllConfig()));
         }), Laya.Handler.create(this, (i) => {
             // console.log('配置表加载进度', i);
         }, undefined, false)));
@@ -134,7 +138,23 @@ export default class GameInitLoad extends BaseInitLoad {
 
     //注入其他资源加载项
     private immitOtherLoadItems(_loadItems: ResLoadItem[]) {
-        //
+        let _audios: string[] = [];
+        for (let _i in EMusics) {
+            EMusics[_i] && _audios.push(ComResUrl.MusicURL(EMusics[_i]));
+        }
+        for (let _i in ESounds) {
+            ESounds[_i] && _audios.push(ComResUrl.MusicURL(ESounds[_i]));
+        }
+        _loadItems.push(new ResLoadItem(_audios, EResLoadModel.D2, 'audio', Laya.Handler.create(this, () => {
+            console.log('所有音效资源：', _audios);
+        })));
+        let _font: string[] = [];
+        for (let _i in EFont) {
+            EFont[_i] && _font.push(EssentialResUrls.FontURL(EFont[_i]));
+        }
+        _loadItems.push(new ResLoadItem(_font, EResLoadModel.D2, 'font', Laya.Handler.create(this, () => {
+            console.log('所有字体资源：', _font);
+        })));
     }
 
     //白屏显示
