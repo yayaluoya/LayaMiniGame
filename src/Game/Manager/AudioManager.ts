@@ -21,7 +21,9 @@ export default class AudioManager {
 
     //初始化
     public init() {
-        //
+        //根据数据设置背景音乐和音效是否静音
+        AudioManager.soundMuted = !SetDataProxy.instance.data.ifOpenSound;
+        AudioManager.musicMuted = !SetDataProxy.instance.data.ifOpenMusic;
     }
 
     /**
@@ -44,41 +46,49 @@ export default class AudioManager {
     }
 
     /**
-     * 停止背景音乐
+     * 音效暂停
      */
-    public static BGMsuSpend() {
-        Laya.SoundManager.stopMusic();
-    }
-
-    /**
-     * 继续播放背景音乐
-     */
-    public static BGMGoOn() {
-        this.instance.m_onBGM && this.instance.m_onBGM.resume();
-    }
-
-    //音效暂停
-    public static soundSuspend() {
+    public static pauseSound() {
         //暂停所有音效
         Laya.SoundManager.stopAllSound();
     }
-
-    //音效继续
-    public static soundGoOn() {
+    /**
+     * 音效继续
+     */
+    public static resumeSound() {
         //继续播放当前播放的音效
         this.instance.m_onSoundList && this.instance.m_onSoundList.forEach((item) => {
             item.resume();
         });
     }
 
-    //BGM音量改变
-    public static bgmVolumeChange(_n: number = 1) {
-        Laya.SoundManager.setMusicVolume(_n);
+    /**
+     * 暂停背景音乐
+     */
+    public static pauseMusic() {
+        Laya.SoundManager.stopMusic();
+    }
+    /**
+     * 继续播放背景音乐
+     */
+    public static resumeMusic() {
+        this.instance.m_onBGM && this.instance.m_onBGM.resume();
     }
 
-    //音效音量改变
-    public static soundVolumeChange(_n: number = 1) {
-        Laya.SoundManager.setSoundVolume(_n);
+    /**
+     * 设置音效音量
+     * @param _n 音量 0~1
+     * @param _url 资源地址
+     */
+    public static setSoundVolume(_n: number = 1, _url?: string) {
+        Laya.SoundManager.setSoundVolume(_n, _url);
+    }
+    /**
+     * 设置背景音乐音量
+     * @param _n 音量 0~1
+     */
+    public static setMusicVolume(_n: number = 1) {
+        Laya.SoundManager.setMusicVolume(_n);
     }
 
     /**
@@ -92,12 +102,10 @@ export default class AudioManager {
      */
     static playSound(name: ESounds, loops?: number, complete?: laya.utils.Handler, soundClass?: new () => any, startTime?: number): laya.media.SoundChannel {
         if (!name) { return; }
-        if (!SetDataProxy.instance.data.ifOpenSound) { return; }
         let _sound: Laya.SoundChannel = Laya.SoundManager.playSound(name, loops, complete, soundClass, startTime);
         this.instance.m_onSoundList.add(_sound);
         return _sound;
     }
-
     /**
      * 播放背景音乐。背景音乐同时只能播放一个，如果在播放背景音乐时再次调用本方法，会先停止之前的背景音乐，再播放当前的背景音乐。
      * @param name 背景音效名字
@@ -108,7 +116,6 @@ export default class AudioManager {
      */
     static playMusic(name: EMusics, loops?: number, complete?: laya.utils.Handler, startTime?: number): laya.media.SoundChannel {
         if (!name) { return; }
-        if (!SetDataProxy.instance.data.ifOpenMusic) { return; }
         let _music: Laya.SoundChannel = Laya.SoundManager.playMusic(name, loops, complete, startTime);
         this.instance.m_onBGM = _music;
         return _music;
@@ -121,7 +128,6 @@ export default class AudioManager {
     static stopSound(soundsName: ESounds): void {
         Laya.SoundManager.stopSound(ComResUrl.SoundURL(soundsName));
     }
-
     /**
      * 停止背景音效播放。
      * @param musicName 音效名字
