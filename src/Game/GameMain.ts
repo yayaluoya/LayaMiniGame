@@ -1,6 +1,7 @@
 import ConsoleEx from "src/_T/Console/ConsoleEx";
 import DataManager from "./Data/DataManager";
 import GameInitLoad from "./Main/GameInitLoad";
+import AudioManager from "./Manager/AudioManager";
 import SceneManager from "./Scene/SceneManager";
 import UIConManager from "./UICon/UIConManager";
 import TestMain from "./_test/TestMain";
@@ -31,6 +32,8 @@ export default class GameMain {
         SceneManager.instance.init();//场景管理器
         UIConManager.instance.init();//ui控制器管理器
         DataManager.instance.init();//数据管理器
+        //
+        AudioManager.instance.init();
     }
 
     //进入游戏
