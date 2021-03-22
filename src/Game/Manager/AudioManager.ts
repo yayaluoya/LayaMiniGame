@@ -17,7 +17,7 @@ export default class AudioManager {
     private m_onBGM: Laya.SoundChannel;
 
     //当前播放的音效列表
-    private m_onSoundList: Set<Laya.SoundChannel>;
+    private m_onSoundList: Set<Laya.SoundChannel> = new Set();
 
     //初始化
     public init() {
@@ -57,7 +57,7 @@ export default class AudioManager {
      */
     public static resumeSound() {
         //继续播放当前播放的音效
-        this.instance.m_onSoundList && this.instance.m_onSoundList.forEach((item) => {
+        this.instance.m_onSoundList.forEach((item) => {
             item.resume();
         });
     }
