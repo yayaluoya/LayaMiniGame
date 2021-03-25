@@ -170,7 +170,7 @@ export default class NodeT {
                 _node.addChild(_spr);
                 NodeT.setNode(_spr, _nodeConfig);
                 _nodeConfig.child.forEach((item) => {
-                    this.buildNode(_node, item, _prefabs);
+                    this.buildNode(_spr, item, _prefabs);
                 });
             }
         }
