@@ -26,8 +26,10 @@ export default abstract class BaseDebug {
      * 添加一个调试对象
      * @param _key key
      * @param _item 该对象
+     * @param _type 该对象类型
      */
     public addItem(_key: string, _item: any) {
+        //判断是否开启了调试
         if (!_GameConfig.ifDebug) {
             return;
         }

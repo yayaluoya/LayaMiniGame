@@ -60,8 +60,6 @@ export default class GameInitLoad extends BaseInitLoad {
      */
     protected getLoadItems(): ResLoadItem[] {
         let _loadItems: ResLoadItem[] = [];
-        //注入分包加载项
-        this.immitSubpackageLoadItems(_loadItems);
         //获取fgui加载项
         this.immitFGUiLoadItems(_loadItems);
         //注入配置表加载项
@@ -70,11 +68,6 @@ export default class GameInitLoad extends BaseInitLoad {
         this.immitOtherLoadItems(_loadItems);
         //
         return _loadItems;
-    }
-
-    //注入分包加载项
-    private immitSubpackageLoadItems(_loadItems: ResLoadItem[]) {
-        //
     }
 
     //注入fgui的所有加载项

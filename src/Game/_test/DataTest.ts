@@ -18,7 +18,7 @@ export default class DataTest {
     public start() {
         console.log('数据测试', TestDataProxy.instance.data);
         //
-        CustomDebug.instance.addItem('proxyData', TestDataProxy.instance.data);
+        CustomDebug.instance.addItem('dataTest', TestDataProxy.instance.data);
         //
         TestDataProxy.instance.objectProxyT.addMonitor(this, () => {
             console.log('数据设置回调');
