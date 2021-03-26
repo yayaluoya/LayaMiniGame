@@ -8,7 +8,9 @@
 window.screenOrientation = "sensor_landscape";
 
 //
-loadLib("libs/min/pako_inflate.min.js");//解压工具类
+loadLib("libs/pako_inflate.js");//解压工具类
+//其他工具
+loadLib("libs/axios.js");
 //-----libs-begin-----
 loadLib("libs/laya.core.js");//laya核心包
 loadLib("libs/laya.d3.js");//laya3d包

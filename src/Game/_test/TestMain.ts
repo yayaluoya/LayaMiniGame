@@ -36,7 +36,7 @@ export default class TestMain {
         //数据
         DataTest.instance.start();
         //类库测试
-        // LibraryTest.instance.start();
+        LibraryTest.instance.start();
         //配置表测试
         ConfigTest.instance.start();
         //打包测试
