@@ -5,7 +5,7 @@
   "scripts": {
     "-compile": "gulp compile",
     "打开前端工具": "gulp startWeb",
-    "EsBuild-增量-构建-超快": "cd .node/esbuild && ts-node -r tsconfig-paths/register src/main.ts",
+    "EsBuild-增量-构建-超快": "layabox-esbuild --config ./.node/config/layaboxEsbuild.js",
     "Webpack-增量-编译": "webpack --config ./.node/config/webpack.config.js",
     "LayaAir-直接-编译": "gulp layaCompile",
     "LayaAir-增量-编译": "gulp layaCompile_",
@@ -40,6 +40,7 @@
     "gulp": "^4.0.2",
     "gulp-connect": "^5.7.0",
     "gulp-rev-append": "^0.1.8",
+    "layabox-esbuild": "^1.0.3",
     "moment": "^2.29.1",
     "node-cmd": "^4.0.0",
     "pako": "^2.0.3",
