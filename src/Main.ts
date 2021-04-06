@@ -1,5 +1,6 @@
 import GameMain from "./Game/GameMain";
 import GameConfig from "./GameConfig";
+import WhiteScreenT from "./WhiteScreenT";
 import TMain from "./_T/TMain";
 class Main {
 	constructor() {
@@ -8,6 +9,7 @@ class Main {
 		else Laya.init(GameConfig.width, GameConfig.height, Laya["WebGL"]);
 		Laya["Physics"] && Laya["Physics"].enable();
 		Laya["DebugPanel"] && Laya["DebugPanel"].enable();
+		Laya.stage.bgColor = "#000000";
 		Laya.stage.scaleMode = GameConfig.scaleMode;
 		Laya.stage.screenMode = GameConfig.screenMode;
 		Laya.stage.alignV = GameConfig.alignV;
@@ -34,12 +36,16 @@ class Main {
 		//加载IDE指定的场景
 		// GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
 		//
-		/** 正式开始 #28df99 */
-		//
-		//框架入口
-		new TMain();
-		//游戏入口
-		new GameMain();
+		/** 正式开始，加载白屏ui #28df99 */
+		WhiteScreenT.load().then(() => {
+			//框架入口
+			new TMain();
+			//打开白屏
+			WhiteScreenT.open().then(() => {
+				//游戏入口
+				new GameMain();
+			});
+		});
 	}
 }
 

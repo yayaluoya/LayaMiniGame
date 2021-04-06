@@ -8,14 +8,7 @@ import ResLoadItem from "../Res/ResLoadItem";
 export default abstract class BaseInitLoad {
     //
     public constructor() {
-        this.init();
         this._init();
-    }
-
-    //初始化
-    private _init() {
-        //执行加载之前的生命周期
-        this.loadBefore();
     }
 
     /**
@@ -24,37 +17,42 @@ export default abstract class BaseInitLoad {
      */
     public load(_comBack?: Laya.Handler) {
         console.log(...ConsoleEx.packCom('开始加载游戏初始化资源'));
-        //获取加载项
-        let _resLoadItems: ResLoadItem[] = this.getLoadItems();
-        //异步加载加载项
-        ResLoadGroup.loadAsync(_resLoadItems, Laya.Handler.create(this, (i) => {
-            this.loadPlan(i);
-        }, undefined, false), Laya.Handler.create(this, this.loadItemsCom, undefined, false))
-            .then(() => {
-                console.log(...ConsoleEx.packCom('游戏加载完成'));
-                //
-                this.loadCom();
-                //
-                _comBack && _comBack.run();
-            });
+        //执行加载之前的异步
+        this._loadBefore().then(() => {
+            //获取加载项
+            let _resLoadItems: ResLoadItem[] = this._getLoadItems();
+            //异步加载加载项
+            ResLoadGroup.loadAsync(_resLoadItems, Laya.Handler.create(this, (i) => {
+                this._loadPlan(i);
+            }, undefined, false), Laya.Handler.create(this, this._loadItemsCom, undefined, false))
+                .then(() => {
+                    console.log(...ConsoleEx.packCom('游戏加载完成'));
+                    //
+                    this._loadCom();
+                    //
+                    _comBack && _comBack.run();
+                });
+        });
     }
 
     // * --------
     /**
      * 初始化
      */
-    protected init() { }
+    protected _init() { }
 
     /**
      * 游戏加载之前
-     * 可以在这里初始化一些东西
+     * 可以在这里先加载一些东西
      */
-    protected loadBefore() { }
+    protected _loadBefore(): Promise<void> {
+        return Promise.resolve();
+    }
 
     /**
      * 获取加载项列表
      */
-    protected getLoadItems(): ResLoadItem[] {
+    protected _getLoadItems(): ResLoadItem[] {
         return [];
     }
 
@@ -62,16 +60,16 @@ export default abstract class BaseInitLoad {
      * 加载进度
      * @param _i 进度值
      */
-    protected loadPlan(_i: number) { }
+    protected _loadPlan(_i: number) { }
 
     /**
      * 单个加载项完成回调
      * @param _resLoad 加载项实例
      */
-    protected loadItemsCom(_resLoad: ResLoadItem) { }
+    protected _loadItemsCom(_resLoad: ResLoadItem) { }
 
     /**
      * 加载完成
      */
-    protected loadCom() { }
+    protected _loadCom() { }
 }
