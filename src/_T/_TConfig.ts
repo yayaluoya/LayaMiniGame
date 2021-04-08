@@ -7,5 +7,5 @@ export default class _TConfig {
     /** 中文名字 */
     public static ZHName: string = "LayaBox小游戏";
     /** 版本 */
-    public static Versions: string = "0.0.0.1";
+    public static Versions: string = "0.0.0.2";
 }

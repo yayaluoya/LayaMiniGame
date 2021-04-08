@@ -99,7 +99,8 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
             this.m_saveToDiskQueue++;
             //限流，每一次宏任务只保存一次数据
             //把保存任务注册进微任务列表，将会在本次数据修改的宏任务完成后并在下次宏任务开始前被全部执行
-            queueMicrotask(() => {
+            // queueMicrotask(() => {//某些平台会不兼容
+            Promise.resolve().then(() => {
                 this.m_saveToDiskQueue--;
                 // console.log('保存数据前');
                 if (this.m_saveToDiskQueue == 0) {
