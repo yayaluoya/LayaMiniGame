@@ -12,9 +12,11 @@ loadLib("libs/pako_inflate.js");//解压工具类
 //其他工具
 loadLib("libs/axios.js");
 //-----libs-begin-----
-loadLib("libs/laya.core.js");//laya核心包
-loadLib("libs/laya.d3.js");//laya3d包
-loadLib("libs/fairygui.js");//fgui包
-loadLib("libs/laya.physics3D.js");//laya3d物理包
+loadLib("libs/laya.core.js")
+loadLib("libs/laya.d3.js")
+loadLib("libs/axios.js")
+loadLib("libs/fairygui.js")
+loadLib("libs/laya.physics3D.js")
+loadLib("libs/pako_inflate.js")
 //-----libs-end-------
 loadLib("js/bundle.js");

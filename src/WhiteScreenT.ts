@@ -12,8 +12,9 @@ export default class WhiteScreenT {
     public static load(): Promise<void> {
         return new Promise<void>((r) => {
             Laya.loader.load([
-                'whiteScreen.png',
-                'whiteScreen.json',
+                "initLoad.json",
+                'atlas/initLoad.atlas',
+                'atlas/initLoad.png',
             ], Laya.Handler.create(this, () => {
                 r();
             }));
@@ -26,7 +27,7 @@ export default class WhiteScreenT {
     public static open(): Promise<void> {
         return new Promise<void>((r) => {
             //打开白屏ui
-            Laya.Scene.open('whiteScreen.json', undefined, undefined, Laya.Handler.create(this, (_scene) => {
+            Laya.Scene.open('initLoad.json', undefined, undefined, Laya.Handler.create(this, (_scene) => {
                 this.m_scene = _scene;
                 this.m_bg = this.m_scene.getChildByName('bg') as Laya.Sprite;
                 this.updateView();
@@ -43,6 +44,14 @@ export default class WhiteScreenT {
      */
     private static openLater(): Promise<void> {
         return Promise.resolve();
+    }
+
+    /**
+     * 设置进度
+     * @param _n 进度值
+     */
+    public static setPlan(_n: number) {
+        // console.log('设置进度', _n);
     }
 
     /**

@@ -30,17 +30,17 @@ import { _EAllExportSceneName } from "../_sceneName/_EAllExportSceneName";
  */
 export default class GameInitLoad extends BaseInitLoad {
     /** 白屏ui控制器 */
-    private m_initEmptyScreenUICon: InitEmptyScreenUICon;
+    // private m_initEmptyScreenUICon: InitEmptyScreenUICon;
     /** 初始化加载ui控制器 */
-    private m_initLoadUICon: InitLoadUICon;
+    // private m_initLoadUICon: InitLoadUICon;
 
     /**
      * 初始化
      */
     protected _init() {
         //初始化需要的ui控制器实例
-        this.m_initEmptyScreenUICon = new InitEmptyScreenUICon();
-        this.m_initLoadUICon = new InitLoadUICon();
+        // this.m_initEmptyScreenUICon = new InitEmptyScreenUICon();
+        // this.m_initLoadUICon = new InitLoadUICon();
         //设置路径
         for (let _i in _EAllScenePrefabsNames) {
             KeyResManager.addResUrl(_i, KeyResManager.getResURL(EKeyResName.RootRes) + `${_i}/`);//注入预制体路径
@@ -70,7 +70,7 @@ export default class GameInitLoad extends BaseInitLoad {
         this.FGUIBinder();
         //加载fgui包
         // _loadItems.push(this.getFGUILoadItems('InitEmptyScreen', undefined, Laya.Handler.create(this, this.initEmptyScreen)));//白屏ui包
-        _loadItems.push(this.getFGUILoadItems('InitLoad', 0, Laya.Handler.create(this, this.initLoad)));//加载界面包
+        // _loadItems.push(this.getFGUILoadItems('InitLoad', 0, Laya.Handler.create(this, this.initLoad)));//加载界面包
         _loadItems.push(this.getFGUILoadItems('GameBag'));//原包，通常为资源包
         _loadItems.push(this.getFGUILoadItems('GameCommon'));//公共包
         _loadItems.push(this.getFGUILoadItems('_Test'));//测试包
@@ -147,16 +147,14 @@ export default class GameInitLoad extends BaseInitLoad {
     //白屏显示
     private initEmptyScreen() {
         //显示白屏ui
-        this.m_initEmptyScreenUICon.Show();
+        // this.m_initEmptyScreenUICon.Show();
     }
     //加载显示
     private initLoad() {
-        this.m_initEmptyScreenUICon.Hide();//隐藏
-        this.m_initEmptyScreenUICon = null;//清除引用
-        //显示加载ui
-        this.m_initLoadUICon.Show();
-        //关闭白屏
-        WhiteScreenT.close();
+        // this.m_initEmptyScreenUICon.Hide();//隐藏
+        // this.m_initEmptyScreenUICon = null;//清除引用
+        // //显示加载ui
+        // this.m_initLoadUICon.Show();
     }
 
     /**
@@ -165,9 +163,10 @@ export default class GameInitLoad extends BaseInitLoad {
      */
     protected _loadPlan(_i: number) {
         // console.log('游戏加载进度->', _i);
-        if (this.m_initLoadUICon && this.m_initLoadUICon.ifShow) {
-            this.m_initLoadUICon.setPlan(_i);
-        }
+        // if (this.m_initLoadUICon && this.m_initLoadUICon.ifShow) {
+        //     this.m_initLoadUICon.setPlan(_i);
+        // }
+        WhiteScreenT.setPlan(_i);
     }
 
     /**
@@ -182,7 +181,8 @@ export default class GameInitLoad extends BaseInitLoad {
      * 加载完成
      */
     protected _loadCom() {
-        this.m_initLoadUICon.Hide();//隐藏
-        this.m_initLoadUICon = null;//清除引用
+        // this.m_initLoadUICon.Hide();//隐藏
+        // this.m_initLoadUICon = null;//清除引用
+        WhiteScreenT.close();
     }
 }

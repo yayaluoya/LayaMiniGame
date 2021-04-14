@@ -1,8 +1,8 @@
 <project version="2.0">
-   <asynRes>img,temp,sound                                          </asynRes>
-   <unDealRes>embed                                          </unDealRes>
+   <asynRes>img,temp,sound                                             </asynRes>
+   <unDealRes>embed                                             </unDealRes>
    <resTypes>png,jpg   </resTypes>
-   <resExportPath>bin/res/atlas   </resExportPath>
+   <resExportPath>bin/atlas   </resExportPath>
    <asynResExportPath>bin   </asynResExportPath>
    <codeExportPath>src/ui   </codeExportPath>
    <codeImports><![CDATA[import laya.ui.*;
@@ -16,7 +16,7 @@ var Dialog=laya.ui.Dialog;]]>   </codeImportsJS>
    <shareResPath/>
    <codeType>0   </codeType>
    <resCanCompress/>
-   <resPublishQuality>80                                          </resPublishQuality>
+   <resPublishQuality>80                                             </resPublishQuality>
    <langPath/>
    <defaultFont/>
    <codeImportsTS><![CDATA[import View=Laya.View;

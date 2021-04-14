@@ -1,5 +1,4 @@
 D .
-R E4557AEB whiteScreen.png
 D comp
 P 316AD948 btn_close.png
 P 5B258D17 button.png
@@ -39,3 +38,5 @@ P 0587871F vscroll$up.png
 P 5FD17798 vscroll.png
 P DDDDFB9E vslider$bar.png
 P 01BAE7F5 vslider.png
+D initLoad
+P E4557AEB whiteScreen.png
