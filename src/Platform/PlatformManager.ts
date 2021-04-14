@@ -1,9 +1,3 @@
-import BDData from "src/Platform/Data/BDData";
-import OPPOData from "src/Platform/Data/OPPOData";
-import QQData from "src/Platform/Data/QQData";
-import QTTData from "src/Platform/Data/QTTData";
-import TTData from "src/Platform/Data/TTData";
-import WXData from "src/Platform/Data/WXData";
 import PlatformData from "./Data/PlatformData";
 import BDPlatform from "./PlatformClass/BDPlatform";
 import DefaultPlatform from "./PlatformClass/DefaultPlatform";
@@ -14,15 +8,23 @@ import TTPlatform from "./PlatformClass/TTPlatform";
 import WXPlatform from "./PlatformClass/WXPlatform";
 import PlatformManagerProxy from "./PlatformManagerProxy";
 import IPlatform from "./T/IPlatform";
+import VivoPlatform from "./PlatformClass/VivoPlatform";
+import BDData from "./Data/BDData";
+import OPPOData from "./Data/OPPOData";
+import QQData from "./Data/QQData";
+import QTTData from "./Data/QTTData";
+import TTData from "./Data/TTData";
+import VIVOData from "./Data/VIVOData";
+import WXData from "./Data/WXData";
 /**
  * 平台管理器
  */
-export default class PlatformManager {
+export default class PlatformManagerUntility {
     /** 平台实例 */
-    private static _instance: PlatformManager;
-    public static get instance(): PlatformManager {
+    private static _instance: PlatformManagerUntility;
+    public static get instance(): PlatformManagerUntility {
         if (this._instance == null) {
-            this._instance = new PlatformManager();
+            this._instance = new PlatformManagerUntility();
         }
         return this._instance;
     }
@@ -36,7 +38,7 @@ export default class PlatformManager {
     /** 获取平台实例 */
     public static get PlatformInstance(): IPlatform {
         if (!this.instance.m_platformInstance) {
-            console.error('还没有设置过平台实例代理！');
+            console.log('还没有设置过平台实例代理！');
         }
         return this.instance.m_platformInstance;
     }
@@ -79,8 +81,12 @@ export default class PlatformManager {
             //
             this.m_platformData = new OPPOData();
         }
+        else if (Laya.Browser.onVVMiniGame) {
+            result = new VivoPlatform()
+            this.m_platformData = new VIVOData();
+        }
         else {
-            console.warn("未识别平台,默认创建为web");
+            console.log("未识别平台,默认创建为web", Laya.Browser.userAgent);
             result = new DefaultPlatform();
         }
         this.m_platformInstance = result;

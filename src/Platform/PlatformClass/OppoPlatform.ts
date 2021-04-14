@@ -201,7 +201,7 @@ export default class OppoPlatform extends WXPlatform {
     }
 
     protected _CreateInterstitalAd() {
-        // if (!this._platformData.interstitialId) {
+        // if (StringEx.IsNullOrEmpty(this._platformData.interstitialId)) {
         //     console.log("无有效的插页广告ID,取消加载");
         //     return;
         // }
@@ -240,7 +240,7 @@ export default class OppoPlatform extends WXPlatform {
             console.error("无createRewardedVideoAd方法,跳过初始化");
             return;
         }
-        if (this.platformData.rewardVideoId) {
+        if (!this.platformData.rewardVideoId) {
             console.log("无有效的视频广告ID,取消加载");
             return;
         }
@@ -267,7 +267,9 @@ export default class OppoPlatform extends WXPlatform {
 
             let isEnd = res["isEnded"] as boolean;
             // 修复广告bug
-            Laya.timer.frameOnce(2, this, () => {
+            new Promise((r) => {
+                Laya.timer.frameOnce(1, this, r);
+            }).then(() => {
                 if (isEnd) {
                     if (this._rewardSuccessed) this._rewardSuccessed.run();
                 } else {
@@ -317,10 +319,8 @@ export default class OppoPlatform extends WXPlatform {
             isBannerLoading = false;
         })
         while (isBannerLoading) {
-            await new Promise<void>((r) => {
-                Laya.timer.frameOnce(2, this, () => {
-                    r();
-                });
+            await new Promise((r) => {
+                Laya.timer.frameOnce(1, this, r);
             });
         }
         if (loadSuccess) return;
@@ -412,7 +412,7 @@ export default class OppoPlatform extends WXPlatform {
     protected _DoNoCacheShowVideo(onSuccess: Laya.Handler, onSkipped: Laya.Handler) {
         this._rewardSuccessed = onSuccess;
         this._rewardSkipped = onSkipped;
-        if (this.platformData.rewardVideoId) {
+        if (!this.platformData.rewardVideoId) {
             console.log("无有效的视频广告ID,取消加载");
             this._rewardSkipped && this._rewardSkipped.run();
             return;
@@ -434,8 +434,9 @@ export default class OppoPlatform extends WXPlatform {
             Laya.stage.event(PlatformCommonEvent.RESUM_AUDIO);
             console.log("视频回调", res);
             let isEnd = res["isEnded"] as boolean;
-            //
-            Laya.timer.frameOnce(2, this, () => {
+            new Promise((r) => {
+                Laya.timer.frameOnce(1, this, r);
+            }).then(() => {
                 if (isEnd) {
                     if (this._rewardSuccessed) this._rewardSuccessed.run();
                 } else {
@@ -476,11 +477,19 @@ export default class OppoPlatform extends WXPlatform {
         });
     }
 
+    private async _DisableInterstitalAd() {
+        this._isInterstitialCanShow = false;
+        await new Promise((r) => {
+            Laya.timer.once(60 * 1000, this, r);
+        });
+        this._isInterstitialCanShow = true;
+    }
+
     GetFromAppId(): string {
         if (this.lauchOption.referrerInfo == null) {
             return null;
         }
-        if (this.lauchOption.referrerInfo.appId) {
+        if (!this.lauchOption.referrerInfo.appId) {
             return null;
         }
         return this.lauchOption.referrerInfo.appId;

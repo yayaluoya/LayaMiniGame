@@ -50,7 +50,7 @@ export default class QQPlatform extends WXPlatform {
     }
 
     protected _CreateBannerAd(show?: boolean) {
-        if (this.platformData.bannerId) {
+        if (!this.platformData.bannerId) {
             console.log("无有效的banner广告ID,取消加载");
             return;
         }
@@ -142,7 +142,7 @@ export default class QQPlatform extends WXPlatform {
         this._rewardSuccessed = onSuccess;
         this._rewardSkipped = onSkipped;
         if (!this._isVideoLoaded || !this._rewardVideo) {
-            if (this.platformData.rewardVideoId) {
+            if (!this.platformData.rewardVideoId) {
                 console.log("无有效的视频广告ID,取消加载");
                 onSkipped.run();
                 return;

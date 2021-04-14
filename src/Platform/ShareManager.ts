@@ -1,15 +1,14 @@
-import MathUtils from "src/_T/Utils/MathUtils";
 import PlatformManagerProxy from "./PlatformManagerProxy";
 import { ShareInfo } from "./T/ShareInfo";
 /**
  * 分享管理器
  */
-export default class ShareManager {
+export default class ShareManagerAKhgfawgsda {
 
     private static _instance;
-    public static get instance(): ShareManager {
+    public static get instance(): ShareManagerAKhgfawgsda {
         if (this._instance == null) {
-            this._instance = new ShareManager();
+            this._instance = new ShareManagerAKhgfawgsda();
         }
         return this._instance;
     }
@@ -37,7 +36,7 @@ export default class ShareManager {
                 if (shareInfo.shareId == id) return shareInfo;
             }
         }
-        let randomShare = MathUtils.RandomFromArray(this._shareInfoList);
+        let randomShare = this._shareInfoList[Math.floor(this._shareInfoList.length * Math.random())];
         return randomShare;
     }
 

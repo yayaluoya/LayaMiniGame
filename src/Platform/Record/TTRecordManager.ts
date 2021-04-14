@@ -131,7 +131,7 @@ export default class TTRecordManager extends DefaultRecordManager {
                 query: "",
                 extra: {
                     videoPath: this.videoSavePath, // 可替换成录屏得到的视频地址
-                    videoTopics: ['抖音小游戏', '猫眼金币跑酷']
+                    videoTopics: ['抖音小游戏', '开间厕所当老板']
                 },
                 success() {
                     if (onSuccess) {

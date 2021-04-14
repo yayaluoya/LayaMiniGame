@@ -54,7 +54,7 @@ export default class TTPlatform extends WXPlatform {
     }
 
     protected _CreateBannerAd() {
-        if (this.platformData.bannerId) {
+        if (!this.platformData.bannerId) {
             console.log("无有效的banner广告ID,取消加载");
             return;
         }

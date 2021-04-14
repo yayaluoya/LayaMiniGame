@@ -19,7 +19,7 @@ export default class PlatformManagerProxy {
     /** 获取平台实例 */
     public get PlatformInstance(): IPlatform {
         if (!this.m_platformInstance) {
-            console.error('还没有设置过平台实例代理！');
+            console.log('还没有设置过平台实例代理！');
         }
         return this.m_platformInstance;
     }

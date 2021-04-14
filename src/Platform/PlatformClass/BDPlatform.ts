@@ -1,5 +1,5 @@
-import BDData from "src/Platform/Data/BDData";
 import { PlatformCommonEvent } from "../Common/PlatformCommonEventId";
+import BDData from "../Data/BDData";
 import PlatformData from "../Data/PlatformData";
 import { EPlatformType } from "../T/EPlatformType";
 import WXPlatform from "./WXPlatform";
@@ -35,7 +35,7 @@ export default class BDPlatform extends WXPlatform {
     }
 
     protected _CreateBannerAd() {
-        if (this.platformData.bannerId) {
+        if (!this.platformData.bannerId) {
             console.log("无有效的banner广告ID,取消加载");
             return;
         }
@@ -68,7 +68,7 @@ export default class BDPlatform extends WXPlatform {
     }
 
     protected _CreateVideoAd() {
-        if (this.platformData.rewardVideoId) {
+        if (!this.platformData.rewardVideoId) {
             console.log("无有效的视频广告ID,取消加载");
             return;
         }

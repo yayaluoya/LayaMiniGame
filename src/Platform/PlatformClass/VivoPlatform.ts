@@ -1,37 +1,33 @@
-import { PlatformCommonEvent } from "../Common/PlatformCommonEventId";
-import PlatformData from "../Data/PlatformData";
-import WXDevice from "../Device/WXDevice";
-import PlatformManagerProxy from "../PlatformManagerProxy";
-import DefaultRecordManager from "../Record/DefaultRecordManager";
-import ShareManagerAKhgfawgsda from "../ShareManager";
-import { EPlatformType } from "../T/EPlatformType";
-import { IDevice } from "../T/IDevice";
 import IPlatform from "../T/IPlatform";
+import { IDevice } from "../T/IDevice";
+import { EPlatformType } from "../T/EPlatformType";
+import PlatformData from "../Data/PlatformData";
 import IRecordManager from "../T/IRecordManager";
 import { ShareInfo } from "../T/ShareInfo";
+import DefaultRecordManager from "../Record/DefaultRecordManager";
+import PlatformManagerProxy from "../PlatformManagerProxy";
+import ShareManagerAKhgfawgsda from "../ShareManager";
+import { PlatformCommonEvent } from "../Common/PlatformCommonEventId";
 
 /**
- * 微信平台实例
+ * vivo 平台实例
  */
-export default class WXPlatform implements IPlatform {
+export default class VivoPlatform implements IPlatform {
     base: any;
-    platformData: PlatformData;
-    onPause: Laya.Handler;
-    appId: string;
-    platform: EPlatformType = EPlatformType.WX;
-    safeArea: PlatformCommonDefine.SafeArea = null;
+    device: IDevice;
+    isSupportJumpOther: boolean = true;
     lauchOption: PlatformCommonDefine.LaunchOption;
     loginState: PlatformCommonDefine.LoginState;
     onLoginEnd: Laya.Handler;
+    onPause: Laya.Handler;
     onResume: Laya.Handler;
+    platform: EPlatformType = EPlatformType.VIVO;
+    platformData: PlatformData;
     recordManager: IRecordManager = new DefaultRecordManager();
-    device: IDevice = new WXDevice();
     systemInfo: any;
+    appID: string;
+    safeArea: PlatformCommonDefine.SafeArea = null;
     loginCode: string = null;
-    /**
-     * 是否支持直接跳转到其他小程序
-     */
-    isSupportJumpOther: boolean = true;
 
     protected _data: PlatformData;
 
@@ -54,11 +50,10 @@ export default class WXPlatform implements IPlatform {
 
     protected _base: any;
 
-
     protected _cacheVideoAD: boolean = false;
 
     Init(platformData: PlatformData) {
-        this._base = window["wx"];
+        this._base = window["vivo"];
         if (this._base == null) {
             console.error("平台初始化错误", PlatformManagerProxy.platformStr);
             return;
@@ -67,11 +62,8 @@ export default class WXPlatform implements IPlatform {
         this.recordManager.Platform = this;
         this._InitLauchOption();
         this._Login();
-        this._InitShareInfo();
         this._InitSystemInfo();
-        this._CreateBannerAd();
         this._CreateVideoAd();
-        this._CreateInterstitalAd();
         window["iplatform"] = this;
     }
 
@@ -187,7 +179,7 @@ export default class WXPlatform implements IPlatform {
         this._base.onShareAppMessage(
             () => {
                 let shareInfo = ShareManagerAKhgfawgsda.instance.GetShareInfo();
-                return WXPlatform._WrapShareInfo(shareInfo);
+                return VivoPlatform._WrapShareInfo(shareInfo);
             }
         );
     }
@@ -509,7 +501,7 @@ export default class WXPlatform implements IPlatform {
     ShareAppMessage(shareInfo: ShareInfo, onSuccess: Laya.Handler, onFailed: Laya.Handler) {
         console.log("分享消息", shareInfo);
 
-        let shareObj = WXPlatform._WrapShareInfo(shareInfo);
+        let shareObj = VivoPlatform._WrapShareInfo(shareInfo);
         this._base.shareAppMessage(shareObj);
 
         if (onSuccess) {
@@ -568,10 +560,10 @@ export default class WXPlatform implements IPlatform {
 
     /**
      * 创建分享视频按钮
-     * @param x 
-     * @param y 
-     * @param width 
-     * @param height 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
      */
     public CreateShareVideoBtn(x: number, y: number, width: number, height: number) {
         let btnObj = {} as any;
@@ -646,4 +638,5 @@ export default class WXPlatform implements IPlatform {
     createShortcut() {
         console.log('暂未实现');
     }
+
 }
