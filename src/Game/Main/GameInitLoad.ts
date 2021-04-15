@@ -99,7 +99,11 @@ export default class GameInitLoad extends BaseInitLoad {
     }
     //添加包
     private addFGUIPackage(_name: string) {
-        fgui.UIPackage.addPackage(EssentialResUrls.FGUIPackURL(_name));
+        try {
+            fgui.UIPackage.addPackage(EssentialResUrls.FGUIPackURL(_name));
+        } catch (E) {
+            console.warn(...ConsoleEx.packWarn('FGUI添加包有问题。', _name));
+        }
     }
 
     //注入配置表加载项
