@@ -83,11 +83,11 @@ export default class Scene {
     }
 
     /**
-         * 获取场景节点
-         * @param _name 节点名字，可以多个一起构建
-         * @param _findCache 是否在缓存中查找 true
-         * @param _addCache 是否添加到缓存 true
-         */
+     * 获取场景节点
+     * @param _name 节点名字，可以多个一起构建
+     * @param _findCache 是否在缓存中查找 true
+     * @param _addCache 是否添加到缓存 true
+     */
     public getSceneNode(_name: string | string[], _findCache: boolean = true, _addCache: boolean = true): SceneNode {
         let _names: string[] = [];
         if (typeof _name == "string") {

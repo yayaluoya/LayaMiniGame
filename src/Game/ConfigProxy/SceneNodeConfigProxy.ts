@@ -42,4 +42,13 @@ export default class SceneNodeConfigProxy extends BaseConfigProxy<_SceneNodeConf
             return item.scene == _name;
         });
     }
+
+    /**
+     * 返回场景个数
+     */
+    public getSceneCount(): number {
+        return Math.max(...this.m_dataList.map((item) => {
+            return item.id;
+        }));
+    }
 }
