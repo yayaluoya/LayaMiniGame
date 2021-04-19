@@ -13,16 +13,20 @@ export default class ArrayUtils {
         //方法： 用一个mop来统计x数组各个元素出现的次数，再用y数组来递减各元素出现的次数，如果最终结果为0则两个数组相同
         let m: Map<any, number> = new Map();
         x.forEach((item) => {
-            m.set(item, (m.get(item) || 0) + 1);
+            m.set(item, (m.has(item) ? m.get(item) : 0) + 1);
         });
         y.forEach((item) => {
-            m.set(item, (m.get(item) || 0) - 1);
+            m.set(item, (m.has(item) ? m.get(item) : 0) - 1);
         });
-        let i: number = 0;
-        m.forEach((value) => {
-            i += value;
-        });
-        return i == 0;
+        //只要其中一元素的统计不为0就返回false
+        let b: boolean = true;
+        for (let [_value, _number] of m) {
+            if (_number != 0) {
+                b = false;
+                break;
+            }
+        }
+        return b;
     }
 
     /**
