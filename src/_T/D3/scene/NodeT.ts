@@ -1,6 +1,4 @@
 import GamePool from "src/_T/GameT/GamePool";
-import EssentialResUrls from "src/_T/Res/EssentialResUrls";
-import ResLoad from "src/_T/Res/ResLoad";
 import V3Utils from "src/_T/Utils/V3Utils";
 import { INodeConfig, IPrefabsConfig, IPrefabsDifferConfig, IPrefabsGather } from "./INodeConfig";
 
@@ -150,14 +148,15 @@ export default class NodeT {
      * 构建节点
      * @param _node 父节点
      * @param _nodeConfig 节点配置数据
+     * @param _getPrefabs 获取预制体的方法
      */
-    public static buildNode(_node: Laya.Node, _nodeConfig: INodeConfig, _prefabs: IPrefabsGather) {
+    public static buildNode(_node: Laya.Node, _nodeConfig: INodeConfig, _prefabs: IPrefabsGather, _getPrefabs: (_name: string) => Laya.Sprite3D) {
         if (!_nodeConfig) { return; }
         //先判断是不是预制体
         let _prefabName: string = (_nodeConfig as IPrefabsConfig).prefabName;
         let _spr: Laya.Sprite3D;
         if (_prefabName) {
-            _spr = ResLoad.GetRes(EssentialResUrls.PrefabURL(_prefabName)) as Laya.Sprite3D;
+            _spr = _getPrefabs(_prefabName);
             _node.addChild(_spr);
             NodeT.setNode(_spr, _nodeConfig);
             //
@@ -170,7 +169,7 @@ export default class NodeT {
                 _node.addChild(_spr);
                 NodeT.setNode(_spr, _nodeConfig);
                 _nodeConfig.child.forEach((item) => {
-                    this.buildNode(_spr, item, _prefabs);
+                    this.buildNode(_spr, item, _prefabs, _getPrefabs);
                 });
             }
         }

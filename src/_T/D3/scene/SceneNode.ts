@@ -120,7 +120,8 @@ export default class SceneNode {
     private build() {
         if (!this.m_ifDelete) { return; }
         this.m_ifDelete = false;
-        this.m_scene.addOnNode(this);
+        //调用场景的回调
+        this.m_scene.buildNode(this);
         this.m_node = new Laya.Node;
         //添加到所属场景环境中
         this.m_scene.environment.scene.addChild(this.m_node);
@@ -129,7 +130,9 @@ export default class SceneNode {
         this.m_nodeConfigs.forEach((item) => {
             _spr = new Laya.Sprite3D;
             this.m_node.addChild(_spr);
-            NodeT.buildNode(_spr, item, this.m_prefabs);
+            NodeT.buildNode(_spr, item, this.m_prefabs, (_name: string) => {
+                return this.m_scene.getPrefabs(_name);
+            });
         });
     }
 
@@ -143,7 +146,9 @@ export default class SceneNode {
             return;
         }
         this.m_ifDelete = true;
-        this.m_scene.deleteOnNode(this);
+        //删除之前调用场景的回调，方便收集预制体
+        this.m_scene.deleteNode(this);
+        //
         this.m_node.destroy();
         //清理引用
         this.m_node = null;

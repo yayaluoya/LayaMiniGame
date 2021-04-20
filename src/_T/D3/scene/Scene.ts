@@ -7,13 +7,15 @@ import NodeT from "./NodeT";
 import SceneNode from "./SceneNode";
 import GlobalD3Environment from "./GlobalD3Environment";
 import ArrayUtils from "src/_T/Utils/ArrayUtils";
+import ResLoad from "src/_T/Res/ResLoad";
 
 /**
  * 场景 实例
  * 根据指定的场景配置表构建场景
+ * 继承自laya的对象池类，用来管理场景中预制体
  * * 可以继承此类自定义场景
  */
-export default class Scene {
+export default class Scene extends Laya.Pool {
     /** 场景名字 */
     protected _sceneName: string;
 
@@ -51,6 +53,7 @@ export default class Scene {
      * @param _sceneName 场景名字
      */
     public constructor(_sceneName: string) {
+        super();
         //
         this._sceneName = _sceneName;
         //根据场景名字读取配置表信息
@@ -148,26 +151,6 @@ export default class Scene {
     }
 
     /**
-     * 添加当前节点
-     * 当这个场景下的某个节点被构建时会自动执行这个方法
-     * ! 框架执行
-     * @param _node 节点
-     */
-    public addOnNode(_node: SceneNode) {
-        this.m_onSceneNodes.add(_node);
-    }
-
-    /**
-     * 删除当前节点
-     * 当这个场景下的某个节点被删除时会自动执行这个方法
-     * ! 框架执行
-     * @param _node 节点
-     */
-    public deleteOnNode(_node: SceneNode) {
-        this.m_onSceneNodes.delete(_node);
-    }
-
-    /**
      * 设置环境
      * 会根据当前场景中环境配置设置环境
      */
@@ -186,7 +169,32 @@ export default class Scene {
     }
 
     /**
-     * 加载进度
+     * 构建节点
+     * 当这个场景下的某个节点被构建时会自动执行这个方法
+     * ! 框架执行
+     * @param _node 节点
+     */
+    public buildNode(_node: SceneNode) {
+        this.m_onSceneNodes.add(_node);
+        //执行回调
+        this._buildNode(_node);
+    }
+
+    /**
+     * 删除节点
+     * 当这个场景下的某个节点被删除时会自动执行这个方法，会在节点真正被删除前执行，可以在这里收集预制体。
+     * ! 框架执行
+     * @param _node 节点
+     */
+    public deleteNode(_node: SceneNode) {
+        this.m_onSceneNodes.delete(_node);
+        //执行回调
+        this._deleteNode(_node);
+    }
+
+    /**
+     * 节点加载进度
+     * 当这个场景下的某个节点被加载时，回调用这个回调传出加载进度
      * ! 框架执行
      * @param _n 进度值
      * @param _node 当前加载的节点
@@ -194,6 +202,16 @@ export default class Scene {
     public loadProgress(_n: number, _node: SceneNode) {
         // console.log(_n, _node);
         this._loadProgress(_n, _node);
+    }
+
+    /**
+     * 获取预制体
+     * 当当前场景下的节点被构建时，会从这里拿预制体，可以在这里收集预制体
+     * ! 框架执行
+     * @param _name 预制体名字
+     */
+    public getPrefabs(_name: string): Laya.Sprite3D {
+        return this._getPrefabs(_name);
     }
 
     // * ----------- 回调函数
@@ -210,4 +228,24 @@ export default class Scene {
      * @param _node 当前加载的节点
      */
     protected _loadProgress(_n: number, _node: SceneNode) { }
+    /**
+     * 节点被构建的回调
+     * @param _node 目标节点
+     */
+    protected _buildNode(_node: SceneNode) {
+        // console.log('节点构建', _node);
+    }
+    /**
+     * 节点被删除的回调
+     * @param _node 目标节点
+     */
+    protected _deleteNode(_node: SceneNode) {
+        // console.log('节点删除', _node);
+    }
+
+    /** 通过预制体名字获取预制体的回调 */
+    protected _getPrefabs(_name: string): Laya.Sprite3D {
+        // console.log('取预制体', _name);
+        return ResLoad.GetRes(EssentialResUrls.PrefabURL(_name)) as Laya.Sprite3D;
+    }
 }
