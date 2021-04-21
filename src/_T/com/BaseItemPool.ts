@@ -18,7 +18,7 @@ export default class BaseItemPool {
      * 对象池是否有内容
      * @param _key key
      */
-    public isPool(_key: string): boolean {
+    public poolHasItem(_key: string): boolean {
         return Boolean(this.m_itemPool[_key] && this.m_itemPool[_key].length > 0);
     }
 
@@ -28,7 +28,7 @@ export default class BaseItemPool {
      */
     public getItemByPool<T extends object>(_key: string): T {
         //先判断是否有内容
-        if (this.isPool(_key)) {
+        if (this.poolHasItem(_key)) {
             return this.m_itemPool[_key].pop() as T;
         }
         //
