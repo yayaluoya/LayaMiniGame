@@ -20,8 +20,7 @@
     "打包到-VIVO-Game": "layaair2-cmd publish -c vivogame",
     "打包到-QQ Game": "layaair2-cmd publish -c qqgame",
     "-npm": "gulp npm",
-    "设置-cnpm": "npm install -g cnpm --registry=https://registry.npm.taobao.org",
-    "设置-淘宝镜像": "npm config set registry https://registry.npm.taobao.org",
+    "安装-cnpm": "npm install -g cnpm --registry=https://registry.npm.taobao.org",
     "安装-全局包-必要": "npm i layaair2-cmd http-server layabox-esbuild -g --ignore-scripts",
     "安装-工具包-必要": "gulp installTPack",
     "安装-本地包-必要": "npm install"
