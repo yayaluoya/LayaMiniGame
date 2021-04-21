@@ -5,6 +5,7 @@ export default class WhiteScreenT {
     /** 场景 */
     private static m_scene: Laya.Scene;
     private static m_bg: Laya.Sprite;
+    private static m_panNumber: Laya.Text
 
     /**
      * 加载
@@ -30,6 +31,7 @@ export default class WhiteScreenT {
             Laya.Scene.open('initLoad.json', undefined, undefined, Laya.Handler.create(this, (_scene) => {
                 this.m_scene = _scene;
                 this.m_bg = this.m_scene.getChildByName('bg') as Laya.Sprite;
+                this.m_panNumber = this.m_scene.getChildByName('panNumber') as Laya.Text;
                 this.updateView();
                 //监听屏幕改变事件
                 Laya.stage.on(Laya.Event.RESIZE, this, this.updateView);
@@ -52,6 +54,7 @@ export default class WhiteScreenT {
      */
     public static setPlan(_n: number) {
         // console.log('设置进度', _n);
+        this.m_panNumber.text = `% ${Math.floor(_n * 100)}`;
     }
 
     /**
@@ -78,5 +81,7 @@ export default class WhiteScreenT {
         //
         this.m_bg.width = _width;
         this.m_bg.height = _height;
+        this.m_panNumber.width = _width;
+        this.m_panNumber.height = _height;
     }
 }

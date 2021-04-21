@@ -13,9 +13,9 @@ export default class VibrabeProxy {
 
     /**
      * 振动
-     * @param _modle 振动模式
+     * @param _modle 是否长震动
      */
-    public vibrate(isLong: boolean) {
+    public vibrate(isLong: boolean = false) {
         if (!SetDataProxy.instance.data.ifOpenVibration) return;
     }
 

@@ -3,6 +3,7 @@ package {
 	import laya.utils.ClassUtils;
 	import laya.ui.View;
 	import laya.webgl.WebGL;
+	import laya.display.Text;
 	/**
 	 * 游戏初始化配置
 	 */
@@ -23,7 +24,7 @@ package {
 		public static function init():void {
 			//注册Script或者Runtime引用
 			var reg:Function = ClassUtils.regClass;
-
+			reg("laya.display.Text",Text);
 		}
 		GameConfig.init();
 	}

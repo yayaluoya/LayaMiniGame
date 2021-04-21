@@ -1,1 +1,1 @@
-{"frames":{"whiteScreen.png":{"frame":{"h":1334,"idx":0,"w":750,"x":0,"y":0},"sourceSize":{"h":1334,"w":750},"spriteSourceSize":{"x":0,"y":0}}},"meta":{"image":"initLoad.png","prefix":"initLoad/"}}
+{"frames":{"whiteScreen.png":{"frame":{"h":194,"idx":0,"w":254,"x":0,"y":0},"sourceSize":{"h":194,"w":254},"spriteSourceSize":{"x":0,"y":0}}},"meta":{"image":"initLoad.png","prefix":"initLoad/"}}
