@@ -46,7 +46,7 @@ export default class BaseItemPool {
         }
         this.m_itemPool[_key].push(_item);
         //去重
-        this.m_itemPool[_key] = [...new Set(...this.m_itemPool[_key])];
+        this.m_itemPool[_key] = [...new Set(this.m_itemPool[_key])];
     }
 
     /**

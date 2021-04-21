@@ -1741,5 +1741,3 @@
 		})
 /******/])
 });
-;
-//# sourceMappingURL=axios.map

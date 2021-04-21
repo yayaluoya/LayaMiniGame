@@ -28,6 +28,6 @@ export default class LibraryTest {
         // console.log('_随机打乱数组', _.shuffle(a));
         // console.log('_随机取值数组', _.sample(a, 2));
         console.log(...ConsoleEx.packLog('pako工具', typeof pako));
-        console.log(...ConsoleEx.packLog('axios工具', typeof axios));
+        // console.log(...ConsoleEx.packLog('axios工具', typeof axios));
     }
 }
