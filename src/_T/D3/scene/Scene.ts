@@ -8,14 +8,15 @@ import SceneNode from "./SceneNode";
 import GlobalD3Environment from "./GlobalD3Environment";
 import ArrayUtils from "src/_T/Utils/ArrayUtils";
 import ResLoad from "src/_T/Res/ResLoad";
+import BaseItemPool from "src/_T/com/BaseItemPool";
 
 /**
  * 场景 实例
  * 根据指定的场景配置表构建场景
- * 继承自laya的对象池类，用来管理场景中预制体
+ * 本身继承自对象池基类，用来管理预制体精灵
  * * 可以继承此类自定义场景
  */
-export default class Scene extends Laya.Pool {
+export default class Scene extends BaseItemPool {
     /** 场景名字 */
     protected _sceneName: string;
 
