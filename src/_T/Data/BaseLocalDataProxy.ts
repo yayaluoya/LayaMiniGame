@@ -106,7 +106,9 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
                 if (this.m_saveToDiskQueue == 0) {
                     this._save(m_data);
                 }
-            });
+            }).catch((E) => {
+                console.error(...ConsoleEx.packError('数据保存时出错', E));
+            });;
         }
     }
     //保存数据到本地
