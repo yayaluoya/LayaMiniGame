@@ -28,6 +28,7 @@ export default class TestMain {
             .then((node) => {
                 console.log('当前场景', node.scene);
                 console.log('当前节点', node);
+                console.log('cube精灵', node.getNode('Cube'));
                 //为该场景设置环境
                 node.scene.setEnvironment();
             });

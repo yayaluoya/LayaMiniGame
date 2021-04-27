@@ -159,9 +159,9 @@ export default class NodeT {
             let _spr: Laya.Sprite3D;
             let _prefabName: string;
             _nodeConfig.child.forEach((item) => {
-                _prefabName = (_nodeConfig as IPrefabsConfig).prefabName;
+                _prefabName = (item as IPrefabsConfig).prefabName;
                 //获取精灵
-                _spr = typeof _prefabName == 'string' ? _getPrefabs(_prefabName) : new Laya.Sprite3D;
+                _spr = (typeof _prefabName == 'string') ? _getPrefabs(_prefabName) : new Laya.Sprite3D;
                 _onSpr.addChild(_spr);
                 //
                 this.buildNode(_spr, item, _prefabs, _getPrefabs);
