@@ -14,6 +14,6 @@ export default class PackTest {
      * 开始
      */
     public start() {
-        console.log('打包测试67');
+        console.log('打包测试70');
     }
 }
