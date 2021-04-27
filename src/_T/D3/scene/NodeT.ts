@@ -145,33 +145,27 @@ export default class NodeT {
     }
 
     /**
-     * 构建节点
-     * @param _node 父节点
+     * 通过节点数据构节点
+     * @param _onSpr 当前精灵
      * @param _nodeConfig 节点配置数据
      * @param _getPrefabs 获取预制体的方法
      */
-    public static buildNode(_node: Laya.Node, _nodeConfig: INodeConfig, _prefabs: IPrefabsGather, _getPrefabs: (_name: string) => Laya.Sprite3D) {
+    public static buildNode(_onSpr: Laya.Sprite3D, _nodeConfig: INodeConfig, _prefabs: IPrefabsGather, _getPrefabs: (_name: string) => Laya.Sprite3D) {
         if (!_nodeConfig) { return; }
-        //先判断是不是预制体
-        let _prefabName: string = (_nodeConfig as IPrefabsConfig).prefabName;
-        let _spr: Laya.Sprite3D;
-        if (_prefabName) {
-            _spr = _getPrefabs(_prefabName);
-            _node.addChild(_spr);
-            NodeT.setNode(_spr, _nodeConfig);
-            //
-            _prefabs[_prefabName] = _prefabs[_prefabName] || [];
-            _prefabs[_prefabName].push(_spr);
-        } else {
-            //判断是否有子节点
-            if (_nodeConfig.child && _nodeConfig.child.length > 0) {
-                _spr = new Laya.Sprite3D;
-                _node.addChild(_spr);
-                NodeT.setNode(_spr, _nodeConfig);
-                _nodeConfig.child.forEach((item) => {
-                    this.buildNode(_spr, item, _prefabs, _getPrefabs);
-                });
-            }
+        //设置节点数据
+        this.setNode(_onSpr, _nodeConfig);
+        //判断是否有子节点
+        if (_nodeConfig.child && _nodeConfig.child.length > 0) {
+            let _spr: Laya.Sprite3D;
+            let _prefabName: string;
+            _nodeConfig.child.forEach((item) => {
+                _prefabName = (_nodeConfig as IPrefabsConfig).prefabName;
+                //获取精灵
+                _spr = typeof _prefabName == 'string' ? _getPrefabs(_prefabName) : new Laya.Sprite3D;
+                _onSpr.addChild(_spr);
+                //
+                this.buildNode(_spr, item, _prefabs, _getPrefabs);
+            });
         }
     }
 }

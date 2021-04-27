@@ -16,8 +16,12 @@ export default class SceneNode {
     private m_ifDelete: boolean;
     /** 节点配置信息列表 */
     private m_nodeConfigs: INodeConfig[];
-    /** 节点 */
+    /** 根节点 */
     private m_node: Laya.Node;
+    /** 精灵节点列表 */
+    private m_nodes: {
+        [_index: string]: Laya.Sprite3D,
+    };
     /** 预制体名字列表 */
     private m_prefabsNames: string[];
     /** 预制体集合 */
@@ -126,10 +130,12 @@ export default class SceneNode {
         //添加到所属场景环境中
         this.m_scene.environment.scene.addChild(this.m_node);
         this.m_prefabs = {};
+        this.m_nodes = {};
         let _spr: Laya.Sprite3D;
         this.m_nodeConfigs.forEach((item) => {
             _spr = new Laya.Sprite3D;
             this.m_node.addChild(_spr);
+            this.m_nodes[item.name] = _spr;
             NodeT.buildNode(_spr, item, this.m_prefabs, (_name: string) => {
                 return this.m_scene.getPrefabs(_name);
             });
@@ -152,6 +158,7 @@ export default class SceneNode {
         this.m_node.destroy();
         //清理引用
         this.m_node = null;
+        this.m_nodes = null;
         this.m_prefabs = null;
     }
 }
