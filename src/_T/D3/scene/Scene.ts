@@ -9,6 +9,7 @@ import GlobalD3Environment from "./GlobalD3Environment";
 import ArrayUtils from "src/_T/Utils/ArrayUtils";
 import ResLoad from "src/_T/Res/ResLoad";
 import BaseItemPool from "src/_T/com/BaseItemPool";
+import V3Utils from "src/_T/Utils/V3Utils";
 
 /**
  * 场景 实例
@@ -157,13 +158,29 @@ export default class Scene extends BaseItemPool {
      */
     public setEnvironment() {
         let _sceneConfig: ISceneConfig = this.m_sceneConfig as ISceneConfig;
-        //设置全局摄像机
+        //设置摄像机
         if (_sceneConfig.camera) {
             NodeT.setNode(this.m_environment.camera, _sceneConfig.camera);
+            // console.log('设置摄像机', _sceneConfig.camera);
+            //设置摄像机其它数据
+            if (_sceneConfig.camera.attachData) {
+                this.m_environment.camera.fieldOfView = _sceneConfig.camera.attachData.fov;
+                let _v3: Laya.Vector3 = new Laya.Vector3();
+                V3Utils.parseVector3(_sceneConfig.camera.attachData.color, _v3);
+                this.m_environment.camera.clearColor = new Laya.Vector4(_v3.x, _v3.y, _v3.z, 1);
+            }
         }
-        //设置全局灯光
+        //设置灯光
         if (_sceneConfig.light) {
             NodeT.setNode(this.m_environment.light, _sceneConfig.light);
+            // console.log('设置灯光', _sceneConfig.light);
+            //设置灯光其它数据
+            if (_sceneConfig.light.attachData) {
+                this.m_environment.light.intensity = _sceneConfig.light.attachData.intensity;
+                let _v3: Laya.Vector3 = new Laya.Vector3();
+                V3Utils.parseVector3(_sceneConfig.light.attachData.color, _v3);
+                this.m_environment.light.color = _v3;
+            }
         }
         //执行回调
         this._setEnvironment();

@@ -58,8 +58,9 @@ public class ExportSceneToJson : Editor
         //整理所有需要到导出json的场景名字
         string _allExportSceneNameCacheUrl = ResURL.join(ResURL.cacheURL, "AllExportSceneNameCache.txt");
         string _allExportSceneNameCacheTxt = ReadWriteFile.ReadAll(_allExportSceneNameCacheUrl);
-        if (!new Regex("@" + sceneName + "@").IsMatch(_allExportSceneNameCacheTxt)) {
-            _allExportSceneNameCacheTxt += ("@"+sceneName+"@");
+        if (!new Regex("@" + sceneName + "@").IsMatch(_allExportSceneNameCacheTxt))
+        {
+            _allExportSceneNameCacheTxt += ("@" + sceneName + "@");
         }
         string _allExportSceneNameTSTxt = ReadWriteFile.ReadAll(ResURL.join(ResURL.templateURL, "AllExportSceneName.txt"));
         string __allExportSceneNameTSTxt = "";
@@ -97,11 +98,21 @@ public class ExportSceneToJson : Editor
         {
             child.SetCameraLightEulerAngles(rot);
             child.name = "camera";
+            var attachData = new CameraData();
+            var cameraCom = tmp.gameObject.GetComponent<Camera>();
+            attachData.color = cameraCom.backgroundColor.r + "," + cameraCom.backgroundColor.g + "," + cameraCom.backgroundColor.b + "," + cameraCom.backgroundColor.a;
+            attachData.fov = cameraCom.fieldOfView;
+            child.attachData = attachData;
         }
         if (light)
         {
             child.SetCameraLightEulerAngles(rot);
             child.name = "light";
+            var attachData = new LightData();
+            var lightCom = tmp.gameObject.GetComponent<Light>();
+            attachData.color = lightCom.color.r + "," + lightCom.color.g + "," + lightCom.color.b;
+            attachData.intensity = lightCom.intensity;
+            child.attachData = attachData;
         }
         //
         return child;
@@ -124,6 +135,8 @@ public class Child
     public List<Child> child;
     //预源预制体差异
     public Differ prefabDiffer;
+    //附加数据
+    public object attachData;
 
     /**
      * 设置节点信息
@@ -229,9 +242,28 @@ public class Child
 }
 
 /**
+ * 摄像机数据
+ */
+public class CameraData
+{
+    public float fov;
+    public string color;
+}
+
+/**
+ * 灯光数据
+ */
+public class LightData
+{
+    public string color;
+    public float intensity;
+}
+
+/**
  * 变换
  */
-public class TransformData {
+public class TransformData
+{
     //位置
     public string position;
     //旋转
@@ -303,9 +335,12 @@ public class Differ
         if (v3.magnitude > 0)
         {
             ifNull = true;
-            if(node.localPosition.magnitude > 0){
+            if (node.localPosition.magnitude > 0)
+            {
                 _differ._transform.position = _T.calcValue(-node.localPosition.x) + "," + _T.calcValue(node.localPosition.y) + "," + _T.calcValue(node.localPosition.z);
-            }else{
+            }
+            else
+            {
                 _differ._transform.position = null;
             }
             _differ.transform.position = _T.calcValue(-v3.x) + "," + _T.calcValue(v3.y) + "," + _T.calcValue(v3.z);
@@ -314,9 +349,12 @@ public class Differ
         if (v3.magnitude > 0)
         {
             ifNull = true;
-            if(node.localRotation.eulerAngles.magnitude > 0){
+            if (node.localRotation.eulerAngles.magnitude > 0)
+            {
                 _differ._transform.euler = _T.calcValue(node.localRotation.eulerAngles.x) + "," + _T.calcValue(-node.localRotation.eulerAngles.y) + "," + _T.calcValue(-node.localRotation.eulerAngles.z);
-            }else{
+            }
+            else
+            {
                 _differ._transform.euler = null;
             }
             _differ.transform.euler = _T.calcValue(v3.x) + "," + _T.calcValue(-v3.y) + "," + _T.calcValue(-v3.z);
@@ -325,9 +363,12 @@ public class Differ
         if (v3.magnitude > 0)
         {
             ifNull = true;
-            if(node.localScale.magnitude > 0){
+            if (node.localScale.magnitude > 0)
+            {
                 _differ._transform.scale = _T.calcValue(node.localScale.x) + "," + _T.calcValue(node.localScale.y) + "," + _T.calcValue(node.localScale.z);
-            }else{
+            }
+            else
+            {
                 _differ._transform.scale = null;
             }
             _differ.transform.scale = _T.calcValue(v3.x) + "," + _T.calcValue(v3.y) + "," + _T.calcValue(v3.z);
