@@ -134,7 +134,6 @@ export default class SceneNode {
         this.m_node.addChild(_prefabs);
     }
 
-
     /**
      * 构建
      */
