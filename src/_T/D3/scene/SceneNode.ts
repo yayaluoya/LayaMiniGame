@@ -1,6 +1,7 @@
 import ConsoleEx from "src/_T/Console/ConsoleEx";
 import EssentialResUrls from "src/_T/Res/EssentialResUrls";
 import ResLoad from "src/_T/Res/ResLoad";
+import SpriteUtils from "src/_T/Utils/SpriteUtils";
 import { INodeConfig, IPrefabsGather } from "./INodeConfig";
 import NodeT from "./NodeT";
 import Scene from "./Scene";
@@ -44,6 +45,11 @@ export default class SceneNode {
     /** 获取场景节点 */
     public get node(): Laya.Node {
         return this.m_node;
+    }
+    public get nodes(): {
+        [_index: string]: Laya.Sprite3D,
+    } {
+        return this.m_nodes;
     }
     /** 获取预制体集合 */
     public get prefabs(): IPrefabsGather {
@@ -119,6 +125,17 @@ export default class SceneNode {
     }
 
     /**
+     * 已预制体的形式添加精灵到节点中
+     * @param _name 预制体名字
+     * @param _prefabs 预制体精灵
+     */
+    public addPrefabs(_name: string, _prefabs: Laya.Sprite3D) {
+        this.m_prefabs[_name].push(_prefabs);
+        this.m_node.addChild(_prefabs);
+    }
+
+
+    /**
      * 构建
      */
     private build() {
@@ -160,5 +177,22 @@ export default class SceneNode {
         this.m_node = null;
         this.m_nodes = null;
         this.m_prefabs = null;
+    }
+
+    /**
+     * 获取场景节点精灵
+     * @param _sprName 精灵名字
+     * @param _sceneNodeName 节点名字，或者索引，默认为第一个节点的名字
+     */
+    public getNode(_sprName: string, _sceneNodeName?: string | number): Laya.Node {
+        switch (typeof _sceneNodeName) {
+            case 'undefined':
+                _sceneNodeName = this.m_nodeConfigs[0].name;
+                break;
+            case "number":
+                _sceneNodeName = this.m_nodeConfigs[Math.min(_sceneNodeName, this.m_nodeConfigs.length - 1)].name;
+
+        }
+        return this.m_nodes[_sceneNodeName] && SpriteUtils.findChild(this.m_nodes[_sceneNodeName], _sprName);
     }
 }
