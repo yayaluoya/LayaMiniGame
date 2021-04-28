@@ -23,6 +23,8 @@ export default class SceneNode {
     private m_nodes: {
         [_index: string]: Laya.Sprite3D,
     };
+    /** 后续添加的精灵 */
+    private m_addSprs: Laya.Sprite3D[];
     /** 预制体名字列表 */
     private m_prefabsNames: string[];
     /** 预制体集合 */
@@ -50,6 +52,10 @@ export default class SceneNode {
         [_index: string]: Laya.Sprite3D,
     } {
         return this.m_nodes;
+    }
+    /** 获取后续添加的精灵 */
+    public get addSprs(): Laya.Sprite3D[] {
+        return this.m_addSprs;
     }
     /** 获取预制体集合 */
     public get prefabs(): IPrefabsGather {
@@ -129,9 +135,19 @@ export default class SceneNode {
      * @param _name 预制体名字
      * @param _prefabs 预制体精灵
      */
-    public addPrefabs(_name: string, _prefabs: Laya.Sprite3D) {
+    public addPrefabsSpr(_name: string, _prefabs: Laya.Sprite3D) {
+        this.m_prefabs[_name] = this.m_prefabs[_name] || [];
         this.m_prefabs[_name].push(_prefabs);
         this.m_node.addChild(_prefabs);
+    }
+    /**
+     * 添加精灵
+     * @param _spr 精灵
+     */
+    public addSpr(_spr: Laya.Sprite3D) {
+        this.m_addSprs = this.m_addSprs || [];
+        this.m_addSprs.push(_spr);
+        this.m_node.addChild(_spr);
     }
 
     /**
