@@ -116,6 +116,7 @@ export default class SceneNode {
                 this.m_ifLoad = false;
                 //
                 this.build();
+                //
                 resolve(this);
             });
         });
@@ -156,8 +157,6 @@ export default class SceneNode {
     private build() {
         if (!this.m_ifDelete) { return; }
         this.m_ifDelete = false;
-        //调用场景的回调
-        this.m_scene.buildNode(this);
         this.m_node = new Laya.Node;
         //添加到所属场景环境中
         this.m_scene.environment.scene.addChild(this.m_node);
@@ -172,6 +171,8 @@ export default class SceneNode {
                 return this.m_scene.getPrefabs(_name);
             });
         });
+        //调用场景的回调
+        this.m_scene.buildNode(this);
     }
 
     /**
