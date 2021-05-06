@@ -23,6 +23,8 @@ export default class SceneNode {
     private m_nodes: {
         [_index: string]: Laya.Sprite3D,
     };
+    /** 后续添加的精灵 */
+    private m_addSprs: Laya.Sprite3D[];
     /** 预制体名字列表 */
     private m_prefabsNames: string[];
     /** 预制体集合 */
@@ -46,9 +48,14 @@ export default class SceneNode {
     public get node(): Laya.Node {
         return this.m_node;
     }
-    /** 获取场景节点列表 */
-    public get nodes(): { [_index: string]: Laya.Sprite3D } {
+    public get nodes(): {
+        [_index: string]: Laya.Sprite3D,
+    } {
         return this.m_nodes;
+    }
+    /** 获取后续添加的精灵 */
+    public get addSprs(): Laya.Sprite3D[] {
+        return this.m_addSprs;
     }
     /** 获取预制体集合 */
     public get prefabs(): IPrefabsGather {
@@ -108,6 +115,7 @@ export default class SceneNode {
                 this.m_ifLoad = false;
                 //
                 this.build();
+                //
                 resolve(this);
             });
         });
@@ -123,13 +131,31 @@ export default class SceneNode {
     }
 
     /**
+     * 已预制体的形式添加精灵到节点中
+     * @param _name 预制体名字
+     * @param _prefabs 预制体精灵
+     */
+    public addPrefabsSpr(_name: string, _prefabs: Laya.Sprite3D) {
+        this.m_prefabs[_name] = this.m_prefabs[_name] || [];
+        this.m_prefabs[_name].push(_prefabs);
+        this.m_node.addChild(_prefabs);
+    }
+    /**
+     * 添加精灵
+     * @param _spr 精灵
+     */
+    public addSpr(_spr: Laya.Sprite3D) {
+        this.m_addSprs = this.m_addSprs || [];
+        this.m_addSprs.push(_spr);
+        this.m_node.addChild(_spr);
+    }
+
+    /**
      * 构建
      */
     private build() {
         if (!this.m_ifDelete) { return; }
         this.m_ifDelete = false;
-        //调用场景的回调
-        this.m_scene.buildNode(this);
         this.m_node = new Laya.Node;
         //添加到所属场景环境中
         this.m_scene.environment.scene.addChild(this.m_node);
@@ -144,6 +170,8 @@ export default class SceneNode {
                 return this.m_scene.getPrefabs(_name);
             });
         });
+        //调用场景的回调
+        this.m_scene.buildNode(this);
     }
 
     /**

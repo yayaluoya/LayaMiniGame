@@ -8,6 +8,8 @@ export interface INodeConfig {
     child: (INodeConfig | IPrefabsConfig)[];
     /** 3D变换 */
     transform: ITransform;
+    /** 附加数据 */
+    attachData: any;
 }
 
 /**
@@ -17,9 +19,9 @@ export interface ISceneConfig {
     /** 节点内容 */
     [_index: string]: INodeConfig,
     /** 摄像机 */
-    camera: INodeConfig,
+    camera: ICameraConfig,
     /** 灯光 */
-    light: INodeConfig,
+    light: ILightConfig,
 }
 
 /**
@@ -30,6 +32,32 @@ export interface IPrefabsConfig extends INodeConfig {
     prefabName: string;
     /** 预制体变换 */
     prefabDiffer: IPrefabsDifferConfig;
+}
+
+/**
+ * 摄像机配置
+ */
+export interface ICameraConfig extends INodeConfig {
+    /** 附加数据 */
+    attachData: {
+        /** 颜色 */
+        color: string,
+        /** fieldOfView */
+        fov: number,
+    };
+}
+
+/**
+ * 灯光配置
+ */
+export interface ILightConfig extends INodeConfig {
+    /** 附加数据 */
+    attachData: {
+        /** 颜色 */
+        color: string,
+        /** 强度 */
+        intensity: number,
+    };
 }
 
 /**
