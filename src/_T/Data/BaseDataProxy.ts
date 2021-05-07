@@ -26,7 +26,7 @@ export default abstract class BaseDataProxy<Data extends BaseData> {
 
     /**
      * 获取数据代理器
-     * 通过这个数据代理器可以添加代理数据，和添加数据监听回调 [配合 rootData 使用]
+     * 通过这个数据代理器可以添加代理数据，和添加数据监听回调
      */
     public get objectProxyT(): ObjectProxyT {
         return this.m_objectProxyT;

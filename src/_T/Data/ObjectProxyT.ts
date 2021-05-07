@@ -23,13 +23,22 @@ export default class ObjectProxyT {
      * @param _obj 目标对象，如果不选则监听全部内容更改
      * @param _key 键名，如果不选则监听全部属性
      */
-    public addMonitor<O extends object, K extends keyof O>(_this: any, _back: Function, _obj?: O, _key?: K) {
-        //添加到监听列表
-        this.m_monitorList.push({
-            _this,
-            _back,
-            _obj,
-            _key: _key as string,
+    public addMonitor<O extends object, K extends keyof O>(_this: any, _back: Function, _obj?: O, _key?: K | K[]) {
+        let _keys: K[] = [];
+        if (Array.isArray(_key)) {
+            _keys.push(..._key);
+        } else {
+            _keys.push(_key);
+        }
+        //
+        _keys.forEach((item) => {
+            //添加到监听列表
+            this.m_monitorList.push({
+                _this,
+                _back,
+                _obj,
+                _key: item as string,
+            });
         });
     }
 
