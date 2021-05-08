@@ -51,8 +51,8 @@ export default class ObjectProxyT {
         this.m_monitorList = this.m_monitorList.filter((item) => {
             return !(
                 item._this == _this
-                    //可选的回调
-                    && _back ? item._back == _back : true
+                //可选的回调
+                && (_back ? item._back == _back : true)
             );
         });
     }
