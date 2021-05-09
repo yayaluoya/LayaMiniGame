@@ -9,6 +9,7 @@ import Scene from "./Scene";
 /**
  * 场景节点
  * 用来构建场景节点
+ * ! 可能是多个场景组合的场景
  */
 export default class SceneNode {
     /** 所属场景 */
@@ -18,17 +19,17 @@ export default class SceneNode {
     /** 节点配置信息列表 */
     private m_nodeConfigs: INodeConfig[];
     /** 根节点 */
-    private m_node: Laya.Node;
-    /** 精灵节点列表 */
-    private m_nodes: {
+    private m_rootNode: Laya.Node;
+    /** 场景节点列表 */
+    private m_sceneNodes: {
         [_index: string]: Laya.Sprite3D,
     };
-    /** 后续添加的精灵 */
-    private m_addSprs: Laya.Sprite3D[];
     /** 预制体名字列表 */
     private m_prefabsNames: string[];
     /** 预制体集合 */
     private m_prefabs: IPrefabsGather;
+    /** 可回收精灵列表 */
+    private m_recoverableSprs: IPrefabsGather;
     /** 是否在加载 */
     private m_ifLoad: boolean;
 
@@ -45,21 +46,22 @@ export default class SceneNode {
         return this.m_ifDelete;
     }
     /** 获取根节点 */
-    public get node(): Laya.Node {
-        return this.m_node;
+    public get rootNode(): Laya.Node {
+        return this.m_rootNode;
     }
-    public get nodes(): {
+    /** 获取场景节点列表 */
+    public get sceneNodes(): {
         [_index: string]: Laya.Sprite3D,
     } {
-        return this.m_nodes;
-    }
-    /** 获取后续添加的精灵 */
-    public get addSprs(): Laya.Sprite3D[] {
-        return this.m_addSprs;
+        return this.m_sceneNodes;
     }
     /** 获取预制体集合 */
     public get prefabs(): IPrefabsGather {
         return this.m_prefabs;
+    }
+    /** 获取可回收精灵 */
+    public get recoverableSprs(): IPrefabsGather {
+        return this.m_recoverableSprs;
     }
     /** 获取预制体名字列表 */
     public get prefabsName(): string[] {
@@ -131,45 +133,29 @@ export default class SceneNode {
     }
 
     /**
-     * 已预制体的形式添加精灵到节点中
-     * @param _name 预制体名字
-     * @param _prefabs 预制体精灵
-     */
-    public addPrefabsSpr(_name: string, _prefabs: Laya.Sprite3D) {
-        this.m_prefabs[_name] = this.m_prefabs[_name] || [];
-        this.m_prefabs[_name].push(_prefabs);
-        this.m_node.addChild(_prefabs);
-    }
-    /**
-     * 添加精灵
-     * @param _spr 精灵
-     */
-    public addSpr(_spr: Laya.Sprite3D) {
-        this.m_addSprs = this.m_addSprs || [];
-        this.m_addSprs.push(_spr);
-        this.m_node.addChild(_spr);
-    }
-
-    /**
      * 构建
      */
     private build() {
         if (!this.m_ifDelete) { return; }
         this.m_ifDelete = false;
-        this.m_node = new Laya.Node;
+        this.m_rootNode = new Laya.Node;
         //添加到所属场景环境中
-        this.m_scene.environment.scene.addChild(this.m_node);
+        this.m_scene.environment.scene.addChild(this.m_rootNode);
         this.m_prefabs = {};
-        this.m_nodes = {};
+        this.m_sceneNodes = {};
         let _spr: Laya.Sprite3D;
         this.m_nodeConfigs.forEach((item) => {
             _spr = new Laya.Sprite3D;
-            this.m_node.addChild(_spr);
-            this.m_nodes[item.name] = _spr;
+            this.m_rootNode.addChild(_spr);
+            this.m_sceneNodes[item.name] = _spr;
             NodeT.buildNode(_spr, item, this.m_prefabs, (_name: string) => {
                 return this.m_scene.getPrefabs(_name);
             });
         });
+        //所有预制体默认为可回收精灵
+        this.m_recoverableSprs = {
+            ...this.m_prefabs,
+        };
         //调用场景的回调
         this.m_scene.buildNode(this);
     }
@@ -187,11 +173,48 @@ export default class SceneNode {
         //删除之前调用场景的回调，方便收集预制体
         this.m_scene.deleteNode(this);
         //
-        this.m_node.destroy();
+        this.m_rootNode.destroy();
         //清理引用
-        this.m_node = null;
-        this.m_nodes = null;
+        this.m_rootNode = null;
+        this.m_sceneNodes = null;
         this.m_prefabs = null;
+        this.m_recoverableSprs = null;
+    }
+
+    /**
+     * 精灵是否可回收
+     * @param _spr 该精灵
+     */
+    public sprIfRecoverable(_spr: Laya.Sprite3D): boolean {
+        let _b: boolean = false;
+        for (let _i in this.m_recoverableSprs) {
+            if (this.m_recoverableSprs[_i].includes(_spr)) {
+                _b = true;
+                break;
+            }
+        }
+        //
+        return _b;
+    }
+
+    /**
+     * 添加可回收精灵
+     * @param _key 关键键值或者名字
+     * @param _spr 目标精灵或列表
+     */
+    public addRecoverableSprs(_key: string, _spr: Laya.Sprite3D | Laya.Sprite3D[]) {
+        if (!Array.isArray(_spr)) {
+            _spr = [_spr];
+        }
+        _spr.forEach((item) => {
+            //先判断是该精灵是否可回收
+            if (this.sprIfRecoverable(item)) {
+                console.warn('重复添加精灵到可回收精灵列表中', _key, _spr);
+                return;
+            }
+            //添加进可回收列表中
+            (this.m_recoverableSprs[_key] = this.m_recoverableSprs[_key] || []).push(item);
+        });
     }
 
     /**
@@ -204,10 +227,10 @@ export default class SceneNode {
             case 'undefined':
                 _sceneNodeName = this.m_nodeConfigs[0].name;
                 break;
-            case "number":
+            case 'number':
                 _sceneNodeName = this.m_nodeConfigs[Math.min(_sceneNodeName, this.m_nodeConfigs.length - 1)].name;
 
         }
-        return this.m_nodes[_sceneNodeName] && SpriteUtils.findChild(this.m_nodes[_sceneNodeName], _sprName);
+        return this.m_sceneNodes[_sceneNodeName] && SpriteUtils.findChild(this.m_sceneNodes[_sceneNodeName], _sprName);
     }
 }
