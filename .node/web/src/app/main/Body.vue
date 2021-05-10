@@ -2,14 +2,14 @@
     <div id="Body">
         <div class="nav com-border-bottom">
             <div class="container com-container">
-                <router-link to="/log" :class="{ on: $route.name == 'log' }">
-                    日志
-                </router-link>
                 <router-link
                     to="/config"
                     :class="{ on: $route.name == 'config' }"
                 >
                     配置表
+                </router-link>
+                <router-link to="/log" :class="{ on: $route.name == 'log' }">
+                    日志
                 </router-link>
             </div>
         </div>

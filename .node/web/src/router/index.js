@@ -11,9 +11,9 @@ import log from '../app/log/index.vue';
  * 路由列表
  */
 const routes = [
-    { path: '/', name: 'root', redirect: '/log' },
-    { path: '/log', name: 'log', component: log },
+    { path: '/', name: 'root', redirect: '/config' },
     { path: '/config', name: 'config', component: config },
+    { path: '/log', name: 'log', component: log },
 ]
 
 /**
