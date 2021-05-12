@@ -23,6 +23,7 @@ import { BuildConfigTs } from "../_config/BuildConfigTs";
 import { _TestConst } from "../_config/_TestConst";
 import { _EAllScenePrefabsNames } from "../_prefabsName/_EAllScenePrefabsNames";
 import { _EAllExportSceneName } from "../_sceneName/_EAllExportSceneName";
+import LoadSubpackagesConfig, { CDNSubpackagesConfig } from "src/Config/SubpackagesConfig";
 
 /**
  * 游戏初始化加载
@@ -47,6 +48,13 @@ export default class GameInitLoad extends BaseInitLoad {
         }
         //设置预制体场景对照
         EssentialResUrls.setPrefabSceneNames(_EAllScenePrefabsNames);
+        //修改分包路径和cdn路径
+        LoadSubpackagesConfig.subpackages.forEach((item) => {
+            KeyResManager.editKeyResList(item.name, item.root);
+        });
+        CDNSubpackagesConfig.CDNURLs.forEach((item) => {
+            KeyResManager.editKeyResList(item.name, item.root);
+        });
     }
 
     /**
