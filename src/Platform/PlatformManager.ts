@@ -19,12 +19,12 @@ import WXData from "./Data/WXData";
 /**
  * 平台管理器
  */
-export default class PlatformManagerUntility {
+export default class PlatformManager {
     /** 平台实例 */
-    private static _instance: PlatformManagerUntility;
-    public static get instance(): PlatformManagerUntility {
+    private static _instance: PlatformManager;
+    public static get instance(): PlatformManager {
         if (this._instance == null) {
-            this._instance = new PlatformManagerUntility();
+            this._instance = new PlatformManager();
         }
         return this._instance;
     }

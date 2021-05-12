@@ -1,5 +1,6 @@
 import LoadSubpackagesConfig from "./Config/SubpackagesConfig";
 import PlatformT from "./Platform/PlatformT";
+import PlatformManager from "./Platform/PlatformManager";
 
 /**
  * 白屏工具
@@ -48,6 +49,9 @@ export default class WhiteScreenT {
      * 打开之后的回调，可以在此加载分包
      */
     private static openLater(): Promise<any> {
+        //初始化平台
+        PlatformManager.instance.init();
+        PlatformManager.instance.initPlatform();
         //加载分包
         return Promise.all(LoadSubpackagesConfig.subpackages.map((item) => {
             return PlatformT.LoadSubPKG(item.name);
