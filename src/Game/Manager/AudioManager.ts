@@ -102,7 +102,7 @@ export default class AudioManager {
      */
     static playSound(name: ESounds, loops?: number, complete?: laya.utils.Handler, soundClass?: new () => any, startTime?: number): laya.media.SoundChannel {
         if (!name) { return; }
-        let _sound: Laya.SoundChannel = Laya.SoundManager.playSound(name, loops, complete, soundClass, startTime);
+        let _sound: Laya.SoundChannel = Laya.SoundManager.playSound(ComResUrl.SoundURL(name), loops, complete, soundClass, startTime);
         this.instance.m_onSoundList.add(_sound);
         return _sound;
     }
@@ -116,7 +116,7 @@ export default class AudioManager {
      */
     static playMusic(name: EMusics, loops?: number, complete?: laya.utils.Handler, startTime?: number): laya.media.SoundChannel {
         if (!name) { return; }
-        let _music: Laya.SoundChannel = Laya.SoundManager.playMusic(name, loops, complete, startTime);
+        let _music: Laya.SoundChannel = Laya.SoundManager.playMusic(ComResUrl.MusicURL(name), loops, complete, startTime);
         this.instance.m_onBGM = _music;
         return _music;
     }
