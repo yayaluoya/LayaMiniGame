@@ -87,16 +87,17 @@ export default class ObjectProxyT {
              * @param key 属性名称
              * @param value 值
              * @param receiver 操作发生的对象
-             * @returns {boolean}
              */
-            set(trapTarget, key, value, receiver) {
+            set(trapTarget, key, value, receiver): boolean {
+                //旧值
+                let _wornValue = Reflect.get(trapTarget, key, receiver);
                 //修改属性
                 let _if: boolean = Reflect.set(trapTarget, key, value, receiver);
                 if (_if) {
                     //判断是是不是数组的length属性被修改
                     if (!(Array.isArray(trapTarget) && key == 'length')) {
                         //执行回调
-                        _this.proxySet(trapTarget, key, value, receiver);
+                        _this.proxySet(key, value, _wornValue, trapTarget, receiver);
                     }
                 }
                 //
@@ -109,7 +110,7 @@ export default class ObjectProxyT {
              * @param key 属性名称
              * @param receiver receiver 操作发生的对象（通常是代理）
              */
-            get(trapTarget, key, receiver) {
+            get(trapTarget, key, receiver): any {
                 //获取属性
                 return Reflect.get(trapTarget, key, receiver);
             },
@@ -118,12 +119,13 @@ export default class ObjectProxyT {
 
     /***
      * 代理对象被设置时的回调
-     * @param trapTarget 代理的目标
      * @param key 属性名称
-     * @param value 值
+     * @param newValue 新值
+     * @param wornValue 旧值
+     * @param trapTarget 代理的目标
      * @param receiver 操作发生的对象
      */
-    private proxySet(trapTarget, key, value, receiver) {
+    private proxySet(key, newValue, wornValue, trapTarget, receiver) {
         // console.log('代理对象被设置', trapTarget, key, value, receiver);
         let _arguments = arguments;
         //执行监听
@@ -136,7 +138,7 @@ export default class ObjectProxyT {
                 return;
             }
             //执行回调
-            item._back.call(item._this, ..._arguments);
+            item._back.apply(item._this, _arguments);
         });
     }
 }
