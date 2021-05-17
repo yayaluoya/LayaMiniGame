@@ -117,13 +117,13 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
         //序列化
         let json = JSON.stringify(m_data);
         //
-        Laya.LocalStorage.setJSON(this.saveName, json);
+        Laya.LocalStorage.setItem(this.saveName, json);
         //判断是否是线上环境
         if (_MainConfig.OnLine && this._ifDifferData) {
             //获取对比数据
             let _differJson = this.getDifferData(json);
             //保存对比数据
-            Laya.LocalStorage.setJSON(this.differName, _differJson);
+            Laya.LocalStorage.setItem(this.differName, _differJson);
         }
         //判断时间
         let _time = Date.now() - this.m_saveToDiskTime;
@@ -137,11 +137,11 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
     //从本地获取数据
     private _readData(): Data {
         //读取本地数据
-        let readStr = Laya.LocalStorage.getJSON(this.saveName);
+        let readStr = Laya.LocalStorage.getItem(this.saveName);
         //判断是否是线上环境
         if (_MainConfig.OnLine && this._ifDifferData) {
             //对比数据
-            let _differ = Laya.LocalStorage.getJSON(this.differName);
+            let _differ = Laya.LocalStorage.getItem(this.differName);
             if (this.getDifferData(readStr) != _differ) {
                 return this._saveNewData();
             }
