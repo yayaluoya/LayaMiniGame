@@ -17,6 +17,7 @@ export default class VibrabeProxy {
      */
     public vibrate(isLong: boolean = false) {
         if (!SetDataProxy.instance.data.ifOpenVibration) return;
+        console.log('未震动', isLong);
     }
 
     /**
@@ -26,5 +27,6 @@ export default class VibrabeProxy {
     public originalVibration(pattern: number | number[]) {
         if (!SetDataProxy.instance.data.ifOpenVibration) return;
         //
+        console.log('未震动', pattern);
     }
 }

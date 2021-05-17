@@ -27,7 +27,7 @@ export default class LibraryTest {
         // let a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
         // console.log('_随机打乱数组', _.shuffle(a));
         // console.log('_随机取值数组', _.sample(a, 2));
-        console.log(...ConsoleEx.packLog('pako工具', typeof pako));
+        console.log(...ConsoleEx.packWarn('pako工具', pako));
         // console.log(...ConsoleEx.packLog('axios工具', typeof axios));
     }
 }
