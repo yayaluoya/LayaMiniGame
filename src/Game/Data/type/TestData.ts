@@ -5,7 +5,7 @@ import BaseData from "src/_T/Data/BaseData";
  */
 export default class TestData extends BaseData {
     number: number = 0;
-    string: string = 'string';
+    string: string = 'string 中文 特殊符号！@#￥%……&*（）——+！@#￥123!@#$%^&*()_+,/.\"';
     boolean: boolean = true;
     array: string[] = [];
     object: {

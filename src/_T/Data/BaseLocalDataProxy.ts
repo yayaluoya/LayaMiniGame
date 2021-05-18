@@ -34,7 +34,7 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
     // 获取对比数据的保存名字
     private get differName(): string {
         //
-        return this.encrypt(this.saveName + '__verify');
+        return '---->' + this.encrypt(this.saveName + '__verify');
     }
 
     /**
@@ -181,18 +181,28 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
         //判断是否为空
         if (!_string) return '';
         //加密
-        return this.encrypt(_string);
+        return this.possibleOnly(_string);
     }
 
-    //数据单向加密
+    private m_possibleOnlySegment: number = 10;
+    //提取一个趋近唯一的字符串，适合较长的数据
+    private possibleOnly(_string: string): string {
+        //先对中文进行转码
+        _string = encodeURI(_string);
+        let _length: number = _string.length;
+        //截取三段并转成base64的字符串
+        return btoa(`${_string.slice(0, this.m_possibleOnlySegment)}${_string.slice(_length / 2 - this.m_possibleOnlySegment / 2, _length / 2 + this.m_possibleOnlySegment / 2)}${_string.slice(_length - this.m_possibleOnlySegment, _length)}`);
+    }
+
+    //数据单向加密，适合较短的数据
     private encrypt(_string: string) {
-        let _encryptStr: string = `LayaMiniGame-${this.saveName}:${_string}`;
         //判断能否使用md5
         if (Md5.ifUse) {
+            let _encryptStr: string = `LayaMiniGame-${this.saveName}:${_string}`;
             return Md5.hashStr(_encryptStr).toString();
         } else {
             //不用任何加密
-            return 'noEncrypt';
+            return `noEncrypt_${_string}`;
         }
     }
 }
