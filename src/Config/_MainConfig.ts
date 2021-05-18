@@ -13,5 +13,5 @@ export default class _MainConfig {
     /** 数据版本 可以带字母但是尽量不要出现中文和特殊字符*/
     public static readonly Versions: string = '0.0.0.1';
     /** 是否上线为false则是开发环境 */
-    public static readonly OnLine: boolean = true;
+    public static readonly OnLine: boolean = false;
 }
