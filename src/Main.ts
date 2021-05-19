@@ -35,11 +35,12 @@ class Main {
 	onConfigLoaded(): void {
 		//加载IDE指定的场景
 		// GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
-		//
+		//初始化框架
+		TMain.initFrame();
 		/** 正式开始，加载白屏ui #28df99 */
 		WhiteScreenT.load().then(() => {
-			//框架入口
-			new TMain();
+			//初始化游戏
+			TMain.initGame();
 			//打开白屏
 			WhiteScreenT.open().then(() => {
 				//游戏入口
