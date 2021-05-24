@@ -184,14 +184,15 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
         return this.possibleOnly(_string);
     }
 
-    private m_possibleOnlySegment: number = 10;
     //提取一个趋近唯一的字符串，适合较长的数据
     private possibleOnly(_string: string): string {
-        //先对中文进行转码
-        _string = encodeURI(_string);
-        let _length: number = _string.length;
-        //截取三段并转成base64的字符串
-        return btoa(`${_string.slice(0, this.m_possibleOnlySegment)}${_string.slice(_length / 2 - this.m_possibleOnlySegment / 2, _length / 2 + this.m_possibleOnlySegment / 2)}${_string.slice(_length - this.m_possibleOnlySegment, _length)}`);
+        //提取字符串中各个字符出现的次数
+        let _map: Map<string, number> = new Map();
+        for (let _item of _string) {
+            _map.set(_item, _map.get(_item) + 1 || 1);
+        }
+        //转成base64的字符串
+        return btoa([..._map.values()].toString().replace(/,/g, ''));
     }
 
     //数据单向加密，适合较短的数据
