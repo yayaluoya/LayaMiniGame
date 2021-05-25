@@ -4,5 +4,8 @@
  * 数组，对象，值 (数字，字符串，布尔值)
  */
 export default abstract class BaseData {
-    //
+    constructor() {
+        //阻断原型链。
+        return Object.create(null);
+    }
 }
