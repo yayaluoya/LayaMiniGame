@@ -3,7 +3,7 @@
  */
 export default class LoadSubpackagesConfig {
     /** 分包列表,必须和分包配置文件中的列表一致 */
-    public static subpackages: ISubpackages[] = [
+    public static subpackages: ILoadSubpackages[] = [
         //
     ];
 }
@@ -21,11 +21,19 @@ export class CDNSubpackagesConfig {
 // 修改路径顺序是先修改加载分包路径，在修改cdn路径，所以cdn路径会覆盖加载路径，不要重复就行了。
 
 /**
- * 分包配置接口
+ * 包配置接口
  */
 export interface ISubpackages {
-    //关键资源名字
+    /** 关键资源名字 */
     name: string,
-    //路径
+    /** 路径 */
     root: string,
+}
+
+/**
+ * 需要加载的分包配置接口
+ */
+export interface ILoadSubpackages extends ISubpackages {
+    /** 是否需要加载 */
+    ifLoad: boolean;
 }

@@ -52,8 +52,10 @@ export default class WhiteScreenT {
         //初始化平台
         PlatformManager.instance.init();
         PlatformManager.instance.initPlatform();
-        //加载分包
-        return Promise.all(LoadSubpackagesConfig.subpackages.map((item) => {
+        //加载需要加载的分包
+        return Promise.all(LoadSubpackagesConfig.subpackages.filter((item) => {
+            return item.ifLoad;
+        }).map((item) => {
             return PlatformT.LoadSubPKG(item.name);
         }));
     }
