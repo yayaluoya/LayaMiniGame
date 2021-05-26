@@ -187,15 +187,24 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
     //提取一个趋近唯一的字符串，适合较长的数据
     private possibleOnly(_string: string): string {
         //提取字符串中各个字符出现的次数
-        let _map: Map<string, number> = new Map();
-        for (let _item of _string) {
-            _map.set(_item, _map.get(_item) + 1 || 1);
+        let _map: Map<string, number[]> = new Map();
+        let _str: string;
+        for (let i = 0; i < _string.length; i++) {
+            _str = _string.charAt(i);
+            if (_map.has(_str)) {
+                _map.get(_str).push(i);
+            } else {
+                _map.set(_str, [i]);
+            }
         }
         //统计字符出现次数并作简单混淆处理
         let _conformityNumber: number = 0;
         [..._map.values()].forEach((item, index) => {
-            _conformityNumber += (item * index + item);
+            _conformityNumber += ((item.reduce((a, b) => {
+                return a + b;
+            })) * (index + 1));
         });
+        // console.log(_map, _conformityNumber);
         //转成base64的字符串
         return btoa(_conformityNumber.toString(32));
     }
