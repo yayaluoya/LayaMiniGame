@@ -191,8 +191,13 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
         for (let _item of _string) {
             _map.set(_item, _map.get(_item) + 1 || 1);
         }
+        //统计字符出现次数并作简单混淆处理
+        let _conformityNumber: number = 0;
+        [..._map.values()].forEach((item, index) => {
+            _conformityNumber += (item * index + item);
+        });
         //转成base64的字符串
-        return btoa([..._map.values()].toString().replace(/,/g, ''));
+        return btoa(_conformityNumber.toString(32));
     }
 
     //数据单向加密，适合较短的数据
