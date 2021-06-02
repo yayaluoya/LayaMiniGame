@@ -17,4 +17,5 @@ export default class TestData extends BaseData {
             b: 'b',
             c: true,
         };
+    test: string = '';
 }

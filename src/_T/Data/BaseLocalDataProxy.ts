@@ -4,6 +4,7 @@ import BaseDataProxy from './BaseDataProxy';
 import BaseData from './BaseData';
 import _MainConfig from 'src/Config/_MainConfig';
 import ObjectProxyT from './ObjectProxyT';
+import ArrayUtils from '../Utils/ArrayUtils';
 
 /**
  * 基类本地数据代理，通过此类可以访问本地保存的数据
@@ -155,6 +156,21 @@ export default abstract class BaseLocalDataProxy<Data extends BaseData> extends 
                 //用本地的数据填充当前数据
                 for (let key in _saveData) {
                     _saveData[key] = jsonData[key];
+                }
+                //提取本地数据和定义数据的键差异
+                if (!_MainConfig.OnLine) {
+                    let __key: string[] = [];
+                    for (let key in jsonData) {
+                        __key.push(key);
+                    }
+                    let _key: string[] = [];
+                    for (let key in _saveData) {
+                        _key.push(key);
+                    }
+                    //判断两个数组是否相同
+                    if (!ArrayUtils.ContentIfSame(__key, _key)) {
+                        console.warn(...ConsoleEx.packWarn(`${this._saveName}的定义数据与本地数据键不一致，建议删除本地数据。\n`, '定义数据', _key, '\n', '本地数据', __key));
+                    }
                 }
             } else {
                 return this._saveNewData();
