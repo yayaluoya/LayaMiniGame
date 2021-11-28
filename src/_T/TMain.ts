@@ -4,7 +4,6 @@ import GameConfig from "src/GameConfig";
 import D2Manager from "./D2/D2Manager";
 import D3Manager from "./D3/D3Manager";
 import _TConfig from "./_TConfig";
-import ResTransfersT from "./Res/ResTransfersT";
 
 /** 
  * 框架入口
@@ -25,8 +24,6 @@ export default class TMain {
             /** 游戏配置 */
             _gameConfig: { ..._GameConfig }
         };
-        //开始拦截请求
-        ResTransfersT.start();
     }
 
     /**
