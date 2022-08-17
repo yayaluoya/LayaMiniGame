@@ -1,6 +1,6 @@
 {
   "name": "laya_mini_game",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Laya小游戏框架，简化工作流程。",
   "scripts": {
     "-compile": "gulp compile",
