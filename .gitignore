@@ -23,3 +23,5 @@ _Short/**
 # 强制不忽略
 !*.dll
 !*.obj
+
+package-lock.json
