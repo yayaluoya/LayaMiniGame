@@ -24,8 +24,13 @@ const webpackConfig = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: ['ts-loader'],
-                exclude: /node_modules/
+                use: {
+                    loader: 'esbuild-loader',
+                    options: {
+                        loader: 'tsx',  // Or 'ts' if you don't need tsx
+                    },
+                },
+                exclude: /node_modules/,
             },
             {
                 test: /\.(md|txt|glsl|vs|fs)$/,

@@ -66,6 +66,7 @@
     "@types/snowpack-env": "^2.3.2",
     "babel-loader": "^8.2.2",
     "cache-loader": "^4.1.0",
+    "esbuild-loader": "^2.20.0",
     "hard-source-webpack-plugin": "^0.13.1",
     "layabox-esbuild": "^1.3.1",
     "prettier": "^2.0.5",
